@@ -8,13 +8,15 @@ public class PlayerInputHandler : MonoBehaviour
     public GameObject playerPrefab;
 
     PlayerController playerController;
+    Vector3 startPos = new Vector3(0,1,0);
 
     // Start is called before the first frame update
     private void Awake()
     {
         if (playerPrefab != null)
         {
-            playerController = playerPrefab.GetComponent<PlayerController>();
+            playerController = GameObject.Instantiate(playerPrefab,startPos,transform.rotation).GetComponent<PlayerController>();
+            transform.parent = playerController.transform;
         }
     }
 
