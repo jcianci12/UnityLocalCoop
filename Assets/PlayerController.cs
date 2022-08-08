@@ -63,14 +63,12 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 movement = context.ReadValue<Vector2>();
-
         if (MovementActive)
         {
             move = new Vector3(movement.x, 0, movement.y);
-
         }
-
     }
+
     private void Jump(InputAction.CallbackContext context)
     {
         Debug.Log("Jump!");
@@ -79,9 +77,7 @@ public class PlayerController : MonoBehaviour
         if (groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-
         }
-
     }
 
     public void OnTriggerEnter(Collider other)
@@ -123,6 +119,9 @@ public class PlayerController : MonoBehaviour
         move = Vector3.zero;
         PressurePlate.AttachPlayer(controller);
         pressureplate = other;
+
+
+
 
     }
     private void DetachFromPressurePlate(Collider col)
