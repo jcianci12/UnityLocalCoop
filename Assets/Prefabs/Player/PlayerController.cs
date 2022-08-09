@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public PlayerControls PlayerControls;
-    private Collider pressureplate;
+    private PressurePlate pressureplate;
     private InputAction jump;
 
     private CharacterController controller;
@@ -111,22 +111,32 @@ public class PlayerController : MonoBehaviour
         PlayerControls.Disable();
         jump.Disable();
     }
-    private void AttachToPressurePlate(Collider other)
+    private void AttachToPressurePlate(Collider other) //the pressure plate
     {
         this.MovementActive = false;
 
         controller.transform.position = other.transform.position;
+        
         move = Vector3.zero;
-        PressurePlate.AttachPlayer(controller);
-        pressureplate = other;
 
+        //PressurePlate.AttachPlayer(controller);
+
+
+
+        pressureplate = other.GetComponent<PressurePlate>();
+        var parent = pressureplate.transform.parent.gameObject;
+        var guninpuhandler = parent.GetComponent<GunInputHandler>();
+        //var charactercontroller = other.GetComponent<CharacterController>();
+        var b = parent;
+        //
+        pressureplate.AttachPlayer(gameObject.GetComponent<CharacterController>(),parent,guninpuhandler);
 
 
 
     }
     private void DetachFromPressurePlate(Collider col)
     {
-        PressurePlate.DetachPlayer(controller);
+        //PressurePlate.DetachPlayer(controller);
         pressureplate = null;
     }
 
