@@ -59,7 +59,19 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -1998558007985917236}
+        m_TargetAssemblyTypeName: GunInputHandler, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 4f8b0076-47c6-4bfc-9efd-28d44a9bd448
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
   - m_PersistentCalls:
@@ -85,3 +97,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunPrefab: {fileID: 7627758244103109239, guid: 06018cb37b771284ea5c619c66569752, type: 3}
   gunController: {fileID: 0}
+  pp: {fileID: 0}

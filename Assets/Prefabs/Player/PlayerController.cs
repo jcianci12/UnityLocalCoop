@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public PlayerControls PlayerControls;
-    private PressurePlate pressureplate;
+    private PlayerInputHandler playerInputHandler;
     private InputAction jump;
 
     private CharacterController controller;
@@ -36,6 +36,9 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         //rb = controller.GetComponentInChildren<Rigidbody>();
         PlayerControls = new PlayerControls();
+
+        //get the input handler
+        
 
     }
 
@@ -122,22 +125,33 @@ public class PlayerController : MonoBehaviour
         //PressurePlate.AttachPlayer(controller);
 
 
-
-        pressureplate = other.GetComponent<PressurePlate>();
-        var parent = pressureplate.transform.parent.gameObject;
-        var guninpuhandler = parent.GetComponent<GunInputHandler>();
+        //pressureplate = other.GetComponent<PressurePlate>();
+        //var parent = pressureplate.transform.parent.gameObject;
+        //var guninpuhandler = parent.GetComponent<GunInputHandler>();
         //var charactercontroller = other.GetComponent<CharacterController>();
-        var b = parent;
+        //var b = parent;
         //
-        pressureplate.AttachPlayer(gameObject.GetComponent<CharacterController>(),parent,guninpuhandler);
+        //pressureplate.AttachPlayer(gameObject.GetComponent<CharacterController>(),parent,guninpuhandler);
+        var go = gameObject;
+        var pi = gameObject.GetComponentInChildren<PlayerInput>();
+        playerInputHandler = pi.GetComponent<PlayerInputHandler>();
+        playerInputHandler.AttachPlayerToPressurePlate(other.GetComponent<PressurePlate>(),gameObject);
+
+        //var playerinput = go.GetComponentInChildren<PlayerInput>();
+        //var b = pih;
+
+        //need to get the playerinputhandler
 
 
 
     }
-    private void DetachFromPressurePlate(Collider col)
+    private void DetachFromPressurePlate(Collider other)
     {
         //PressurePlate.DetachPlayer(controller);
-        pressureplate = null;
+        playerInputHandler.DetachPlayerToPressurePlate(other.GetComponent<PressurePlate>(), gameObject);
+        playerInputHandler = null;
+       // other.GetComponent<PressurePlate>().DetachPlayer(gameObject);
+        
     }
 
 

@@ -9,17 +9,32 @@ public class GunInputHandler : MonoBehaviour
     //how does this get connected?
     public CharacterController gunController;
     public PressurePlate pp;
+    private Vector3 move;
 
 
 
-    public void PlayerConnected(PlayerController  pp,GameObject player)
+    public void PlayerConnected(CharacterController  playerPrefab,GameObject gun)
     {
-        gunController = player.GetComponent<CharacterController>();
+
+        //we have the controller of the player
+        gunController = playerPrefab.GetComponent<CharacterController>();
+
+
         //pp = new PressurePlate();
         //pp = go.GetComponent<PressurePlate>();
-    } 
+    }
+    public void Update()
+    {
+
+        if (move != Vector3.zero)
+        {
+            gameObject.transform.forward = move;
+        }
+    }
     public void OnMove(InputAction.CallbackContext context)
     {
+        Debug.Log("move!");
+
         //gunController.OnMove(context);
     }
 }
