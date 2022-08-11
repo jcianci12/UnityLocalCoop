@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
 
         switch (other.name)
         {
-            case "PressurePlate":
+            case "GunPressurePlate":
                 DetachFromPressurePlate(other);
                 break;
             case "EnginePressurePlate":
@@ -111,19 +111,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private void OnEnable()
-    //{
-    //    //PlayerControls.Enable();
-    //    jump = PlayerControls.Player.Jump;
-    //    jump.Enable();
-    //    jump.performed += Jump;
-
-    //}
-    //private void OnDisable()
-    //{
-    //    PlayerControls.Disable();
-    //    jump.Disable();
-    //}
     private void AttachToPressurePlate(Collider other) //the pressure plate
     {
         this.MovementActive = false;
@@ -155,7 +142,9 @@ public class PlayerController : MonoBehaviour
     }
     private void DetachFromEnginePressurePlate(Collider collider)
     {
-
+        var pp = collider.GetComponent<EnginePressurePlateScript>();
+        pp.DetachPlayer(gameObject);
+        playerInputHandler = null;
     }
 
 }

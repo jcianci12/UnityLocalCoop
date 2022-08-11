@@ -42,7 +42,6 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         playerController.Jump(context);
-
     }
 
 
