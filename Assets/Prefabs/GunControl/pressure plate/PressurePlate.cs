@@ -40,7 +40,7 @@ public class PressurePlate : MonoBehaviour
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("move!");
+       // Debug.Log("move!");
         Vector2 movement = context.ReadValue<Vector2>();
        
             move = new Vector3(movement.x, 0, movement.y);

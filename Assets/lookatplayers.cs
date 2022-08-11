@@ -5,27 +5,38 @@ using UnityEngine;
 public class lookatplayers : MonoBehaviour
 {
     public Transform target;
-    public GameObject go =null;
+    //public GameObject go = null;
+    //List<Vector3> vector3List;
+    private GameManagerScript gameManager;
+    private void Start()
+    {
+        
 
+    }
     void Update()
     {
-        if (go != null)
+        if (gameManager)
         {
-        transform.LookAt(go.transform);
+            var meanvector = gameManager.GetMeanVector();
+            if (meanvector != Vector3.zero)
+            {
+                var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cube.transform.position = meanvector;
+                transform.LookAt(meanvector);
+                Destroy(cube);
+
+
+            }
         }
         else
         {
-        go = GameObject.Find("PlayerPrefab(Clone)");
-
+            var go = GameObject.FindGameObjectWithTag("GameManager");
+            gameManager = go.GetComponent<GameManagerScript>();
+            //gameManager = GameObject.FindObjectOfType<GameManagerScript>();
         }
-        // Rotate the camera every frame so it keeps looking at the target
 
-
-        // Same as above, but setting the worldUp parameter to Vector3.left in this example turns the camera on its side
-        //transform.LookAt(target, Vector3.left);
-        //if (GameObject.Find("PlayerPrefab")!=null)
-        //{
-
-        //}
     }
+
+
+
 }

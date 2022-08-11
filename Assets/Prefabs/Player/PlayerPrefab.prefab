@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 7349377928058241327}
   m_Layer: 0
   m_Name: PlayerPrefab
-  m_TagString: Untagged
+  m_TagString: PlayerPrefab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,23 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e114a4a0598a341b6d40c8e3de6cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerControls:
-    m_Name: Player Controls
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 9879fc58-5162-4589-b8f4-8920f9dfc3d2
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 543cc762-590b-464b-8381-638cce84d355
-      m_Path: <Gamepad>/buttonSouth
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 0
-    m_Flags: 0
   controlledObject: {fileID: 0}
   MovementActive: 1
   playerSpeed: 7

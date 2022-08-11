@@ -18,6 +18,10 @@ public class PlayerInputHandler : MonoBehaviour
         {
             playerController = GameObject.Instantiate(playerPrefab, startPos, transform.rotation).GetComponent<PlayerController>();
             transform.parent = playerController.transform;
+            //playerController.gameObject.tag = "PlayerPrefab";
+            //var go = GameObject.FindGameObjectWithTag("GameManager");
+            //var gm = go.GetComponent<GameManagerScript>();
+            //gm.PlayerJoined(playerController.gameObject);
         }
     }
 
@@ -46,5 +50,6 @@ public class PlayerInputHandler : MonoBehaviour
         //if we are attached to a gun
 
     }
+    
 
 }
