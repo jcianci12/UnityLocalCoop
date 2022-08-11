@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         PlayerControls = new PlayerControls();
 
         //get the input handler
-        
+
 
     }
 
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Jump(InputAction.CallbackContext context)
+    public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log("Jump!");
         MovementActive = true;
@@ -85,74 +85,77 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.name == "PresurePlate")
+        switch (other.name)
         {
-            AttachToPressurePlate(other);
-                       
+            case "GunPressurePlate":
+                AttachToPressurePlate(other);
+                break;
 
+            case "EnginePressurePlate":
+                AttachToEnginePressurePlate(other);
+                break;
         }
     }
     public void OnTriggerExit(Collider other)
     {
-        if (other.name == "PresurePlate")
+
+        switch (other.name)
         {
-            DetachFromPressurePlate(other);
+            case "PressurePlate":
+                DetachFromPressurePlate(other);
+                break;
+            case "EnginePressurePlate":
+                DetachFromEnginePressurePlate(other);
+                break;
 
         }
     }
 
-    private void OnEnable()
-    {
-        //PlayerControls.Enable();
-        jump = PlayerControls.Player.Jump;
-        jump.Enable();
-        jump.performed += Jump;
+    //private void OnEnable()
+    //{
+    //    //PlayerControls.Enable();
+    //    jump = PlayerControls.Player.Jump;
+    //    jump.Enable();
+    //    jump.performed += Jump;
 
-    }
-    private void OnDisable()
-    {
-        PlayerControls.Disable();
-        jump.Disable();
-    }
+    //}
+    //private void OnDisable()
+    //{
+    //    PlayerControls.Disable();
+    //    jump.Disable();
+    //}
     private void AttachToPressurePlate(Collider other) //the pressure plate
     {
         this.MovementActive = false;
 
         controller.transform.position = other.transform.position;
-        
+
         move = Vector3.zero;
-
-        //PressurePlate.AttachPlayer(controller);
-
-
-        //pressureplate = other.GetComponent<PressurePlate>();
-        //var parent = pressureplate.transform.parent.gameObject;
-        //var guninpuhandler = parent.GetComponent<GunInputHandler>();
-        //var charactercontroller = other.GetComponent<CharacterController>();
-        //var b = parent;
-        //
-        //pressureplate.AttachPlayer(gameObject.GetComponent<CharacterController>(),parent,guninpuhandler);
-        var go = gameObject;
-        var pi = gameObject.GetComponentInChildren<PlayerInput>();
-        playerInputHandler = pi.GetComponent<PlayerInputHandler>();
-        playerInputHandler.AttachPlayerToPressurePlate(other.GetComponent<PressurePlate>(),gameObject);
-
-        //var playerinput = go.GetComponentInChildren<PlayerInput>();
-        //var b = pih;
-
-        //need to get the playerinputhandler
-
-
-
+        
+        //playerInputHandler.AttachPlayerToPressurePlate(other.GetComponent<PressurePlate>(), gameObject);
+        var pp = other.GetComponent<PressurePlate>();
+        pp.AttachPlayer(gameObject);
     }
+    
     private void DetachFromPressurePlate(Collider other)
     {
-        //PressurePlate.DetachPlayer(controller);
-        playerInputHandler.DetachPlayerToPressurePlate(other.GetComponent<PressurePlate>(), gameObject);
+        //playerInputHandler.DetachPlayerToPressurePlate(other.GetComponent<PressurePlate>(), gameObject);
+        var pp = other.GetComponent<PressurePlate>();
+        pp.DetachPlayer(gameObject);
         playerInputHandler = null;
-       // other.GetComponent<PressurePlate>().DetachPlayer(gameObject);
-        
     }
+    private void AttachToEnginePressurePlate(Collider collider)
+    {
+        this.MovementActive = false;
+        //controller.transform.position = collider.transform.position;
+        move = Vector3.zero;
+        var pp = collider.GetComponent<EnginePressurePlateScript>();
+        pp.AttachPlayer(gameObject);
+        //playerInputHandler.AttachPlayerToPressurePlate(collider.GetComponent<PressurePlate>(), gameObject);
+    }
+    private void DetachFromEnginePressurePlate(Collider collider)
+    {
 
+    }
 
 }

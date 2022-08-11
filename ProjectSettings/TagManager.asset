@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameManager
   - PlayerPrefab
+  - Ship
   layers:
   - Default
   - TransparentFX

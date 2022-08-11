@@ -75,7 +75,19 @@ MonoBehaviour:
     m_ActionId: 4f8b0076-47c6-4bfc-9efd-28d44a9bd448
     m_ActionName: Player/Movement[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/leftStick/right]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6946899118027394934}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d194ee90-1711-417e-a8ff-3b12cd66f616
     m_ActionName: Player/Jump[/XInputControllerWindows/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 0
@@ -96,3 +108,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7785571135112364288, guid: f5469db7a2958f941a32696268f3007e, type: 3}
+  playerController: {fileID: 0}
+  pp: {fileID: 0}
+  epp: {fileID: 0}
