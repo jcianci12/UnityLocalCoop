@@ -19,27 +19,36 @@ public class EnginePressurePlateScript : MonoBehaviour
             var parent = GameObject.FindGameObjectWithTag("Ship");
             //gameObject.transform.parent = null;
 
-            parent.transform.forward = move;
+            //parent.transform.forward = move;
+            var rigidBody = parent.GetComponent<Rigidbody>();
+            if (attachedPlayer != null)
+            {
+                rigidBody.AddForce(move);
+
+            }
+
             //gameObject.transform.SetParent(parent.transform);
             // gun.transform.forward = move;
         }
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-         Debug.Log("engine move!");
+        
         Vector2 movement = context.ReadValue<Vector2>();
-
+        Debug.Log("engine move!"+movement.x +" "+movement.y);
         move = new Vector3(movement.x, 0, movement.y);
 
     }
     public void AttachPlayer(GameObject player)
     {
+
         var pih = player.GetComponentInChildren<PlayerInputHandler>();
         pih.epp = gameObject.GetComponent<EnginePressurePlateScript>();
         attachedPlayer = player;
     }
     public void DetachPlayer(GameObject player)
     {
+        move = Vector3.zero;
         var pih = player.GetComponentInChildren<PlayerInputHandler>();
         pih.epp = null;
         attachedPlayer = null;

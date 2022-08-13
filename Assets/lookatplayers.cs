@@ -20,10 +20,10 @@ public class lookatplayers : MonoBehaviour
             var meanvector = gameManager.GetMeanVector();
             if (meanvector != Vector3.zero)
             {
-                var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                cube.transform.position = meanvector;
+                //var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                //cube.transform.position = meanvector;
                 transform.LookAt(meanvector);
-                Destroy(cube);
+                //Destroy(cube);
 
 
             }

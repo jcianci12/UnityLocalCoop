@@ -115,18 +115,16 @@ public class PlayerController : MonoBehaviour
     {
         this.MovementActive = false;
 
-        controller.transform.position = other.transform.position;
+        controller.transform.parent = other.transform;
 
         move = Vector3.zero;
         
-        //playerInputHandler.AttachPlayerToPressurePlate(other.GetComponent<PressurePlate>(), gameObject);
         var pp = other.GetComponent<PressurePlate>();
         pp.AttachPlayer(gameObject);
     }
     
     private void DetachFromPressurePlate(Collider other)
     {
-        //playerInputHandler.DetachPlayerToPressurePlate(other.GetComponent<PressurePlate>(), gameObject);
         var pp = other.GetComponent<PressurePlate>();
         pp.DetachPlayer(gameObject);
         playerInputHandler = null;
@@ -134,8 +132,9 @@ public class PlayerController : MonoBehaviour
     private void AttachToEnginePressurePlate(Collider collider)
     {
         this.MovementActive = false;
-        //controller.transform.position = collider.transform.position;
+        //controller.transform.parent = collider.transform;
         move = Vector3.zero;
+
         var pp = collider.GetComponent<EnginePressurePlateScript>();
         pp.AttachPlayer(gameObject);
         //playerInputHandler.AttachPlayerToPressurePlate(collider.GetComponent<PressurePlate>(), gameObject);

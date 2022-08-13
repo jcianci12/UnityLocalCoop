@@ -19,7 +19,9 @@ public class PlayerInputHandler : MonoBehaviour
         if (playerPrefab != null)
         {
             playerController = GameObject.Instantiate(playerPrefab, startPos, transform.rotation).GetComponent<PlayerController>();
-            transform.parent = playerController.transform;            
+            playerController.transform.parent = GameObject.FindGameObjectWithTag("Ship").transform;
+            transform.parent = playerController.transform;
+            
         }
     }
     public void OnMove(InputAction.CallbackContext context)
