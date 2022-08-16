@@ -38,8 +38,6 @@ public class PlayerController : MonoBehaviour
         PlayerControls = new PlayerControls();
 
         //get the input handler
-
-
     }
 
     void Update()
@@ -55,8 +53,6 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.transform.forward = move;
         }
-
-
         //apply gravity
         playerVelocity.y += gravityValue * Time.deltaTime;
 
