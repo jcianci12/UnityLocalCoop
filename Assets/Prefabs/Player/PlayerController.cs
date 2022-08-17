@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+
+
     public PlayerControls PlayerControls;
     private PlayerInputHandler playerInputHandler;
     private InputAction jump;
@@ -33,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        cam = Camera.main;
+        camPivot = Camera.main;
         controller = GetComponent<CharacterController>();
         //rb = controller.GetComponentInChildren<Rigidbody>();
         PlayerControls = new PlayerControls();
@@ -40,39 +44,65 @@ public class PlayerController : MonoBehaviour
         //get the input handler
     }
 
+    
+
+
     void Update()
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
+        if (MovementActive)
         {
-            playerVelocity.y = 0f;
-        }
-        controller.Move(move * Time.deltaTime * playerSpeed);
+            groundedPlayer = controller.isGrounded;
+            if (groundedPlayer && playerVelocity.y < 0)
+            {
+                playerVelocity.y = 0f;
+            }
+            controller.Move(move * Time.deltaTime * playerSpeed);
 
-        if (move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-        }
-        //apply gravity
-        playerVelocity.y += gravityValue * Time.deltaTime;
+            if (move != Vector3.zero)
+            {
+                gameObject.transform.forward = move;
+            }
+            //apply gravity
+            playerVelocity.y += gravityValue * Time.deltaTime;
 
-        controller.Move(playerVelocity * Time.deltaTime);
+            controller.Move(playerVelocity * Time.deltaTime);
+        }
+        
     }
+
+    public Camera camPivot;
+    public Camera cam;
 
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 movement = context.ReadValue<Vector2>();
         if (MovementActive)
         {
-            move = new Vector3(movement.x, 0, movement.y);
+            float vertical = movement.y;
+            float horizontal = movement.x;
+
+            Vector3 forward = cam.transform.forward;
+            Vector3 right = cam.transform.right;
+            forward.y = 0;
+            right.y = 0;
+            forward = forward.normalized;
+            right = right.normalized;
+
+            Vector3 forwardRelativeVerticalInput = vertical * forward;
+            Vector3 rightRelativeHorizontalInput = horizontal * right;
+            
+            Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
+            Debug.Log(cameraRelativeMovement.x + " " + cameraRelativeMovement.y);
+            //move = new Vector3(movement.x * right.x, 0, movement.y * forward.y);
+            move = cameraRelativeMovement;
         }
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log("Jump!");
-        MovementActive = true;
-        controller.enabled = true;
+                MovementActive = true;
+
         if (groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
@@ -114,16 +144,18 @@ public class PlayerController : MonoBehaviour
         controller.transform.parent = other.transform;
 
         move = Vector3.zero;
-        
+
         var pp = other.GetComponent<PressurePlate>();
         pp.AttachPlayer(gameObject);
     }
-    
+
     private void DetachFromPressurePlate(Collider other)
     {
         var pp = other.GetComponent<PressurePlate>();
         pp.DetachPlayer(gameObject);
         playerInputHandler = null;
+        MovementActive = true;
+        controller.enabled = true;
     }
     private void AttachToEnginePressurePlate(Collider collider)
     {
@@ -140,6 +172,7 @@ public class PlayerController : MonoBehaviour
         var pp = collider.GetComponent<EnginePressurePlateScript>();
         pp.DetachPlayer(gameObject);
         playerInputHandler = null;
+        controller.enabled = true;
     }
 
 }

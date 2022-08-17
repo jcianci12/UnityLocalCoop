@@ -27,6 +27,10 @@ public class lookatplayers : MonoBehaviour
 
 
             }
+            else
+            {
+                transform.LookAt(target);
+            }
         }
         else
         {
@@ -36,7 +40,6 @@ public class lookatplayers : MonoBehaviour
         }
 
     }
-
-
+    
 
 }

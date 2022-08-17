@@ -20,12 +20,20 @@ public class EnginePressurePlateScript : MonoBehaviour
             //gameObject.transform.parent = null;
 
             //parent.transform.forward = move;
-            if (shipRigidBody != null)
-            {
-                shipRigidBody.AddForce(move);
+            
+                var x = move.x * Time.deltaTime * 8.0f;
+                var y = move.y * Time.deltaTime * 8.0f;
+                Debug.Log("engine move!" + x + " " + y);
+            //shipRigidBody.gameObject.transform.Translate(x, 0, y);
+            shipRigidBody.gameObject.transform.forward = move;
+            shipRigidBody.gameObject.transform.Translate(Vector3.forward * 8.0f *Time.deltaTime);
+                //transform.Translate(x, 0, y);
+            
+                //playerRigidBody.gameObject.GetComponent<CharacterController>().transform.Translate(x,0,y);
+                //shipRigidBody.AddForce(move);
                 //attachedPlayer.GetComponent<Rigidbody>().AddForce(move);
 
-            }
+            
 
             //gameObject.transform.SetParent(parent.transform);
             // gun.transform.forward = move;
@@ -35,27 +43,19 @@ public class EnginePressurePlateScript : MonoBehaviour
     {
 
         Vector2 movement = context.ReadValue<Vector2>();
-        Debug.Log("engine move!" + movement.x + " " + movement.y);
         move = new Vector3(movement.x, 0, movement.y);
 
     }
     public void AttachPlayer(GameObject player)
     {
-        //attach the player to the pressure plate
-        //get the ship object
+        
         var ship = GameObject.FindGameObjectWithTag("Ship");
-        //get the rigidbodies so we can add a force
+        
         shipRigidBody = ship.GetComponent<Rigidbody>();
-        //get the player rigidbody so we can add a joint to the ship
+        
         playerRigidBody = player.GetComponent<Rigidbody>();
-        //set the player to kinematic so it isnt in the physics calcs
-        //playerRigidBody.isKinematic = false;
-        //connect the player to the ship
-
-        //make the player a child of the pressureplate
+        
         player.transform.parent = gameObject.transform;
-
-        gameObject.AddComponent<FixedJoint>().connectedBody = playerRigidBody;
 
         var playerinputhandler = player.GetComponentInChildren<PlayerInputHandler>();
         playerinputhandler.epp = gameObject.GetComponent<EnginePressurePlateScript>();
@@ -64,16 +64,15 @@ public class EnginePressurePlateScript : MonoBehaviour
     }
     public void DetachPlayer(GameObject player)
     {
-        player.transform.parent = GameObject.FindGameObjectWithTag("Ship").transform;
 
         move = Vector3.zero;
-        shipRigidBody.velocity = Vector3.zero;
+        //shipRigidBody.velocity = Vector3.zero;
         //set the engine pressureplate to null
         player.GetComponentInChildren<PlayerInputHandler>().epp = null;
 
         shipRigidBody = null;
         playerRigidBody = null;
         //var ship = GameObject.FindGameObjectWithTag("Ship");
-        Destroy(gameObject.GetComponent<FixedJoint>());
+        //Destroy(gameObject.GetComponent<FixedJoint>());
     }
 }
