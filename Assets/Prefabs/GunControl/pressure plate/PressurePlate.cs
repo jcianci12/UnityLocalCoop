@@ -6,24 +6,25 @@ using UnityEngine.InputSystem;
 public class PressurePlate : MonoBehaviour
 {
     // Start is called before the first frame update
-   
+
     //[SerializeField]
     //GameObject gun;
     private static GameObject attachedPlayer;
     public GunInputHandler gunInputHandler ;
     private Vector3 move;
+    private GameObject parent;
 
-
+    private void Start()
+    {
+        parent = gameObject.transform.parent.gameObject;
+    }
     public void Update()
     {
 
         if (move != Vector3.zero)
         {
-            var parent = gameObject.transform.parent.gameObject;
-            gameObject.transform.parent = null;
 
             parent.transform.forward = move;
-            gameObject.transform.SetParent(parent.transform);
            // gun.transform.forward = move;
         }
     }
@@ -39,13 +40,17 @@ public class PressurePlate : MonoBehaviour
         var pih = player.GetComponentInChildren<PlayerInputHandler>();
         pih.pp = gameObject.GetComponent<PressurePlate>();
         attachedPlayer = player;
-        
+        gameObject.transform.parent = null;
+
+
     }
     public void DetachPlayer(GameObject player)
     {
         var pih = player.GetComponentInChildren<PlayerInputHandler>();
         pih.pp = null;
         attachedPlayer = null;
+        gameObject.transform.SetParent(parent.transform);
+
     }
 
 }
