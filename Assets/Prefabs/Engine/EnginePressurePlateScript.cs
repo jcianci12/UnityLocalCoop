@@ -27,9 +27,11 @@ public class EnginePressurePlateScript : MonoBehaviour
                 //Debug.Log("engine move!" + x + " " + y);
             //shipRigidBody.gameObject.transform.Translate(x, 0, y);
             //shipRigidBody.gameObject.transform.forward = (move * Time.deltaTime * (shipSpeed));
-            shipRigidBody.gameObject.transform.Rotate(move * Time.deltaTime * (shipSpeed));
+            shipRigidBody.gameObject.transform.Rotate(Vector3.up,move.x);
+            shipRigidBody.gameObject.transform.Translate(5 * Time.deltaTime * (shipSpeed), 0,0);
+            
 
-            shipRigidBody.gameObject.transform.Translate(move * Time.deltaTime * shipSpeed);
+            //shipRigidBody.gameObject.transform.Translate(move * Time.deltaTime * shipSpeed);
                 //transform.Translate(x, 0, y);
             
                 //playerRigidBody.gameObject.GetComponent<CharacterController>().transform.Translate(x,0,y);
