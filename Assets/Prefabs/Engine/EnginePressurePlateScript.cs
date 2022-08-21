@@ -10,7 +10,7 @@ public class EnginePressurePlateScript : MonoBehaviour
     private Rigidbody playerRigidBody;
     // private static GameObject attachedPlayer;
     public GunInputHandler gunInputHandler;
-    private float shipSpeed = 2.0f; 
+    private float shipSpeed = 20.0f; 
     private Vector3 move;
 
     public void Update()
@@ -28,7 +28,8 @@ public class EnginePressurePlateScript : MonoBehaviour
             //shipRigidBody.gameObject.transform.Translate(x, 0, y);
             //shipRigidBody.gameObject.transform.forward = (move * Time.deltaTime * (shipSpeed));
             shipRigidBody.gameObject.transform.Rotate(Vector3.up,move.x);
-            shipRigidBody.gameObject.transform.Translate(5 * Time.deltaTime * (shipSpeed), 0,0);
+            Debug.Log("translate "+move.z * 10);
+            shipRigidBody.gameObject.GetComponent<Rigidbody>().AddForce(-transform.right  * move.z*shipSpeed);
             
 
             //shipRigidBody.gameObject.transform.Translate(move * Time.deltaTime * shipSpeed);
@@ -65,9 +66,13 @@ public class EnginePressurePlateScript : MonoBehaviour
 
             Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
             Debug.Log(cameraRelativeMovement.x + " " + cameraRelativeMovement.y);
-            //move = new Vector3(movement.x * right.x, 0, movement.y * forward.y);
-            move = cameraRelativeMovement;
-        
+        //Debug.Log("movement"+ movement.x + " " + movement.y);
+
+        //move = new Vector3(movement.x * right.x, 0, movement.y * forward.y);
+        //move = cameraRelativeMovement;
+        move = new Vector3(movement.x , 0, movement.y);
+
+
 
     }
     public void AttachPlayer(GameObject player)
