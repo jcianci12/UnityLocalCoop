@@ -40,11 +40,14 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         //rb = controller.GetComponentInChildren<Rigidbody>();
         PlayerControls = new PlayerControls();
+        var ship = GameObject.FindGameObjectWithTag("Ship");
+        controller.transform.parent = ship.transform;
+
 
         //get the input handler
     }
 
-    
+
 
 
     void Update()
@@ -67,6 +70,8 @@ public class PlayerController : MonoBehaviour
 
             controller.Move(playerVelocity * Time.deltaTime);
         }
+        //move player relative to ship
+        controller.Move(playerVelocity * Time.deltaTime);
         
     }
 
