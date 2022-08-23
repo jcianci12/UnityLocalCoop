@@ -118,6 +118,13 @@ public class PlayerController : MonoBehaviour
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
     }
+    public void Fire(InputAction.CallbackContext context)
+    {
+        Debug.Log("Fire!");
+        //MovementActive = true;
+
+        
+    }
 
     public void OnTriggerEnter(Collider other)
     {

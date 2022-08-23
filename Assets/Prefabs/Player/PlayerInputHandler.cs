@@ -10,8 +10,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     public PlayerController playerController;
     Vector3 startPos;
-    public PressurePlate pp = null;
-    public EnginePressurePlateScript epp = null;
+    public PressurePlate gunpressureplate = null;
+    public EnginePressurePlateScript enginepressureplate = null;
     private Camera maincam;
 
     // Start is called before the first frame update
@@ -24,36 +24,43 @@ public class PlayerInputHandler : MonoBehaviour
         if (playerPrefab != null)
         {
             var ship = GameObject.FindGameObjectWithTag("Ship");
-            startPos = new Vector3( ship.transform.position.x,1,ship.transform.position.y);
+            startPos = new Vector3(ship.transform.position.x, 1, ship.transform.position.y);
 
             playerController = GameObject.Instantiate(playerPrefab, startPos, transform.rotation).GetComponent<PlayerController>();
             playerController.transform.parent = GameObject.FindGameObjectWithTag("Ship").transform;
             transform.parent = playerController.transform;
-            
+
         }
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (pp != null)
+        if (gunpressureplate != null)
         {
-            pp.OnMove(context);
+            gunpressureplate.OnMove(context);
         }
-        if (epp != null)
+        if (enginepressureplate != null)
         {
-            epp.OnMove(context);
+            enginepressureplate.OnMove(context);
         }
         else
         {
             playerController.OnMove(context);
         }
-        
+
         //if we are attached to a gun
     }
     public void OnJump(InputAction.CallbackContext context)
     {
         playerController.Jump(context);
     }
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        if (enginepressureplate != null)
+        {
+            enginepressureplate.Fire();
 
+        }
+    }
 
 
 }

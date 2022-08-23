@@ -87,7 +87,7 @@ public class EnginePressurePlateScript : MonoBehaviour
         player.transform.parent = gameObject.transform;
 
         var playerinputhandler = player.GetComponentInChildren<PlayerInputHandler>();
-        playerinputhandler.epp = gameObject.GetComponent<EnginePressurePlateScript>();
+        playerinputhandler.enginepressureplate = gameObject.GetComponent<EnginePressurePlateScript>();
 
         //attachedPlayer = player;
     }
@@ -97,11 +97,15 @@ public class EnginePressurePlateScript : MonoBehaviour
         move = Vector3.zero;
         //shipRigidBody.velocity = Vector3.zero;
         //set the engine pressureplate to null
-        player.GetComponentInChildren<PlayerInputHandler>().epp = null;
+        player.GetComponentInChildren<PlayerInputHandler>().enginepressureplate = null;
 
         shipRigidBody = null;
         playerRigidBody = null;
         //var ship = GameObject.FindGameObjectWithTag("Ship");
         //Destroy(gameObject.GetComponent<FixedJoint>());
+    }
+    public void Fire()
+    {
+
     }
 }

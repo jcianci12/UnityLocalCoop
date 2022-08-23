@@ -38,7 +38,7 @@ public class PressurePlate : MonoBehaviour
     {
         //get the playerinput class
         var pih = player.GetComponentInChildren<PlayerInputHandler>();
-        pih.pp = gameObject.GetComponent<PressurePlate>();
+        pih.gunpressureplate = gameObject.GetComponent<PressurePlate>();
         attachedPlayer = player;
         gameObject.transform.parent = null;
 
@@ -47,7 +47,7 @@ public class PressurePlate : MonoBehaviour
     public void DetachPlayer(GameObject player)
     {
         var pih = player.GetComponentInChildren<PlayerInputHandler>();
-        pih.pp = null;
+        pih.gunpressureplate = null;
         attachedPlayer = null;
         gameObject.transform.SetParent(parent.transform);
 
