@@ -55,9 +55,11 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void OnFire(InputAction.CallbackContext context)
     {
-        if (enginepressureplate != null)
+        if (gunpressureplate != null)
         {
-            enginepressureplate.Fire();
+            Debug.Log("Firing from input handler");
+
+            gunpressureplate.Fire();
 
         }
     }

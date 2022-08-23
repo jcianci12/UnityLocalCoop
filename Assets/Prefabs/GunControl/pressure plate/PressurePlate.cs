@@ -13,6 +13,7 @@ public class PressurePlate : MonoBehaviour
     public GunInputHandler gunInputHandler ;
     private Vector3 move;
     private GameObject parent;
+    public GameObject gun;
 
     private void Start()
     {
@@ -24,7 +25,7 @@ public class PressurePlate : MonoBehaviour
         if (move != Vector3.zero)
         {
 
-            parent.transform.forward = move;
+            gun.transform.forward = move;
            // gun.transform.forward = move;
         }
     }
@@ -40,7 +41,7 @@ public class PressurePlate : MonoBehaviour
         var pih = player.GetComponentInChildren<PlayerInputHandler>();
         pih.gunpressureplate = gameObject.GetComponent<PressurePlate>();
         attachedPlayer = player;
-        gameObject.transform.parent = null;
+        //gameObject.transform.parent = null;
 
 
     }
@@ -49,7 +50,19 @@ public class PressurePlate : MonoBehaviour
         var pih = player.GetComponentInChildren<PlayerInputHandler>();
         pih.gunpressureplate = null;
         attachedPlayer = null;
-        gameObject.transform.SetParent(parent.transform);
+        //gameObject.transform.SetParent(parent.transform);
+
+    }
+    public GameObject projectile;
+    public float launchVelocity = 700f;
+    public void Fire()
+    {
+        Debug.Log("fire!");
+        
+        GameObject ball = Instantiate(projectile, gun.transform.position,
+                                                     gun.transform.rotation);
+        ball.GetComponent<Rigidbody>().AddRelativeForce(new Vector3
+                                             (0, 0, launchVelocity));
 
     }
 

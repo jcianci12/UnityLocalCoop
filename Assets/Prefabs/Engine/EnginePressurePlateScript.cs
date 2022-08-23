@@ -104,8 +104,5 @@ public class EnginePressurePlateScript : MonoBehaviour
         //var ship = GameObject.FindGameObjectWithTag("Ship");
         //Destroy(gameObject.GetComponent<FixedJoint>());
     }
-    public void Fire()
-    {
-
-    }
+    
 }
