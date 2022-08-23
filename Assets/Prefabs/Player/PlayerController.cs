@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
 
-
+    private GameObject plane;
     public PlayerControls PlayerControls;
     private PlayerInputHandler playerInputHandler;
     private InputAction jump;
@@ -40,34 +40,44 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         //rb = controller.GetComponentInChildren<Rigidbody>();
         PlayerControls = new PlayerControls();
+        //transform.parent = GameObject.FindGameObjectWithTag("Ship").transform;
 
         //get the input handler
+        plane = GameObject.Find("Plane");
     }
 
     
 
 
-    void Update()
+    void FixedUpdate()
     {
         if (MovementActive)
         {
+            controller.enabled = true;
+
+            //check if player is grounded
             groundedPlayer = controller.isGrounded;
+            //if the player is grounded and and velocity is more than 0
             if (groundedPlayer && playerVelocity.y < 0)
             {
+                //set the player velocity to zero
                 playerVelocity.y = 0f;
             }
-            controller.Move(move * Time.deltaTime * playerSpeed);
-
+            //inherit the movement from the parent
+            //move = gameObject.transform.parent.position + move;
+            controller.Move(( move) * Time.deltaTime * playerSpeed);
+            
             if (move != Vector3.zero)
             {
                 gameObject.transform.forward = move;
             }
             //apply gravity
             playerVelocity.y += gravityValue * Time.deltaTime;
-
             controller.Move(playerVelocity * Time.deltaTime);
+            controller.enabled = false;
+
         }
-        
+
     }
 
     public Camera camPivot;

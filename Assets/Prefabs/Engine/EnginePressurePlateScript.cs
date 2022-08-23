@@ -13,7 +13,7 @@ public class EnginePressurePlateScript : MonoBehaviour
     private float shipSpeed = 20.0f; 
     private Vector3 move;
 
-    public void Update()
+    public void FixedUpdate()
     {
 
         if (move != Vector3.zero)
