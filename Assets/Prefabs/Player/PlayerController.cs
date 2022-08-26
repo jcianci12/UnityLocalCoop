@@ -156,13 +156,13 @@ public class PlayerController : MonoBehaviour
 
         move = Vector3.zero;
 
-        var pp = other.GetComponent<PressurePlate>();
+        var pp = other.GetComponent<GunPressurePlate>();
         pp.AttachPlayer(gameObject);
     }
 
     private void DetachFromPressurePlate(Collider other)
     {
-        var pp = other.GetComponent<PressurePlate>();
+        var pp = other.GetComponent<GunPressurePlate>();
         pp.DetachPlayer(gameObject);
         playerInputHandler = null;
         MovementActive = true;

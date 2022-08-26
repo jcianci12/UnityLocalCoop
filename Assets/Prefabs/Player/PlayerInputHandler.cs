@@ -10,7 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public PlayerController playerController;
     Vector3 startPos;
-    public PressurePlate gunpressureplate = null;
+    public GunPressurePlate gunpressureplate = null;
     public EnginePressurePlateScript enginepressureplate = null;
     private Camera maincam;
 
@@ -24,7 +24,7 @@ public class PlayerInputHandler : MonoBehaviour
         if (playerPrefab != null)
         {
             var ship = GameObject.FindGameObjectWithTag("Ship");
-            startPos = new Vector3(ship.transform.position.x, 1, ship.transform.position.y);
+            startPos = new Vector3(ship.transform.position.x, 5, ship.transform.position.y);
 
             playerController = GameObject.Instantiate(playerPrefab, startPos, transform.rotation).GetComponent<PlayerController>();
             playerController.transform.parent = GameObject.FindGameObjectWithTag("Ship").transform;
