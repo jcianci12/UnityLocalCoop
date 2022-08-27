@@ -56,15 +56,19 @@ public class GunPressurePlate : MonoBehaviour
 
     }
     public GameObject projectile;
-    public float launchVelocity = 700f;
+    public float launchVelocity = 1400f;
     public void Fire()
     {
         Debug.Log("fire!");
+        //rotate the projectile 90 degrees on the x
+        Quaternion rotation = gun.transform.rotation;
         
         GameObject ball = Instantiate(projectile, gun.transform.position,
                                                      gun.transform.rotation);
+        ball.transform.Rotate(90, 0, 0);
         ball.GetComponent<Rigidbody>().AddRelativeForce(new Vector3
                                              (0, 0, launchVelocity));
+        Destroy(ball, 1f);
 
     }
 
