@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         plane = GameObject.Find("Plane");
     }
 
-    
+
 
 
     void FixedUpdate()
@@ -65,8 +65,8 @@ public class PlayerController : MonoBehaviour
             }
             //inherit the movement from the parent
             //move = gameObject.transform.parent.position + move;
-            controller.Move(( move) * Time.deltaTime * playerSpeed);
-            
+            controller.Move((move) * Time.deltaTime * playerSpeed);
+
             if (move != Vector3.zero)
             {
                 gameObject.transform.forward = move;
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
             Vector3 forwardRelativeVerticalInput = vertical * forward;
             Vector3 rightRelativeHorizontalInput = horizontal * right;
-            
+
             Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
             Debug.Log(cameraRelativeMovement.x + " " + cameraRelativeMovement.y);
             //move = new Vector3(movement.x * right.x, 0, movement.y * forward.y);
@@ -111,14 +111,14 @@ public class PlayerController : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log("Jump!");
-                MovementActive = true;
+        MovementActive = true;
 
         if (groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
     }
-    
+
 
     public void OnTriggerEnter(Collider other)
     {
@@ -170,20 +170,36 @@ public class PlayerController : MonoBehaviour
     }
     private void AttachToEnginePressurePlate(Collider collider)
     {
-        this.MovementActive = false;
-        //controller.transform.parent = collider.transform;
-        move = Vector3.zero;
-
         var pp = collider.GetComponent<EnginePressurePlateScript>();
-        pp.AttachPlayer(gameObject);
+        if (pp.playerRigidBody == null)
+        {
+
+
+            pp.AttachPlayer(gameObject);
+            //check there is no one on the pressure plate
+            this.MovementActive = false;
+            //controller.transform.parent = collider.transform;
+            move = Vector3.zero;
+        }
+
         //playerInputHandler.AttachPlayerToPressurePlate(collider.GetComponent<PressurePlate>(), gameObject);
     }
     private void DetachFromEnginePressurePlate(Collider collider)
     {
+        
         var pp = collider.GetComponent<EnginePressurePlateScript>();
+        var playeronpressureplateinstanceid = pp.playerRigidBody.gameObject.GetInstanceID();
+        var colliderplayerinstanceid = gameObject.GetInstanceID();
+        if (playeronpressureplateinstanceid ==colliderplayerinstanceid)
+        {
+
         pp.DetachPlayer(gameObject);
         playerInputHandler = null;
         controller.enabled = true;
+        }
+       // Debug.Log("player on plate:" + pp.playerRigidBody.gameObject.GetComponent<PlayerController>().GetInstanceID() + " this player " + gameObject.GetInstanceID());
+
+
     }
 
 }
