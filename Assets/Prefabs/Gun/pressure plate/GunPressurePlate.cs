@@ -68,7 +68,7 @@ public class GunPressurePlate : MonoBehaviour
         ball.transform.Rotate(90, 0, 0);
         ball.GetComponent<Rigidbody>().AddRelativeForce(new Vector3
                                              (0, 0, launchVelocity));
-        Destroy(ball, 1f);
+        
 
     }
 
