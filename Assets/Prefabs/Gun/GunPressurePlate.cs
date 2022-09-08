@@ -12,13 +12,14 @@ public class GunPressurePlate : MonoBehaviour
     private static GameObject attachedPlayer;
     public GunInputHandler gunInputHandler ;
     private Vector3 move;
-    private GameObject parent;
+    public GameObject parent;
     public GameObject gun;
     public Rigidbody PlayerRigidBody;
 
     private void Start()
     {
-        parent = gameObject.transform.parent.gameObject;
+        //parent = gameObject.transform.parent.gameObject;
+        gameObject.transform.parent = parent.transform;
     }
     public void Update()
     {
@@ -34,7 +35,8 @@ public class GunPressurePlate : MonoBehaviour
     {
        // Debug.Log("move!");
         Vector2 movement = context.ReadValue<Vector2>();       
-        move = new Vector3(movement.x , 0, movement.y<0?0:movement.y);
+        move = new Vector3(movement.x , 0, movement.y);
+        move = Camera.main.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(move);
         //move = Camera.main.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(new Vector3(movement.x, 0, movement.y < 0 ? 0 : movement.y));
         Debug.Log(move);
     }
