@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6262005739279540942, guid: 06018cb37b771284ea5c619c66569752, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6262005739279540942, guid: 06018cb37b771284ea5c619c66569752, type: 3}
       propertyPath: m_LocalRotation.w
@@ -201,3 +201,4 @@ MonoBehaviour:
   gunPrefab: {fileID: 7105249108318375367}
   gunController: {fileID: 0}
   pp: {fileID: 0}
+  cam: {fileID: 0}

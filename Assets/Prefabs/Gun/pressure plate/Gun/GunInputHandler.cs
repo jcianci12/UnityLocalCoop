@@ -10,6 +10,7 @@ public class GunInputHandler : MonoBehaviour
     public CharacterController gunController;
     public GunPressurePlate pp;
     private Vector3 move;
+    public Camera cam;
 
 
 
@@ -28,7 +29,7 @@ public class GunInputHandler : MonoBehaviour
 
         if (move != Vector3.zero)
         {
-            gameObject.transform.forward = move;
+            gameObject.transform.forward = cam.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(move);
         }
     }
     public void OnMove(InputAction.CallbackContext context)

@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 move;
     public float m_Thrust = 20f;
 
+
     private void Awake()
     {
         cam = Camera.main;
@@ -88,23 +89,8 @@ public class PlayerController : MonoBehaviour
         Vector2 movement = context.ReadValue<Vector2>();
         if (MovementActive)
         {
-            float vertical = movement.y;
-            float horizontal = movement.x;
-
-            Vector3 forward = cam.transform.forward;
-            Vector3 right = cam.transform.right;
-            forward.y = 0;
-            right.y = 0;
-            forward = forward.normalized;
-            right = right.normalized;
-
-            Vector3 forwardRelativeVerticalInput = vertical * forward;
-            Vector3 rightRelativeHorizontalInput = horizontal * right;
-
-            Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
-            Debug.Log(cameraRelativeMovement.x + " " + cameraRelativeMovement.y);
-            //move = new Vector3(movement.x * right.x, 0, movement.y * forward.y);
-            move = cameraRelativeMovement;
+            
+            move = cam.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
         }
     }
 
