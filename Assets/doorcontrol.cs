@@ -6,10 +6,10 @@ public class doorcontrol : MonoBehaviour
 {
     private Vector3 InitialScale;
     private Vector3 InitialPosition;
-    private Vector3 OpenPosition = new Vector3(-0.200000003f,2.53999996f,1.25170004e-06f);
+    public Vector3 OpenPosition = new Vector3(-0.200000003f,2.53999996f,1.25170004e-06f);
 
-    private Vector3 OpenScale = new Vector3(1f, 0.0937480032f, 1f);
-
+    public Vector3 OpenScale = new Vector3(1f, 0.0937480032f, 1f);
+    //Vector3(-14.2500086,2.41000009,-6.81660026e-08)
     public void Start()
     {
         InitialScale = transform.localScale;
