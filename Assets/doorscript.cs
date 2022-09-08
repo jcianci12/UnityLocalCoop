@@ -4,16 +4,27 @@ using UnityEngine;
 
 public class doorscript : MonoBehaviour
 {
+    public GameObject door;
+    private doorcontrol doorcontrol;
+
+
     // Start is called before the first frame update
     void Start()
     {
         //get the door parent object
-
+       doorcontrol = door.GetComponent<doorcontrol>();
     }
 
-    // Update is called once per frame
-    void Update()
+    
+
+    public void OnTriggerEnter(Collider other)
     {
-        
+        //door.transform
+        doorcontrol.OpenDoor();
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        doorcontrol.CloseDoor();
+       
     }
 }

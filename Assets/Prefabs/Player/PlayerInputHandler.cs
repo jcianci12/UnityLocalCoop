@@ -13,6 +13,7 @@ public class PlayerInputHandler : MonoBehaviour
     public GunPressurePlate gunpressureplate = null;
     public EnginePressurePlateScript enginepressureplate = null;
     private Camera maincam;
+    //public GameObject SpawnPoint;
 
     // Start is called before the first frame update
     private void Start()
@@ -23,11 +24,11 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (playerPrefab != null)
         {
-            var ship = GameObject.FindGameObjectWithTag("Ship");
-            startPos = new Vector3(ship.transform.position.x, 5, ship.transform.position.y);
+            var spawnpoint = GameObject.Find("SpawnPoint");
+            startPos = spawnpoint.transform.position;
 
             playerController = GameObject.Instantiate(playerPrefab, startPos, transform.rotation).GetComponent<PlayerController>();
-            playerController.transform.parent = GameObject.FindGameObjectWithTag("Ship").transform;
+            playerController.transform.parent = spawnpoint.transform;
             transform.parent = playerController.transform;
 
         }

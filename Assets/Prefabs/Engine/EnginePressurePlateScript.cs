@@ -35,7 +35,11 @@ public class EnginePressurePlateScript : MonoBehaviour
         }
         foreach (var light in engineLight)
         {
-            light.intensity = ExtensionMethods.Remap(shipRigidBody.gameObject.GetComponent<Rigidbody>().velocity.magnitude, 0, 100, 1, 100);
+            if (light != null)
+            {
+                light.intensity = ExtensionMethods.Remap(shipRigidBody.gameObject.GetComponent<Rigidbody>().velocity.magnitude, 0, 100, 1, 100);
+
+            }
         }
     }
 

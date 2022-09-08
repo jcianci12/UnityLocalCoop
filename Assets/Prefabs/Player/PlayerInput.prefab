@@ -127,3 +127,4 @@ MonoBehaviour:
   playerController: {fileID: 0}
   gunpressureplate: {fileID: 0}
   enginepressureplate: {fileID: 0}
+  SpawnPoint: {fileID: 0}
