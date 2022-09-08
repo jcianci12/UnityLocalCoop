@@ -14,6 +14,7 @@ public class GunPressurePlate : MonoBehaviour
     private Vector3 move;
     private GameObject parent;
     public GameObject gun;
+    public Rigidbody PlayerRigidBody;
 
     private void Start()
     {
@@ -34,26 +35,29 @@ public class GunPressurePlate : MonoBehaviour
        // Debug.Log("move!");
         Vector2 movement = context.ReadValue<Vector2>();       
         move = new Vector3(movement.x , 0, movement.y<0?0:movement.y);
-
+        //move = Camera.main.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(new Vector3(movement.x, 0, movement.y < 0 ? 0 : movement.y));
         Debug.Log(move);
     }
     public void AttachPlayer(GameObject player)
     {
+        PlayerRigidBody = player.GetComponent<Rigidbody>();
+
         //get the playerinput class
         var pih = player.GetComponentInChildren<PlayerInputHandler>();
         pih.gunpressureplate = gameObject.GetComponent<GunPressurePlate>();
         attachedPlayer = player;
         //gameObject.transform.parent = null;
-
+        
 
     }
     public void DetachPlayer(GameObject player)
     {
+        PlayerRigidBody = null;
         var pih = player.GetComponentInChildren<PlayerInputHandler>();
         pih.gunpressureplate = null;
         attachedPlayer = null;
         //gameObject.transform.SetParent(parent.transform);
-
+        
     }
     public GameObject projectile;
     public float launchVelocity = 1400f;

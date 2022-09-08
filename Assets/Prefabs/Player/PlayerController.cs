@@ -47,9 +47,6 @@ public class PlayerController : MonoBehaviour
         plane = GameObject.Find("Plane");
     }
 
-
-
-
     void FixedUpdate()
     {
         if (MovementActive)
@@ -111,7 +108,7 @@ public class PlayerController : MonoBehaviour
         switch (other.name)
         {
             case "GunPressurePlate":
-                AttachToPressurePlate(other);
+                AttachToGunPressurePlate(other);
                 break;
 
             case "EnginePressurePlate":
@@ -125,7 +122,7 @@ public class PlayerController : MonoBehaviour
         switch (other.name)
         {
             case "GunPressurePlate":
-                DetachFromPressurePlate(other);
+                DetachFromGunPressurePlate(other);
                 break;
             case "EnginePressurePlate":
                 DetachFromEnginePressurePlate(other);
@@ -134,25 +131,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void AttachToPressurePlate(Collider other) //the pressure plate
+    private void AttachToGunPressurePlate(Collider collider) //the pressure plate
     {
-        this.MovementActive = false;
-
-        controller.transform.parent = other.transform;
-
-        move = Vector3.zero;
-
-        var pp = other.GetComponent<GunPressurePlate>();
-        pp.AttachPlayer(gameObject);
+        var pp = collider.GetComponent<GunPressurePlate>();
+        if (pp.PlayerRigidBody ==null)
+        {
+            pp.AttachPlayer(gameObject);
+            //check there is no one on the pressure plate
+            this.MovementActive = false;
+            //controller.transform.parent = collider.transform;
+            move = Vector3.zero;
+        }
+        
     }
 
-    private void DetachFromPressurePlate(Collider other)
+    private void DetachFromGunPressurePlate(Collider collider)
     {
-        var pp = other.GetComponent<GunPressurePlate>();
-        pp.DetachPlayer(gameObject);
-        playerInputHandler = null;
-        MovementActive = true;
-        controller.enabled = true;
+        var pp = collider.GetComponent<GunPressurePlate>();
+        var playeronpressureplateinstanceid = pp.PlayerRigidBody.gameObject.GetInstanceID();
+        var colliderplayerinstanceid = gameObject.GetInstanceID();
+        if (playeronpressureplateinstanceid == colliderplayerinstanceid)
+        {
+
+            pp.DetachPlayer(gameObject);
+            playerInputHandler = null;
+            controller.enabled = true;
+        }
     }
     private void AttachToEnginePressurePlate(Collider collider)
     {
