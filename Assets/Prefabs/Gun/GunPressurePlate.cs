@@ -23,7 +23,7 @@ public class GunPressurePlate : MonoBehaviour
     public void Update()
     {
 
-        if (move != Vector3.zero)
+        if (PlayerRigidBody!=null &&  move != Vector3.zero)
         {
 
             gun.transform.forward = move;
@@ -34,9 +34,13 @@ public class GunPressurePlate : MonoBehaviour
     {
        // Debug.Log("move!");
         Vector2 movement = context.ReadValue<Vector2>();       
-        move = new Vector3(movement.x , 0, movement.y);
+        move = new Vector3(movement.y , 0, movement.x);
         //move = Camera.main.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(move);
-        //move = Camera.main.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(new Vector3(movement.x, 0, movement.y < 0 ? 0 : movement.y));
+
+
+        move = Camera.main.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(
+            new Vector3(movement.y, movement.x, 0)
+            );
         Debug.Log(move);
     }
     public void AttachPlayer(GameObject player)
