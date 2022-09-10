@@ -18,8 +18,7 @@ public class GunPressurePlate : MonoBehaviour
 
     private void Start()
     {
-        //parent = gameObject.transform.parent.gameObject;
-        gameObject.transform.parent = parent.transform;
+        //gameObject.transform.parent = parent.transform;
     }
     public void Update()
     {
@@ -36,20 +35,18 @@ public class GunPressurePlate : MonoBehaviour
        // Debug.Log("move!");
         Vector2 movement = context.ReadValue<Vector2>();       
         move = new Vector3(movement.x , 0, movement.y);
-        move = Camera.main.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(move);
+        //move = Camera.main.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(move);
         //move = Camera.main.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(new Vector3(movement.x, 0, movement.y < 0 ? 0 : movement.y));
         Debug.Log(move);
     }
     public void AttachPlayer(GameObject player)
     {
         PlayerRigidBody = player.GetComponent<Rigidbody>();
-
         //get the playerinput class
         var pih = player.GetComponentInChildren<PlayerInputHandler>();
         pih.gunpressureplate = gameObject.GetComponent<GunPressurePlate>();
         attachedPlayer = player;
-        //gameObject.transform.parent = null;
-        
+        //gameObject.transform.parent = null;       
 
     }
     public void DetachPlayer(GameObject player)
@@ -69,7 +66,7 @@ public class GunPressurePlate : MonoBehaviour
         //rotate the projectile 90 degrees on the x
         Quaternion rotation = gun.transform.rotation;
         
-        GameObject ball = Instantiate(projectile, gun.transform.position,
+        GameObject ball = Instantiate(projectile, gun.transform.position + gun.transform.forward *2f,
                                                      gun.transform.rotation);
         ball.transform.Rotate(90, 0, 0);
         ball.GetComponent<Rigidbody>().AddRelativeForce(new Vector3
