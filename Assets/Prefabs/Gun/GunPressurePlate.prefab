@@ -116,7 +116,7 @@ MonoBehaviour:
   gun: {fileID: 7105249108318375367}
   PlayerRigidBody: {fileID: 0}
   projectile: {fileID: 8776251893792971714, guid: 86049f5157fd3db43bb16087ff6a830a, type: 3}
-  launchVelocity: 5000
+  launchVelocity: 2000
 --- !u!1 &7037161797349690097
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,5 +10,16 @@ public class projectile : MonoBehaviour
         Destroy(gameObject, 1f);
     }
 
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        var EnemyAIScript = other.gameObject.GetComponent<EnemyAI>();
+        if(EnemyAIScript != null)
+        {
+
+            Debug.Log("we hit a enemy");
+            EnemyAIScript.TakeDamage(3);
+
+        }
+
+    }
 }
