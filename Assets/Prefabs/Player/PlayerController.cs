@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 move;
     public float m_Thrust = 20f;
+    //test
 
 
     private void Awake()
