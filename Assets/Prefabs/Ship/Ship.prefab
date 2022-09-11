@@ -2663,7 +2663,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2172160605817723472, guid: e437dd28dbe3da34c93758eb311deded, type: 3}
       propertyPath: m_Name
-      value: GunPressurePlate (2)
+      value: GunPressurePlate
       objectReference: {fileID: 0}
     - target: {fileID: 2172160605817723473, guid: e437dd28dbe3da34c93758eb311deded, type: 3}
       propertyPath: m_RootOrder
@@ -2972,7 +2972,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2172160605817723472, guid: e437dd28dbe3da34c93758eb311deded, type: 3}
       propertyPath: m_Name
-      value: GunPressurePlate (1)
+      value: GunPressurePlate
       objectReference: {fileID: 0}
     - target: {fileID: 2172160605817723473, guid: e437dd28dbe3da34c93758eb311deded, type: 3}
       propertyPath: m_RootOrder
