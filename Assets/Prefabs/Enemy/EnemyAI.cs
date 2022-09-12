@@ -11,6 +11,7 @@ public class EnemyAI : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
 
     public float health;
+    public GameObject explosion;
 
     //Patroling
     public Vector3 walkPoint;
@@ -106,7 +107,10 @@ public class EnemyAI : MonoBehaviour
     }
     private void DestroyEnemy()
     {
+        Instantiate(explosion, gameObject.transform.position,gameObject.transform.rotation);
+
         Destroy(gameObject);
+
     }
 
     private void OnDrawGizmosSelected()

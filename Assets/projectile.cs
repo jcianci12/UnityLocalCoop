@@ -6,9 +6,11 @@ public class projectile : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject sparks;
+    
+    public float TimeToLive;
     void Start()
     {
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, TimeToLive);
     }
 
     private void OnCollisionEnter(Collision other)
@@ -22,7 +24,7 @@ public class projectile : MonoBehaviour
             foreach (ContactPoint contact in other.contacts)
             {
                 Debug.DrawRay(contact.point, contact.normal, Color.white);
-                var sparkstemp = Instantiate(sparks, contact.point, Quaternion.FromToRotation(contact.point,contact.normal));
+                Instantiate(sparks, contact.point, Quaternion.FromToRotation(contact.point,contact.normal));
             }
             EnemyAIScript.TakeDamage(3);
 
