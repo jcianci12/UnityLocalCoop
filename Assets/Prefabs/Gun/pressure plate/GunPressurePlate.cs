@@ -72,7 +72,7 @@ public class GunPressurePlate : MonoBehaviour
         
     }
     public GameObject projectile;
-    public float launchVelocity = 1400f;
+    public float launchVelocity;
     public void Fire()
     {
         Debug.Log("fire!");
