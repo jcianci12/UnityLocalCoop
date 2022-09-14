@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
 
-    private GameObject plane;
     public PlayerControls PlayerControls;
     private PlayerInputHandler playerInputHandler;
     private InputAction jump;
@@ -44,8 +43,6 @@ public class PlayerController : MonoBehaviour
         PlayerControls = new PlayerControls();
         //transform.parent = GameObject.FindGameObjectWithTag("Ship").transform;
 
-        //get the input handler
-        plane = GameObject.Find("Plane");
     }
 
     void FixedUpdate()
@@ -87,8 +84,13 @@ public class PlayerController : MonoBehaviour
         Vector2 movement = context.ReadValue<Vector2>();
         if (MovementActive)
         {
-            
-            move = cam.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
+
+            var maincamera = GameObject.Find("Main Camera");
+            if (maincamera)
+            {
+                move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
+
+            }
         }
     }
 
@@ -135,7 +137,7 @@ public class PlayerController : MonoBehaviour
     private void AttachToGunPressurePlate(Collider collider) //the pressure plate
     {
         var pp = collider.GetComponent<GunPressurePlate>();
-        if (pp.PlayerRigidBody ==null)
+        if (pp.PlayerRigidBody == null)
         {
             pp.AttachPlayer(gameObject);
             //check there is no one on the pressure plate
@@ -143,7 +145,7 @@ public class PlayerController : MonoBehaviour
             //controller.transform.parent = collider.transform;
             move = Vector3.zero;
         }
-        
+
     }
 
     private void DetachFromGunPressurePlate(Collider collider)
@@ -177,18 +179,18 @@ public class PlayerController : MonoBehaviour
     }
     private void DetachFromEnginePressurePlate(Collider collider)
     {
-        
+
         var pp = collider.GetComponent<EnginePressurePlateScript>();
         var playeronpressureplateinstanceid = pp.playerRigidBody.gameObject.GetInstanceID();
         var colliderplayerinstanceid = gameObject.GetInstanceID();
-        if (playeronpressureplateinstanceid ==colliderplayerinstanceid)
+        if (playeronpressureplateinstanceid == colliderplayerinstanceid)
         {
 
-        pp.DetachPlayer(gameObject);
-        playerInputHandler = null;
-        controller.enabled = true;
+            pp.DetachPlayer(gameObject);
+            playerInputHandler = null;
+            controller.enabled = true;
         }
-       // Debug.Log("player on plate:" + pp.playerRigidBody.gameObject.GetComponent<PlayerController>().GetInstanceID() + " this player " + gameObject.GetInstanceID());
+        // Debug.Log("player on plate:" + pp.playerRigidBody.gameObject.GetComponent<PlayerController>().GetInstanceID() + " this player " + gameObject.GetInstanceID());
 
 
     }
