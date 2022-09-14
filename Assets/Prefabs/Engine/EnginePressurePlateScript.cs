@@ -13,6 +13,8 @@ public class EnginePressurePlateScript : MonoBehaviour
     private float shipSpeed = 20.0f;
     private Vector3 move;
     public Light[] engineLight;
+    public Camera cam;
+
 
     public void Start()
     {
@@ -27,7 +29,6 @@ public class EnginePressurePlateScript : MonoBehaviour
 
         if (move != Vector3.zero)
         {
-
             shipRigidBody.gameObject.transform.Rotate(Vector3.up, move.x);
             //Debug.Log("translate " + move.z * 10);
             shipRigidBody.gameObject.GetComponent<Rigidbody>().AddForce(-transform.right * move.z * shipSpeed);
@@ -54,8 +55,8 @@ public class EnginePressurePlateScript : MonoBehaviour
         Debug.Log(vertical + " " + horizontal);
 
 
-        Vector3 forward = Camera.main.transform.forward;
-        Vector3 right = Camera.main.transform.right;
+        Vector3 forward = cam.transform.forward;
+        Vector3 right = cam.transform.right;
         forward.y = 0;
         right.y = 0;
         forward = forward.normalized;
