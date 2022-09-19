@@ -6,11 +6,11 @@ using UnityEngine;
 public class FaceCamera : MonoBehaviour
 {
     public Camera shipCamera;
-    private bool playerInRange;
+    public bool playerInRange;
     private GameObject[] players;
     private Transform closestPlayer;
 
-    public float sightRange = 1;
+    public float sightRange = 6;
     public float distance;
     public LayerMask people;
     public float playerdistance;
@@ -38,17 +38,20 @@ public class FaceCamera : MonoBehaviour
         players = GameObject.FindGameObjectsWithTag("Player");
 
 
-        theColorToAdjust.a = (playerInRange?1f:0f); // Completely transparent
 
 
-        //if (players.Length > 0)
-        //{
-        //    closestPlayer = GetClosestEnemy(players.Select(i => i.transform).ToArray());
-        //    distance = Vector3.Distance(transform.position, closestPlayer.position);
-        //    //material.SetColor("_EmissionColor", new Color(46f, 49f, 191f, 1.0f) / 10 / distance);
-        //    theColorToAdjust.a = 0f; // Completely transparent
-        //    //theColorToAdjust.a = 1f; // completely opaque
-        //}
+        if (players.Length > 0)
+        {
+            closestPlayer = GetClosestEnemy(players.Select(i => i.transform).ToArray());
+            distance = Vector3.Distance(transform.position, closestPlayer.position);
+            //material.SetColor("_EmissionColor", new Color(46f, 49f, 191f, 1.0f) / 10 / distance);
+            //theColorToAdjust.a = 0f; // Completely transparent
+            //theColorToAdjust.a = 1f; // completely opaque
+
+           
+                theColorToAdjust.a = (distance < sightRange ? 1f : 0f); // Completely transparent
+
+        }
     }
 
     Transform GetClosestEnemy(Transform[] enemies)
