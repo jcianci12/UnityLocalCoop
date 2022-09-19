@@ -14,15 +14,19 @@ public class FaceCamera : MonoBehaviour
     public float distance;
     public LayerMask people;
     public float playerdistance;
+    Renderer renderer;
 
     Color theColorToAdjust;
+
 
     // Start is called before the first frame update
     void Start()
     {
         //get the ship camera
         shipCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        theColorToAdjust = gameObject.GetComponent<Material>().color;
+        renderer = GetComponent<Renderer>();
+        theColorToAdjust = renderer.material.color;
+
 
     }
 
