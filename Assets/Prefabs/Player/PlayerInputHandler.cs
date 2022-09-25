@@ -12,8 +12,8 @@ public class PlayerInputHandler : MonoBehaviour
     Vector3 startPos;
     public GunPressurePlate gunpressureplate = null;
     public EnginePressurePlateScript enginepressureplate = null;
-    private Camera maincam;
-    //public GameObject SpawnPoint;
+    public Cargo cargoscript = null;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -56,14 +56,23 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void OnFire(InputAction.CallbackContext context)
     {
+        if (context.performed == false) return; // adding this line removes the call when the key is pressed. This fixes the problem.        {
         if (gunpressureplate != null)
         {
             Debug.Log("Firing from input handler");
 
             gunpressureplate.Fire();
+        }
 
+        if (playerController.CargoInRange && !playerController.held)
+        {
+            playerController.PickupCargo();
+        }
+        else
+        {
+            playerController.DropCargo();
         }
     }
-
-
 }
+
+

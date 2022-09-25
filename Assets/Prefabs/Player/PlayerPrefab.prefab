@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d470052421ced8a48bfcb45714fab74d, type: 2}
+  - {fileID: 2100000, guid: 8d4c7779c00c7ee4ab5e0c6d6242f450, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -266,8 +266,13 @@ MonoBehaviour:
   MovementActive: 1
   playerSpeed: 7
   m_Thrust: 20
+  CargoInRange: 0
+  cargoLayer:
+    serializedVersion: 2
+    m_Bits: 256
   camPivot: {fileID: 0}
   cam: {fileID: 0}
+  held: {fileID: 0}
 --- !u!54 &7349377928058241327
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -346,7 +351,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d470052421ced8a48bfcb45714fab74d, type: 2}
+  - {fileID: 2100000, guid: 8d4c7779c00c7ee4ab5e0c6d6242f450, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

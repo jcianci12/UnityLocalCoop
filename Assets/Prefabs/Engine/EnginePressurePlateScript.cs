@@ -31,7 +31,15 @@ public class EnginePressurePlateScript : MonoBehaviour
         {
             shipRigidBody.gameObject.transform.Rotate(Vector3.up, move.x);
             //Debug.Log("translate " + move.z * 10);
+
             shipRigidBody.gameObject.GetComponent<Rigidbody>().AddForce(-transform.right * move.z * shipSpeed);
+            
+            //var thrust = new Vector3(0, 0, move.z);
+            //shipRigidBody.gameObject.GetComponent<Rigidbody>().MovePosition(shipRigidBody.transform.position+thrust * shipSpeed *Time.deltaTime);
+            //(transform.position + m_Input * Time.deltaTime * m_Speed)
+
+
+            //shipRigidBody.gameObject.transform.Find("Cube").gameObject.GetComponent<Rigidbody>().AddForce(-transform.right * move.z * shipSpeed);
 
         }
         foreach (var light in engineLight)
@@ -43,6 +51,7 @@ public class EnginePressurePlateScript : MonoBehaviour
             }
         }
     }
+   
 
     public void OnMove(InputAction.CallbackContext context)
     {

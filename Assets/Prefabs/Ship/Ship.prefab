@@ -1159,7 +1159,7 @@ MeshCollider:
   m_GameObject: {fileID: 4865237697268294789}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -2177,6 +2177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4865237697667256378}
   - component: {fileID: 4865237697667256377}
+  - component: {fileID: 8241131382350524757}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Ship
@@ -2226,6 +2227,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &8241131382350524757
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4865237697667256379}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6989282167128152099, guid: ea3c87cad91eddb40bd466bd6cc8b689, type: 3}
 --- !u!1 &4865237698097177234
 GameObject:
   m_ObjectHideFlags: 0
@@ -3342,6 +3357,14 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 4865237698730827892}
+    - target: {fileID: 4236567714932887967, guid: 931ad24e3e06bcd4aa0e36789d42a610, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4236567714932887967, guid: 931ad24e3e06bcd4aa0e36789d42a610, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8836804266046674740, guid: 931ad24e3e06bcd4aa0e36789d42a610, type: 3}
       propertyPath: m_Material
       value: 

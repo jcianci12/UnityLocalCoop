@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,6 +33,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 move;
     public float m_Thrust = 20f;
     //test
+    public bool CargoInRange;
+    public float CargoPickupRange = 1f;
+    public LayerMask cargoLayer;
 
 
     private void Awake()
@@ -59,6 +63,9 @@ public class PlayerController : MonoBehaviour
                 //set the player velocity to zero
                 playerVelocity.y = 0f;
             }
+            //apply gravity
+            playerVelocity.y += gravityValue * Time.deltaTime;
+
             //inherit the movement from the parent
             //move = gameObject.transform.parent.position + move;
             controller.Move((move) * Time.deltaTime * playerSpeed);
@@ -67,17 +74,20 @@ public class PlayerController : MonoBehaviour
             {
                 gameObject.transform.forward = move;
             }
-            //apply gravity
-            playerVelocity.y += gravityValue * Time.deltaTime;
             controller.Move(playerVelocity * Time.deltaTime);
             controller.enabled = false;
 
         }
 
     }
+    public void Update()
+    {
+        CargoInRange = Physics.CheckSphere(transform.position, CargoPickupRange, cargoLayer);
+    }
 
     public Camera camPivot;
     public Camera cam;
+    public Transform held;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -179,7 +189,6 @@ public class PlayerController : MonoBehaviour
     }
     private void DetachFromEnginePressurePlate(Collider collider)
     {
-
         var pp = collider.GetComponent<EnginePressurePlateScript>();
         var playeronpressureplateinstanceid = pp.playerRigidBody.gameObject.GetInstanceID();
         var colliderplayerinstanceid = gameObject.GetInstanceID();
@@ -190,9 +199,52 @@ public class PlayerController : MonoBehaviour
             playerInputHandler = null;
             controller.enabled = true;
         }
-        // Debug.Log("player on plate:" + pp.playerRigidBody.gameObject.GetComponent<PlayerController>().GetInstanceID() + " this player " + gameObject.GetInstanceID());
+    }
+    public void PickupCargo()
+    {
+        //we need to know if we are near cargo
+        //check for closest cargo
+        if (CargoInRange)
+        {
+            var cargo = GameObject.FindGameObjectsWithTag("Cargo")?.Select(i => i.transform).ToList();
+            var closest = GetClosestCargo(cargo, transform);
+            if (closest)
+            {
 
+                closest.gameObject.GetComponent<gravity>().Active =false;
+                closest.transform.SetParent(transform);
+                held = closest;
+            }
+        }
+    }
+    public void DropCargo()
+    {
+        if (held)
+        {
+            held.GetComponent<gravity>().Active = true;
+            held.parent = null;
+            held = null;
 
+        }
+
+    }
+    Transform GetClosestCargo(List<Transform> cargo, Transform fromThis)
+    {
+        Transform bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = fromThis.position;
+
+        foreach (Transform potentialTarget in cargo)
+        {
+            Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = potentialTarget;
+            }
+        }
+        return bestTarget;
     }
 
 }
