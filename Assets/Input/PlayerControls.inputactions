@@ -16,8 +16,17 @@
                 },
                 {
                     "name": "Jump",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "d194ee90-1711-417e-a8ff-3b12cd66f616",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "7e2127e5-d3c7-4322-8230-c7665c44a5d7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -110,6 +119,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ed7dab0-a29a-4281-b030-4fc16c75d918",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "905aad9d-2664-4c7f-8cfa-fd79a0c75902",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KB + M",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

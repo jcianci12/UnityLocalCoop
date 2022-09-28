@@ -10,9 +10,10 @@ public class PlayerInputHandler : MonoBehaviour
 
     public PlayerController playerController;
     Vector3 startPos;
-    public PressurePlate pp = null;
-    public EnginePressurePlateScript epp = null;
-    private Camera maincam;
+    public GunPressurePlate gunpressureplate = null;
+    public EnginePressurePlateScript enginepressureplate = null;
+    public Cargo cargoscript = null;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -23,37 +24,55 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (playerPrefab != null)
         {
-            var ship = GameObject.FindGameObjectWithTag("Ship");
-            startPos = new Vector3( ship.transform.position.x,1,ship.transform.position.y);
+            var spawnpoint = GameObject.Find("SpawnPoint");
+            startPos = spawnpoint.transform.position;
 
             playerController = GameObject.Instantiate(playerPrefab, startPos, transform.rotation).GetComponent<PlayerController>();
-            playerController.transform.parent = GameObject.FindGameObjectWithTag("Ship").transform;
+            playerController.transform.parent = spawnpoint.transform;
             transform.parent = playerController.transform;
-            
+
         }
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (pp != null)
+        if (gunpressureplate != null)
         {
-            pp.OnMove(context);
+            gunpressureplate.OnMove(context);
         }
-        if (epp != null)
+        if (enginepressureplate != null)
         {
-            epp.OnMove(context);
+            enginepressureplate.OnMove(context);
         }
         else
         {
             playerController.OnMove(context);
         }
-        
+
         //if we are attached to a gun
     }
     public void OnJump(InputAction.CallbackContext context)
     {
         playerController.Jump(context);
     }
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        if (context.performed == false) return; // adding this line removes the call when the key is pressed. This fixes the problem.        {
+        if (gunpressureplate != null)
+        {
+            Debug.Log("Firing from input handler");
 
+            gunpressureplate.Fire();
+        }
 
-
+        if (playerController.CargoInRange && !playerController.held)
+        {
+            playerController.PickupCargo();
+        }
+        else
+        {
+            playerController.DropCargo();
+        }
+    }
 }
+
+

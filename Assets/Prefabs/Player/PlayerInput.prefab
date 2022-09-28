@@ -90,6 +90,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d194ee90-1711-417e-a8ff-3b12cd66f616
     m_ActionName: Player/Jump[/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6946899118027394934}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7e2127e5-d3c7-4322-8230-c7665c44a5d7
+    m_ActionName: Player/Fire[/XInputControllerWindows/buttonEast,/Keyboard/ctrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -109,5 +125,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7785571135112364288, guid: f5469db7a2958f941a32696268f3007e, type: 3}
   playerController: {fileID: 0}
-  pp: {fileID: 0}
-  epp: {fileID: 0}
+  gunpressureplate: {fileID: 0}
+  enginepressureplate: {fileID: 0}
+  SpawnPoint: {fileID: 0}
