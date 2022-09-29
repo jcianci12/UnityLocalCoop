@@ -1,24 +1,9 @@
 fileFormatVersion: 2
-guid: ea3c87cad91eddb40bd466bd6cc8b689
+guid: b8014cf8670829746a542800f0dbe931
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Aluminum - Bead Blasted
-    second: {fileID: 2100000, guid: 4b11a64a1d17fe0468875e30ef0c3650, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Polymide (Kapton)
-    second: {fileID: 2100000, guid: 793ec4b00393dbd44b21e30291e6fa45, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Powder Coat - Rough (Yellow)
-    second: {fileID: 2100000, guid: 3c22f813c0b290244b112c9435dc277c, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -50,7 +35,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.0015
     meshCompression: 0
     addColliders: 1
     useSRGBMaterialColor: 1
@@ -67,12 +52,12 @@ ModelImporter:
     keepQuads: 0
     weldVertices: 1
     bakeAxisConversion: 0
-    preserveHierarchy: 1
+    preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
-    meshOptimizationFlags: 0
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
@@ -103,7 +88,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.0015
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

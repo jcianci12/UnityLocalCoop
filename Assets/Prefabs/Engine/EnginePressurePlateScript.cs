@@ -10,10 +10,11 @@ public class EnginePressurePlateScript : MonoBehaviour
     public Rigidbody playerRigidBody;
     // private static GameObject attachedPlayer;
     public GunInputHandler gunInputHandler;
-    private float shipSpeed = 20.0f;
+    public float thrust = 2000.0f;
     private Vector3 move;
     public Light[] engineLight;
     public Camera cam;
+    public float torque;
 
 
     public void Start()
@@ -29,10 +30,12 @@ public class EnginePressurePlateScript : MonoBehaviour
 
         if (move != Vector3.zero)
         {
-            shipRigidBody.gameObject.transform.Rotate(Vector3.up, move.x);
+            //shipRigidBody.gameObject.transform.Rotate(Vector3.up, move.x);
+            shipRigidBody.gameObject.GetComponent<Rigidbody>().AddTorque(-transform.up * move.x * torque);
+
             //Debug.Log("translate " + move.z * 10);
 
-            shipRigidBody.gameObject.GetComponent<Rigidbody>().AddForce(-transform.right * move.z * shipSpeed);
+            shipRigidBody.gameObject.GetComponent<Rigidbody>().AddForce(-transform.right * move.z * thrust);
             
             //var thrust = new Vector3(0, 0, move.z);
             //shipRigidBody.gameObject.GetComponent<Rigidbody>().MovePosition(shipRigidBody.transform.position+thrust * shipSpeed *Time.deltaTime);
