@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main;
         camPivot = Camera.main;
         controller = GetComponent<CharacterController>();
-        //rb = controller.GetComponentInChildren<Rigidbody>();
+        rb = gameObject.GetComponent<Rigidbody>();
         PlayerControls = new PlayerControls();
         //transform.parent = GameObject.FindGameObjectWithTag("Ship").transform;
 
@@ -165,13 +165,13 @@ public class PlayerController : MonoBehaviour
 
     private void DetachFromGunPressurePlate(Collider collider)
     {
-        var pp = collider.GetComponent<GunPressurePlate>();
-        var playeronpressureplateinstanceid = pp.PlayerRigidBody.gameObject.GetInstanceID();
+        var pps = collider.GetComponent<GunPressurePlate>();
+        var playeronpressureplateinstanceid = pps.PlayerRigidBody.gameObject.GetInstanceID();
         var colliderplayerinstanceid = gameObject.GetInstanceID();
         if (playeronpressureplateinstanceid == colliderplayerinstanceid)
         {
 
-            pp.DetachPlayer(gameObject);
+            pps.DetachPlayer(gameObject);
             playerInputHandler = null;
             controller.enabled = true;
         }
@@ -181,16 +181,10 @@ public class PlayerController : MonoBehaviour
         var pp = collider.GetComponent<EnginePressurePlateScript>();
         if (pp.playerRigidBody == null)
         {
-
-
             pp.AttachPlayer(gameObject);
-            //check there is no one on the pressure plate
             this.MovementActive = false;
-            //controller.transform.parent = collider.transform;
             move = Vector3.zero;
         }
-
-        //playerInputHandler.AttachPlayerToPressurePlate(collider.GetComponent<PressurePlate>(), gameObject);
     }
     private void DetachFromEnginePressurePlate(Collider collider)
     {
@@ -203,6 +197,7 @@ public class PlayerController : MonoBehaviour
             pp.DetachPlayer(gameObject);
             playerInputHandler = null;
             controller.enabled = true;
+
         }
     }
     

@@ -18,11 +18,7 @@ public class GunPressurePlate : MonoBehaviour
     GameObject cube;
 
     private void Start()
-    {
-
-        //cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //cube.transform.parent = gameObject.transform;
-        //cube.transform.position = gameObject.transform.position;
+    {        
         
     }
     public void Update()
@@ -32,20 +28,13 @@ public class GunPressurePlate : MonoBehaviour
         {
 
             gun.transform.forward = move;
-            gun.transform.Rotate(Vector3.up,-90);
-            //cube.transform.position = move;
-
-
-            // gun.transform.forward = move;
+            gun.transform.Rotate(Vector3.up,-90);            
         }
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-       // Debug.Log("move!");
         Vector2 movement = context.ReadValue<Vector2>();       
-        //move = new Vector3(0 , movement.y, movement.x);
-        //move = Camera.main.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(move);
-
+       
 
         move = Camera.main.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(
             new Vector3(movement.y, -movement.x, 0)

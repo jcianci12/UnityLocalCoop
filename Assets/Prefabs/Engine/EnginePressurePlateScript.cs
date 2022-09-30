@@ -15,6 +15,16 @@ public class EnginePressurePlateScript : MonoBehaviour
     public Light[] engineLight;
     public Camera cam;
     public float torque;
+    [Header("PIckup Settings")]
+    [SerializeField] Transform holdArea;
+    private GameObject heldObj;
+    private Rigidbody heldObjRB;
+
+    [Header("Physics Parameters")]
+    [SerializeField] private float pickupRange = 1.0f;
+    [SerializeField] private float pickupForce = 500f;
+    [SerializeField] private float drag = 5;
+
 
 
     public void Start()
@@ -35,7 +45,7 @@ public class EnginePressurePlateScript : MonoBehaviour
 
             Debug.Log("adding thrust " + move.z * thrust);
             
-            shipRigidBody.gameObject.GetComponent<Rigidbody>().AddForce(move*thrust);
+            shipRigidBody.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * move.z * thrust);
             
             //var thrust = new Vector3(0, 0, move.z);
             //shipRigidBody.gameObject.GetComponent<Rigidbody>().MovePosition(shipRigidBody.transform.position+thrust * shipSpeed *Time.deltaTime);
@@ -44,6 +54,10 @@ public class EnginePressurePlateScript : MonoBehaviour
 
             //shipRigidBody.gameObject.transform.Find("Cube").gameObject.GetComponent<Rigidbody>().AddForce(-transform.right * move.z * shipSpeed);
 
+        }
+        if(playerRigidBody != null)
+        {
+            MoveObject();
         }
         foreach (var light in engineLight)
         {
@@ -54,35 +68,22 @@ public class EnginePressurePlateScript : MonoBehaviour
             }
         }
     }
-   
+    void MoveObject()
+    {
+        if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
+        {
+            Vector3 moveDirection = (holdArea.position - heldObj.transform.position);
+            heldObjRB.AddForce((moveDirection*2 )* pickupForce);
+            
+            //heldObjRB.MovePosition(holdArea.position);
+
+        }
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 movement = context.ReadValue<Vector2>();
-        //Debug.Log("Engine val recieved "+ movement.x);
-
-
-        //float vertical = movement.y;
-        //float horizontal = movement.x;
-        ////Debug.Log(vertical + " " + horizontal);
-
-
-        //Vector3 forward = cam.transform.forward;
-        //Vector3 right = cam.transform.right;
-        //forward.y = 0;
-        //right.y = 0;
-        //forward = forward.normalized;
-        //right = right.normalized;
-
-        //Vector3 forwardRelativeVerticalInput = vertical * forward;
-        //Vector3 rightRelativeHorizontalInput = horizontal * right;
-
-        //Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
-        //Debug.Log(cameraRelativeMovement.x + " " + cameraRelativeMovement.y);
-        ////Debug.Log("movement"+ movement.x + " " + movement.y);
-
-        ////move = new Vector3(movement.x * right.x, 0, movement.y * forward.y);
-        ////move = cameraRelativeMovement;
+       
         move = new Vector3(movement.x, 0, movement.y);
     }
 
@@ -95,22 +96,25 @@ public class EnginePressurePlateScript : MonoBehaviour
             player.transform.parent = gameObject.transform;
             var playerinputhandler = player.GetComponentInChildren<PlayerInputHandler>();
             playerinputhandler.enginepressureplate = gameObject.GetComponent<EnginePressurePlateScript>();
+            heldObj = player;
+            heldObjRB = heldObj.GetComponent<Rigidbody>();
+            //heldObjRB.isKinematic = true;
         }
-        //attachedPlayer = player;
     }
     public void DetachPlayer(GameObject player)
     {
         move = Vector3.zero;
-        //shipRigidBody.velocity = Vector3.zero;
-        //set the engine pressureplate to null
+       
         player.GetComponentInChildren<PlayerInputHandler>().enginepressureplate = null;
 
         playerRigidBody = null;
-        //var ship = GameObject.FindGameObjectWithTag("Ship");
-        //Destroy(gameObject.GetComponent<FixedJoint>());
+        heldObj = null;
+        heldObjRB.isKinematic = false;
+        heldObjRB = null;
+        
+        
     }
 
-    // unclamped
 
 
 }
