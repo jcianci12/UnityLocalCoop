@@ -64,14 +64,9 @@ public class PlayerInputHandler : MonoBehaviour
             gunpressureplate.Fire();
         }
 
-        if (playerController.CargoInRange && !playerController.held)
-        {
+        
             playerController.PickupCargo();
-        }
-        else
-        {
-            playerController.DropCargo();
-        }
+        
     }
 }
 

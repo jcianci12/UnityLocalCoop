@@ -22,7 +22,8 @@ public class CameraRelativeMovement : MonoBehaviour
 
         Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
         Debug.Log(cameraRelativeMovement.x + " " + cameraRelativeMovement.y);
+        Debug.DrawLine(cameraRelativeMovement, Vector3.zero);
         //move = new Vector3(movement.x * right.x, 0, movement.y * forward.y);
-        return cameraRelativeMovement;
+        return cameraRelativeMovement.normalized;
     }
 }

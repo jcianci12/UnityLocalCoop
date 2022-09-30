@@ -24,18 +24,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public bool MovementActive = true;
 
+    [Header("Player")]
     [SerializeField]
     private float playerSpeed = 2.0f;
 
-    private float jumpHeight = 1f;
+    public float jumpHeight = 1f;
     private float gravityValue = -99.81f;
 
     private Vector3 move;
     public float m_Thrust = 20f;
-    //test
-    public bool CargoInRange;
-    public float CargoPickupRange = 1f;
-    public LayerMask cargoLayer;
+    public float torque = 10f;
+    
 
 
     private void Awake()
@@ -51,38 +50,57 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (MovementActive)
-        {
-            controller.enabled = true;
-
-            //check if player is grounded
-            groundedPlayer = controller.isGrounded;
-            //if the player is grounded and and velocity is more than 0
-            if (groundedPlayer && playerVelocity.y < 0)
-            {
-                //set the player velocity to zero
-                playerVelocity.y = 0f;
-            }
-            //apply gravity
-            playerVelocity.y += gravityValue * Time.deltaTime;
-
-            //inherit the movement from the parent
-            //move = gameObject.transform.parent.position + move;
-            controller.Move((move) * Time.deltaTime * playerSpeed);
-
-            if (move != Vector3.zero)
-            {
-                gameObject.transform.forward = move;
-            }
-            controller.Move(playerVelocity * Time.deltaTime);
-            controller.enabled = false;
-
-        }
+        
 
     }
     public void Update()
     {
-        CargoInRange = Physics.CheckSphere(transform.position, CargoPickupRange, cargoLayer);
+        if (heldObj != null)
+        {
+            //move object
+            MoveObject();
+        }
+        if (MovementActive)
+        {
+            //controller.enabled = true;
+
+            ////check if player is grounded
+            groundedPlayer = controller.isGrounded;
+            ////if the player is grounded and and velocity is more than 0
+            //if (groundedPlayer && playerVelocity.y < 0)
+            //{
+            //    //set the player velocity to zero
+            //    playerVelocity.y = 0f;
+            //}
+            ////apply gravity
+            //playerVelocity.y += gravityValue * Time.deltaTime;
+
+            ////inherit the movement from the parent
+            ////move = gameObject.transform.parent.position + move;
+            //controller.Move((move) * Time.deltaTime * playerSpeed);
+
+            if (move != Vector3.zero)
+            {
+                //var direction = gameObject.transform.position - move;
+                Debug.DrawLine(gameObject.transform.forward, move);
+                Vector3 movedir = transform.TransformDirection(move * playerSpeed);
+                gameObject.GetComponent<Rigidbody>().velocity = new Vector3(move.x, 0, move.z);
+
+                //gameObject.transform.forward = move;
+                //gameObject.GetComponent<Rigidbody>().AddTorque(new Vector3(0,move.x,0)*torque);
+                //shipRigidBody.gameObject.GetComponent<Rigidbody>().AddTorque(transform.up * move.x * torque);
+                //controller.GetComponent<Rigidbody>().AddForce(move);
+
+
+            }
+
+
+            //controller.Move(playerVelocity * Time.deltaTime);
+            //controller.enabled = false;
+
+
+        }
+
     }
 
     public Camera camPivot;
@@ -98,7 +116,7 @@ public class PlayerController : MonoBehaviour
             var maincamera = GameObject.Find("Main Camera");
             if (maincamera)
             {
-                move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
+                move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement).normalized;
 
             }
         }
@@ -108,11 +126,13 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Jump!");
         MovementActive = true;
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up *jumpHeight, ForceMode.Impulse);
 
-        if (groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
+        //if (groundedPlayer)
+        //{
+        //    //playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+        //    //rigidbody.AddForce(new Vector3(0, 100, 0), ForceMode.Impulse);
+        //}
     }
 
 
@@ -200,51 +220,68 @@ public class PlayerController : MonoBehaviour
             controller.enabled = true;
         }
     }
+
+    [Header("PIckup Settings")]
+    [SerializeField] Transform holdArea;
+    private GameObject heldObj;
+    private Rigidbody heldObjRB;
+
+    [Header("Physics Parameters")]
+    [SerializeField] private float pickupRange = 1.0f;
+    [SerializeField] private float pickupForce = 150f;
+
     public void PickupCargo()
     {
-        //we need to know if we are near cargo
-        //check for closest cargo
-        if (CargoInRange)
+        if (heldObj == null)
         {
-            var cargo = GameObject.FindGameObjectsWithTag("Cargo")?.Select(i => i.transform).ToList();
-            var closest = GetClosestCargo(cargo, transform);
-            if (closest)
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
             {
-
-                closest.gameObject.GetComponent<gravity>().Active =false;
-                closest.transform.SetParent(transform);
-                held = closest;
+                //
+                PickupObject(hit.transform.gameObject);
             }
+
         }
-    }
-    public void DropCargo()
-    {
-        if (held)
+        else
         {
-            held.GetComponent<gravity>().Active = true;
-            held.parent = null;
-            held = null;
-
+            //drop
+            DropObject();
         }
-
     }
-    Transform GetClosestCargo(List<Transform> cargo, Transform fromThis)
+    void PickupObject(GameObject pickObj)
     {
-        Transform bestTarget = null;
-        float closestDistanceSqr = Mathf.Infinity;
-        Vector3 currentPosition = fromThis.position;
-
-        foreach (Transform potentialTarget in cargo)
+        if (pickObj.GetComponent<Rigidbody>())
         {
-            Vector3 directionToTarget = potentialTarget.position - currentPosition;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
-            {
-                closestDistanceSqr = dSqrToTarget;
-                bestTarget = potentialTarget;
-            }
+            heldObjRB = pickObj.GetComponent<Rigidbody>();
+            heldObjRB.useGravity = false;
+            heldObjRB.drag = 10;
+            heldObjRB.constraints = RigidbodyConstraints.FreezeRotation;
+
+            heldObjRB.transform.parent = holdArea;
+            heldObj = pickObj;
         }
-        return bestTarget;
     }
+    public void DropObject()
+    {
+        
+        heldObjRB.useGravity = true;
+        heldObjRB.drag = 1;
+        heldObjRB.constraints = RigidbodyConstraints.None;
+
+        heldObjRB.transform.parent = null;
+        heldObj = null;
+
+    }
+    void MoveObject()
+    {
+        if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
+        {
+            Vector3 moveDirection = (holdArea.position - heldObj.transform.position);
+            heldObjRB.AddForce(moveDirection * pickupForce);
+        }
+    }
+
+
+   
 
 }
