@@ -14,7 +14,7 @@ public class FaceCamera : MonoBehaviour
     public float distance;
     public LayerMask people;
     public float playerdistance;
-    Renderer renderer;
+    new Renderer renderer;
 
     Color theColorToAdjust;
 

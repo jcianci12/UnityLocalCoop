@@ -33,9 +33,9 @@ public class EnginePressurePlateScript : MonoBehaviour
             //shipRigidBody.gameObject.transform.Rotate(Vector3.up, move.x);
             shipRigidBody.gameObject.GetComponent<Rigidbody>().AddTorque(transform.up * move.x * torque);
 
-            //Debug.Log("translate " + move.z * 10);
-
-            shipRigidBody.gameObject.GetComponent<Rigidbody>().AddForce(-transform.right * move.z * thrust);
+            Debug.Log("adding thrust " + move.z * thrust);
+            
+            shipRigidBody.gameObject.GetComponent<Rigidbody>().AddForce(move*thrust);
             
             //var thrust = new Vector3(0, 0, move.z);
             //shipRigidBody.gameObject.GetComponent<Rigidbody>().MovePosition(shipRigidBody.transform.position+thrust * shipSpeed *Time.deltaTime);
@@ -58,31 +58,31 @@ public class EnginePressurePlateScript : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-
         Vector2 movement = context.ReadValue<Vector2>();
+        //Debug.Log("Engine val recieved "+ movement.x);
 
 
-        float vertical = movement.y;
-        float horizontal = movement.x;
-        Debug.Log(vertical + " " + horizontal);
+        //float vertical = movement.y;
+        //float horizontal = movement.x;
+        ////Debug.Log(vertical + " " + horizontal);
 
 
-        Vector3 forward = cam.transform.forward;
-        Vector3 right = cam.transform.right;
-        forward.y = 0;
-        right.y = 0;
-        forward = forward.normalized;
-        right = right.normalized;
+        //Vector3 forward = cam.transform.forward;
+        //Vector3 right = cam.transform.right;
+        //forward.y = 0;
+        //right.y = 0;
+        //forward = forward.normalized;
+        //right = right.normalized;
 
-        Vector3 forwardRelativeVerticalInput = vertical * forward;
-        Vector3 rightRelativeHorizontalInput = horizontal * right;
+        //Vector3 forwardRelativeVerticalInput = vertical * forward;
+        //Vector3 rightRelativeHorizontalInput = horizontal * right;
 
-        Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
-        Debug.Log(cameraRelativeMovement.x + " " + cameraRelativeMovement.y);
-        //Debug.Log("movement"+ movement.x + " " + movement.y);
+        //Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
+        //Debug.Log(cameraRelativeMovement.x + " " + cameraRelativeMovement.y);
+        ////Debug.Log("movement"+ movement.x + " " + movement.y);
 
-        //move = new Vector3(movement.x * right.x, 0, movement.y * forward.y);
-        //move = cameraRelativeMovement;
+        ////move = new Vector3(movement.x * right.x, 0, movement.y * forward.y);
+        ////move = cameraRelativeMovement;
         move = new Vector3(movement.x, 0, movement.y);
     }
 

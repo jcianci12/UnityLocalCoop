@@ -5,7 +5,7 @@ using UnityEngine;
 public class starfield : MonoBehaviour
 {
     ParticleSystem.Particle[] particles;
-    ParticleSystem particleSystem;
+    new ParticleSystem particleSystem;
     int numAlive;
     bool itRan;
     public float size = 500f;

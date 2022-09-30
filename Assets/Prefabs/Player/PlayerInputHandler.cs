@@ -48,7 +48,6 @@ public class PlayerInputHandler : MonoBehaviour
             playerController.OnMove(context);
         }
 
-        //if we are attached to a gun
     }
     public void OnJump(InputAction.CallbackContext context)
     {

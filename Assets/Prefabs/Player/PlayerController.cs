@@ -4,15 +4,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
 
     public PlayerControls PlayerControls;
     private PlayerInputHandler playerInputHandler;
-    private InputAction jump;
 
-    private CharacterController controller;
     private Rigidbody rb;
 
     private Vector3 playerVelocity;
@@ -26,22 +23,22 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player")]
     [SerializeField]
-    private float playerSpeed = 2.0f;
+    private float playerSpeed = 20f;
 
     public float jumpHeight = 1f;
-    private float gravityValue = -99.81f;
 
     private Vector3 move;
-    public float m_Thrust = 20f;
     public float torque = 10f;
-    
 
+    public void Start()
+    {
+        rb = gameObject.GetComponent<Rigidbody>();
+    }
 
     private void Awake()
     {
         cam = Camera.main;
         camPivot = Camera.main;
-        controller = GetComponent<CharacterController>();
         //rb = controller.GetComponentInChildren<Rigidbody>();
         PlayerControls = new PlayerControls();
         //transform.parent = GameObject.FindGameObjectWithTag("Ship").transform;
@@ -50,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+
 
     }
     public void Update()
@@ -58,14 +55,14 @@ public class PlayerController : MonoBehaviour
         if (heldObj != null)
         {
             //move object
-            MoveObject();
+            MoveObject(heldObj, holdArea, pickupForce);
+
         }
         if (MovementActive)
         {
             //controller.enabled = true;
 
             ////check if player is grounded
-            groundedPlayer = controller.isGrounded;
             ////if the player is grounded and and velocity is more than 0
             //if (groundedPlayer && playerVelocity.y < 0)
             //{
@@ -84,8 +81,17 @@ public class PlayerController : MonoBehaviour
                 //var direction = gameObject.transform.position - move;
                 Debug.DrawLine(gameObject.transform.forward, move);
                 Vector3 movedir = transform.TransformDirection(move * playerSpeed);
-                gameObject.GetComponent<Rigidbody>().velocity = new Vector3(move.x, 0, move.z);
+                //gameObject.GetComponent<Rigidbody>().velocity = new Vector3(move.x, 0, move.z);
 
+                transform.forward = move;
+
+                rb.AddForce(new Vector3(move.x, 0, move.z).normalized * playerSpeed);
+                //var rotation = Quaternion.FromToRotation(gameObject.transform.forward, move).eulerAngles * torque;
+                //gameObject.GetComponent<Rigidbody>().AddTorque(rb.velocity);
+
+
+
+                //rb.transform.rotation = Quaternion.LookRotation(rb.velocity, transform.up);
                 //gameObject.transform.forward = move;
                 //gameObject.GetComponent<Rigidbody>().AddTorque(new Vector3(0,move.x,0)*torque);
                 //shipRigidBody.gameObject.GetComponent<Rigidbody>().AddTorque(transform.up * move.x * torque);
@@ -125,8 +131,16 @@ public class PlayerController : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log("Jump!");
-        MovementActive = true;
-            gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up *jumpHeight, ForceMode.Impulse);
+        if (rb)
+        {
+            if (epp)
+            {
+                rb.isKinematic = false;
+                rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            }
+        }
+
+
 
         //if (groundedPlayer)
         //{
@@ -145,7 +159,11 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case "EnginePressurePlate":
-                AttachToEnginePressurePlate(other);
+                if (!epp)
+                {
+                    AttachToEnginePressurePlate(other);
+
+                }
                 break;
         }
     }
@@ -158,7 +176,11 @@ public class PlayerController : MonoBehaviour
                 DetachFromGunPressurePlate(other);
                 break;
             case "EnginePressurePlate":
-                DetachFromEnginePressurePlate(other);
+                if (epp)
+                {
+                    DetachFromEnginePressurePlate(other);
+
+                }
                 break;
 
         }
@@ -166,11 +188,12 @@ public class PlayerController : MonoBehaviour
 
     private void AttachToGunPressurePlate(Collider collider) //the pressure plate
     {
-        var pp = collider.GetComponent<GunPressurePlate>();
-        if (pp.PlayerRigidBody == null)
+        gpp = collider.GetComponent<GunPressurePlate>();
+        if (gpp.PlayerRigidBody == null)
         {
-            pp.AttachPlayer(gameObject);
+            gpp.AttachPlayer(gameObject);
             //check there is no one on the pressure plate
+
             this.MovementActive = false;
             //controller.transform.parent = collider.transform;
             move = Vector3.zero;
@@ -188,36 +211,37 @@ public class PlayerController : MonoBehaviour
 
             pp.DetachPlayer(gameObject);
             playerInputHandler = null;
-            controller.enabled = true;
         }
     }
     private void AttachToEnginePressurePlate(Collider collider)
     {
-        var pp = collider.GetComponent<EnginePressurePlateScript>();
-        if (pp.playerRigidBody == null)
+        epp = collider.GetComponent<EnginePressurePlateScript>();
+        if (epp.playerRigidBody == null)
         {
-
-
-            pp.AttachPlayer(gameObject);
+            epp.AttachPlayer(gameObject);
             //check there is no one on the pressure plate
             this.MovementActive = false;
             //controller.transform.parent = collider.transform;
             move = Vector3.zero;
+            rb.isKinematic = true;
+
         }
 
         //playerInputHandler.AttachPlayerToPressurePlate(collider.GetComponent<PressurePlate>(), gameObject);
     }
     private void DetachFromEnginePressurePlate(Collider collider)
     {
-        var pp = collider.GetComponent<EnginePressurePlateScript>();
-        var playeronpressureplateinstanceid = pp.playerRigidBody.gameObject.GetInstanceID();
+
+        var epp = collider.GetComponent<EnginePressurePlateScript>();
+        var playeronpressureplateinstanceid = epp.playerRigidBody.gameObject.GetInstanceID();
         var colliderplayerinstanceid = gameObject.GetInstanceID();
         if (playeronpressureplateinstanceid == colliderplayerinstanceid)
         {
 
-            pp.DetachPlayer(gameObject);
+            epp.DetachPlayer(gameObject);
             playerInputHandler = null;
-            controller.enabled = true;
+            rb.isKinematic = false;
+
         }
     }
 
@@ -229,6 +253,8 @@ public class PlayerController : MonoBehaviour
     [Header("Physics Parameters")]
     [SerializeField] private float pickupRange = 1.0f;
     [SerializeField] private float pickupForce = 150f;
+    private EnginePressurePlateScript epp;
+    private GunPressurePlate gpp;
 
     public void PickupCargo()
     {
@@ -263,7 +289,7 @@ public class PlayerController : MonoBehaviour
     }
     public void DropObject()
     {
-        
+
         heldObjRB.useGravity = true;
         heldObjRB.drag = 1;
         heldObjRB.constraints = RigidbodyConstraints.None;
@@ -272,7 +298,7 @@ public class PlayerController : MonoBehaviour
         heldObj = null;
 
     }
-    void MoveObject()
+    void MoveObject(GameObject child, Transform holdarea, float pickupForce)
     {
         if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
         {
@@ -282,6 +308,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-   
+
 
 }
