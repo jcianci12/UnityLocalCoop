@@ -31,7 +31,7 @@ public class EnginePressurePlateScript : MonoBehaviour
         if (move != Vector3.zero)
         {
             //shipRigidBody.gameObject.transform.Rotate(Vector3.up, move.x);
-            shipRigidBody.gameObject.GetComponent<Rigidbody>().AddTorque(-transform.up * move.x * torque);
+            shipRigidBody.gameObject.GetComponent<Rigidbody>().AddTorque(transform.up * move.x * torque);
 
             //Debug.Log("translate " + move.z * 10);
 
