@@ -201,7 +201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171042891887753189, guid: fd33fc244c21c76418fbcc909dad865f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.3000069
+      value: 3.1999931
       objectReference: {fileID: 0}
     - target: {fileID: 171042891887753189, guid: fd33fc244c21c76418fbcc909dad865f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -388,7 +388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171042891887753189, guid: fd33fc244c21c76418fbcc909dad865f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.2999992
+      value: 3.2000008
       objectReference: {fileID: 0}
     - target: {fileID: 171042891887753189, guid: fd33fc244c21c76418fbcc909dad865f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -679,7 +679,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 570043350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.160744, y: -1.8, z: 43.93145}
+  m_LocalPosition: {x: -29.160744, y: 0, z: 43.93145}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -707,7 +707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171042891887753189, guid: fd33fc244c21c76418fbcc909dad865f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.2999992
+      value: 3.2000008
       objectReference: {fileID: 0}
     - target: {fileID: 171042891887753189, guid: fd33fc244c21c76418fbcc909dad865f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -803,6 +803,10 @@ PrefabInstance:
       propertyPath: torque
       value: 10000
       objectReference: {fileID: 0}
+    - target: {fileID: 1279309818798320416, guid: 1705def6a4452fb4aab83218fdd6b612, type: 3}
+      propertyPath: pickupForce
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 1850127374803026159, guid: 1705def6a4452fb4aab83218fdd6b612, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.2
@@ -861,7 +865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4865237697667256378, guid: 1705def6a4452fb4aab83218fdd6b612, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4865237697667256378, guid: 1705def6a4452fb4aab83218fdd6b612, type: 3}
       propertyPath: m_LocalPosition.z
@@ -903,6 +907,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: a785f3eb866dbbd49b3266c8741b8ddb, type: 2}
+    - target: {fileID: 5686619253489143437, guid: 1705def6a4452fb4aab83218fdd6b612, type: 3}
+      propertyPath: torque
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 5913616058131078760, guid: 1705def6a4452fb4aab83218fdd6b612, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.2
