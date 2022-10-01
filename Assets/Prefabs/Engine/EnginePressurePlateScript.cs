@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class EnginePressurePlateScript : MonoBehaviour
 {
     private Rigidbody shipRigidBody;
-    public Rigidbody playerRigidBody;
     // private static GameObject attachedPlayer;
     public GunInputHandler gunInputHandler;
     public float thrust = 2000.0f;
@@ -18,7 +17,7 @@ public class EnginePressurePlateScript : MonoBehaviour
     [Header("PIckup Settings")]
     [SerializeField] Transform holdArea;
     private GameObject heldObj;
-    private Rigidbody heldObjRB;
+    public Rigidbody playerRigidBody;
 
     [Header("Physics Parameters")]
     [SerializeField] private float pickupRange = 1.0f;
@@ -44,9 +43,9 @@ public class EnginePressurePlateScript : MonoBehaviour
             shipRigidBody.gameObject.GetComponent<Rigidbody>().AddTorque(transform.up * move.x * torque);
 
             Debug.Log("adding thrust " + move.z * thrust);
-            
+
             shipRigidBody.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * move.z * thrust);
-            
+
             //var thrust = new Vector3(0, 0, move.z);
             //shipRigidBody.gameObject.GetComponent<Rigidbody>().MovePosition(shipRigidBody.transform.position+thrust * shipSpeed *Time.deltaTime);
             //(transform.position + m_Input * Time.deltaTime * m_Speed)
@@ -55,7 +54,7 @@ public class EnginePressurePlateScript : MonoBehaviour
             //shipRigidBody.gameObject.transform.Find("Cube").gameObject.GetComponent<Rigidbody>().AddForce(-transform.right * move.z * shipSpeed);
 
         }
-        if(playerRigidBody != null)
+        if (playerRigidBody != null)
         {
             MoveObject();
         }
@@ -70,20 +69,18 @@ public class EnginePressurePlateScript : MonoBehaviour
     }
     void MoveObject()
     {
-        if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
-        {
-            Vector3 moveDirection = (holdArea.position - heldObj.transform.position);
-            heldObjRB.AddForce((moveDirection*2 )* pickupForce);
-            
-            //heldObjRB.MovePosition(holdArea.position);
 
-        }
+        Vector3 moveDirection = (holdArea.position - heldObj.transform.position);
+        //playerRigidBody.AddForce((moveDirection * 2) * pickupForce);
+
+        playerRigidBody.MovePosition(holdArea.position);
+
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 movement = context.ReadValue<Vector2>();
-       
+
         move = new Vector3(movement.x, 0, movement.y);
     }
 
@@ -97,22 +94,23 @@ public class EnginePressurePlateScript : MonoBehaviour
             var playerinputhandler = player.GetComponentInChildren<PlayerInputHandler>();
             playerinputhandler.enginepressureplate = gameObject.GetComponent<EnginePressurePlateScript>();
             heldObj = player;
-            heldObjRB = heldObj.GetComponent<Rigidbody>();
-            //heldObjRB.isKinematic = true;
+            playerRigidBody = heldObj.GetComponent<Rigidbody>();
+            //heldObjRB.mass = 10;
+            //playerRigidBody.isKinematic = true;
         }
     }
     public void DetachPlayer(GameObject player)
     {
         move = Vector3.zero;
-       
+
         player.GetComponentInChildren<PlayerInputHandler>().enginepressureplate = null;
 
         playerRigidBody = null;
         heldObj = null;
-        heldObjRB.isKinematic = false;
-        heldObjRB = null;
-        
-        
+        //playerRigidBody.isKinematic = false;
+        playerRigidBody = null;
+
+
     }
 
 

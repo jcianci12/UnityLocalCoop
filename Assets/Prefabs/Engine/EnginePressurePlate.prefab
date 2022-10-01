@@ -119,7 +119,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   cam: {fileID: 0}
-  torque: 1000
+  torque: 10000
   holdArea: {fileID: 2059700722480117167}
   pickupRange: 1
   pickupForce: 50
