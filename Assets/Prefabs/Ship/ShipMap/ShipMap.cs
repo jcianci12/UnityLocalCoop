@@ -5,45 +5,36 @@ using UnityEngine;
 
 public class ShipMap : MonoBehaviour
 {
-    public float sightRange;
-    public bool playerInRange;
-    private GameObject[] players;
-    private Transform closestPlayer;
-    public float distance;
-    public LayerMask people;
-    public Material material;
-    public float playerdistance;
-    //Check for sight and attack range
+    GameObject heldObj;
+    Transform holdArea;
+    Rigidbody playerRigidBody;
+
+
     private void Update()
     {
-        playerInRange = Physics.CheckSphere(transform.position, sightRange, people);
-        players = GameObject.FindGameObjectsWithTag("Player");
-        if (players.Length > 0)
+        if (heldObj)
         {
-            closestPlayer = GetClosestEnemy(players.Select(i => i.transform).ToArray());
-            distance = Vector3.Distance(transform.position, closestPlayer.position);
-            material.SetColor("_EmissionColor", new Color(46f, 49f, 191f, 1.0f) /10/ distance);
-
+            MoveObject();
         }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        //attach the player
+        //heldObj = other.gameObject;
 
     }
-    Transform GetClosestEnemy(Transform[] enemies)
+    void MoveObject()
     {
-        Transform bestTarget = null;
-        float closestDistanceSqr = Mathf.Infinity;
-        Vector3 currentPosition = transform.position;
-        foreach (Transform potentialTarget in enemies)
-        {
-            Vector3 directionToTarget = potentialTarget.position - currentPosition;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
-            {
-                closestDistanceSqr = dSqrToTarget;
-                bestTarget = potentialTarget;
-            }
-        }
 
-        return bestTarget;
+        Vector3 moveDirection = (holdArea.position - heldObj.transform.position);
+        //playerRigidBody.AddForce((moveDirection * 2) * pickupForce);
+
+        playerRigidBody.MovePosition(holdArea.position);
+
     }
 
 }
+    
+
+
