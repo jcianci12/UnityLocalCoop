@@ -821,7 +821,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4865237697667256378}
   - component: {fileID: 4865237697667256377}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Ship
   m_TagString: Ship
   m_Icon: {fileID: 0}
@@ -1505,6 +1505,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3181197826168950129, guid: c3b30df164cb2e94c9f34a8773500105, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064709632032964884, guid: c3b30df164cb2e94c9f34a8773500105, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8813055505072223271, guid: c3b30df164cb2e94c9f34a8773500105, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1799,7 +1807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b8014cf8670829746a542800f0dbe931, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1444464061981669142, guid: b8014cf8670829746a542800f0dbe931, type: 3}
       propertyPath: m_Convex
@@ -1832,6 +1840,10 @@ PrefabInstance:
     - target: {fileID: 6497338134051851776, guid: b8014cf8670829746a542800f0dbe931, type: 3}
       propertyPath: m_Convex
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7552933894688688095, guid: b8014cf8670829746a542800f0dbe931, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8247994413960396516, guid: b8014cf8670829746a542800f0dbe931, type: 3}
       propertyPath: m_Enabled
