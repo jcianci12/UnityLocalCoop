@@ -74,6 +74,7 @@ public class EnginePressurePlateScript : MonoBehaviour
         //playerRigidBody.AddForce((moveDirection * 2) * pickupForce);
 
         playerRigidBody.MovePosition(holdArea.position);
+        playerRigidBody.MoveRotation(holdArea.rotation);
 
     }
 
