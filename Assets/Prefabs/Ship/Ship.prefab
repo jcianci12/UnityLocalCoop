@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 526030251798115155}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -6.05, y: 23.66, z: -0}
+  m_LocalPosition: {x: -8.52, y: 23.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -821,7 +821,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4865237697667256378}
   - component: {fileID: 4865237697667256377}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ship
   m_TagString: Ship
   m_Icon: {fileID: 0}
@@ -1796,6 +1796,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b8014cf8670829746a542800f0dbe931, type: 3}
       propertyPath: m_Name
       value: Gun+turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b8014cf8670829746a542800f0dbe931, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1444464061981669142, guid: b8014cf8670829746a542800f0dbe931, type: 3}
       propertyPath: m_Convex
