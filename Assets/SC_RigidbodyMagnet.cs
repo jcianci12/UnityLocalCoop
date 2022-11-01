@@ -13,13 +13,16 @@ public class SC_RigidbodyMagnet : MonoBehaviour
         for (int i = 0; i < caughtRigidbodies.Count; i++)
         {
             var rb = caughtRigidbodies[i];
-            rb.velocity = (transform.position - (caughtRigidbodies[i].transform.position + caughtRigidbodies[i].centerOfMass)) * magnetForce * Time.deltaTime;
+            //rb.velocity = (transform.position - (caughtRigidbodies[i].transform.position + caughtRigidbodies[i].centerOfMass)) * magnetForce * Time.deltaTime;
+            rb.AddForceAtPosition((
+                transform.position - caughtRigidbodies[i].transform.Find("ShipCoupling").transform.position) * magnetForce, transform.position) ;
+            Debug.DrawLine(transform.position, caughtRigidbodies[i].transform.Find("ShipCoupling").transform.position);
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other==ShipGameObject)
+        if (other.name == "ShipCoupling")
         {
             Rigidbody r = other.transform.parent.GetComponent<Rigidbody>();
 
@@ -33,7 +36,7 @@ public class SC_RigidbodyMagnet : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if(other==ShipGameObject)
+        if(other.name == "ShipCoupling")
         {
             Rigidbody r = other.transform.parent.GetComponent<Rigidbody>();
 
