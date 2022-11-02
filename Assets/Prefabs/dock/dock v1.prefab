@@ -510,6 +510,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DockCoupling
       objectReference: {fileID: 0}
+    - target: {fileID: 248477390080794079, guid: 24f948cf5f1f78849a614f3cf141c834, type: 3}
+      propertyPath: m_Radius
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24f948cf5f1f78849a614f3cf141c834, type: 3}
 --- !u!4 &4841885776410613286 stripped
