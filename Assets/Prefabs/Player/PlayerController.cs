@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        
         if (MovementActive)
         {
             controller.enabled = true;
@@ -78,7 +79,22 @@ public class PlayerController : MonoBehaviour
             controller.enabled = false;
 
         }
+        setparenttoground();
 
+    }
+    void setparenttoground()
+    {
+        var ray = new Ray(this.transform.position,-this.transform.up);
+        Debug.DrawLine(ray.origin,ray.direction);
+        RaycastHit RaycastHitDown;
+        if (Physics.Raycast(ray, out RaycastHitDown, 2f))
+        {
+            transform.parent = RaycastHitDown.transform;
+        }
+        else
+        {
+            transform.parent = null;
+        }
     }
     public void Update()
     {
