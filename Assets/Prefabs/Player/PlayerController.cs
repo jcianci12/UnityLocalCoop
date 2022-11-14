@@ -79,23 +79,24 @@ public class PlayerController : MonoBehaviour
             controller.enabled = false;
 
         }
-        setparenttoground();
+
+        //setparenttoground();
 
     }
-    void setparenttoground()
-    {
-        var ray = new Ray(this.transform.position,-this.transform.up);
-        Debug.DrawLine(ray.origin,ray.direction);
-        RaycastHit RaycastHitDown;
-        if (Physics.Raycast(ray, out RaycastHitDown, 2f))
-        {
-            transform.parent = RaycastHitDown.transform;
-        }
-        else
-        {
-            transform.parent = null;
-        }
-    }
+    //void setparenttoground()
+    //{
+    //    var ray = new Ray(this.transform.position,-this.transform.up);
+    //    Debug.DrawLine(ray.origin,ray.direction);
+    //    RaycastHit RaycastHitDown;
+    //    if (Physics.Raycast(ray, out RaycastHitDown, 2f))
+    //    {
+    //        transform.parent = RaycastHitDown.transform;
+    //    }
+    //    else
+    //    {
+    //        transform.parent = null;
+    //    }
+    //}
     public void Update()
     {
         if (heldObj != null)
@@ -148,7 +149,9 @@ public class PlayerController : MonoBehaviour
             case "EnginePressurePlate":
                 AttachToEnginePressurePlate(other);
                 break;
+                
         }
+
     }
     public void OnTriggerExit(Collider other)
     {
