@@ -149,6 +149,9 @@ public class PlayerController : MonoBehaviour
             case "EnginePressurePlate":
                 AttachToEnginePressurePlate(other);
                 break;
+            case "Floor":
+                transform.parent = other.transform;
+                break;
                 
         }
 
@@ -164,7 +167,9 @@ public class PlayerController : MonoBehaviour
             case "EnginePressurePlate":
                 DetachFromEnginePressurePlate(other);
                 break;
-
+            case "Floor":
+                transform.parent = null;
+                break;
         }
     }
 
