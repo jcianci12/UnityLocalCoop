@@ -35,14 +35,12 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void OnMove(InputAction.CallbackContext context)
     {
+        var gun = playerController.transform.parent?.GetComponent<GunPressurePlate>();
+            gun?.OnMove(context);
+        var engine = playerController.transform.parent?.GetComponent<EnginePressurePlateScript>();
+        engine?.OnMove(context);
         
-            playerController.transform.parent?.GetComponent<GunPressurePlate>()?.OnMove(context);
-        
-        if (enginepressureplate != null)
-        {
-            enginepressureplate.OnMove(context);
-        }
-        else
+        if(!gun&&!engine)
         {
             playerController.OnMove(context);
         }
@@ -55,7 +53,7 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnFire(InputAction.CallbackContext context)
     {
         if (context.performed == false) return; // adding this line removes the call when the key is pressed. This fixes the problem.        {
-        playerController.transform.parent.GetComponent<GunPressurePlate>()?.Fire();
+        playerController.transform.parent?.GetComponent<GunPressurePlate>()?.Fire();
 
         
 

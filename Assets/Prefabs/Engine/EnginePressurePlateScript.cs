@@ -16,8 +16,6 @@ public class EnginePressurePlateScript : MonoBehaviour
     public float torque;
     [Header("PIckup Settings")]
     [SerializeField] Transform holdArea;
-    private GameObject heldObj;
-    public Rigidbody playerRigidBody;
 
     [Header("Physics Parameters")]
     [SerializeField] private float pickupRange = 1.0f;
@@ -54,7 +52,7 @@ public class EnginePressurePlateScript : MonoBehaviour
             //shipRigidBody.gameObject.transform.Find("Cube").gameObject.GetComponent<Rigidbody>().AddForce(-transform.right * move.z * shipSpeed);
 
         }
-        if (playerRigidBody != null)
+        if (transform.GetComponentInChildren<PlayerController>() != null)
         {
             MoveObject();
         }
@@ -69,12 +67,12 @@ public class EnginePressurePlateScript : MonoBehaviour
     }
     void MoveObject()
     {
-
-        Vector3 moveDirection = (holdArea.position - heldObj.transform.position);
+        var player = transform.GetComponentInChildren<PlayerController>();
+        Vector3 moveDirection = (holdArea.position - player.transform.position);
         //playerRigidBody.AddForce((moveDirection * 2) * pickupForce);
 
-        playerRigidBody.MovePosition(holdArea.position);
-        playerRigidBody.MoveRotation(holdArea.rotation);
+        player.GetComponent<Rigidbody>().MovePosition(holdArea.position);
+        player.GetComponent<Rigidbody>().MoveRotation(holdArea.rotation);
 
     }
 
@@ -86,31 +84,26 @@ public class EnginePressurePlateScript : MonoBehaviour
     }
 
 
-    public void AttachPlayer(GameObject player)
+    public void AttachPlayerToEnginePressurePlate(GameObject player)
     {
-        if (playerRigidBody == null)
+        
+        if (transform.GetComponentsInChildren<PlayerController>().Length == 0)
         {
-            playerRigidBody = player.GetComponent<Rigidbody>();
-            player.transform.parent = gameObject.transform;
-            var playerinputhandler = player.GetComponentInChildren<PlayerInputHandler>();
-            playerinputhandler.enginepressureplate = gameObject.GetComponent<EnginePressurePlateScript>();
-            heldObj = player;
-            playerRigidBody = heldObj.GetComponent<Rigidbody>();
-            //heldObjRB.mass = 10;
-            //playerRigidBody.isKinematic = true;
+            //make the player a child
+            player.transform.parent = transform;
+            player.GetComponent<PlayerController>().MovementActive = false;
+
         }
     }
-    public void DetachPlayer(GameObject player)
+    public void DetachPlayerFromEnginePressurePlate(GameObject player)
     {
-        move = Vector3.zero;
+        //check if the pressure plate has this player attached
+        if (player.transform.IsChildOf(transform))
+        {
+            player.transform.parent = null;
+            player.GetComponent<PlayerController>().MovementActive = true;
 
-        player.GetComponentInChildren<PlayerInputHandler>().enginepressureplate = null;
-
-        playerRigidBody = null;
-        heldObj = null;
-        //playerRigidBody.isKinematic = false;
-        playerRigidBody = null;
-
+        };
 
     }
 

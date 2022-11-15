@@ -49,22 +49,21 @@ foreach(var o in gameObject.GetComponentsInChildren<PlayerController>())
     }
     public void AttachPlayer(GameObject player)
     {
-        //PlayerRigidBody = player.GetComponent<Rigidbody>();
-        ////get the playerinput class
-        //var pih = player.GetComponentInChildren<PlayerInputHandler>();
-        //pih.gunpressureplate = gameObject.GetComponent<GunPressurePlate>();
-        //attachedPlayer = player;
-        ////gameObject.transform.parent = null;       
-
+        var p = player.GetComponentInChildren<PlayerController>();
+        if (p)
+        {
+            player.transform.parent = transform;
+            p.MovementActive = false;            
+        }        
     }
     public void DetachPlayer(GameObject player)
     {
-        //PlayerRigidBody = null;
-        //var pih = player.GetComponentInChildren<PlayerInputHandler>();
-        //pih.gunpressureplate = null;
-        //attachedPlayer = null;
-        ////gameObject.transform.SetParent(parent.transform);
-        
+        var p = player.GetComponentInChildren<PlayerController>();
+        if (player.transform.IsChildOf(transform))
+        {
+            player.transform.parent = null;
+            p.MovementActive = true;
+        }
     }
     public GameObject projectile;
     public float launchVelocity;

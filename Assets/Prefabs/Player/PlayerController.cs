@@ -155,44 +155,20 @@ public class PlayerController : MonoBehaviour
 
     private void AttachToGunPressurePlate(Collider collider) //the pressure plate
     {
-        if (!transform.transform.Find("PlayerPrefab"))
-        {
-            transform.parent = collider.transform;
-            MovementActive = false;
-        }
+        collider.transform.gameObject.GetComponentInChildren<GunPressurePlate>()?.AttachPlayer(gameObject);        
     }
 
     private void DetachFromGunPressurePlate(Collider collider)
     {
-        if (transform.IsChildOf(collider.transform))
-        {
-            transform.parent = null;
-            MovementActive = true;
-        }
+        collider.transform.gameObject.GetComponentInChildren<GunPressurePlate>()?.DetachPlayer(gameObject);
     }
     private void AttachToEnginePressurePlate(Collider collider)
-    {
-        var pp = collider.GetComponent<EnginePressurePlateScript>();
-        if (pp.playerRigidBody == null)
-        {
-            pp.AttachPlayer(gameObject);
-            this.MovementActive = false;
-            move = Vector3.zero;
-        }
+    {        
+            collider.transform.gameObject.GetComponentInChildren<EnginePressurePlateScript>()? .AttachPlayerToEnginePressurePlate(gameObject);         
     }
     private void DetachFromEnginePressurePlate(Collider collider)
     {
-        var pp = collider.GetComponent<EnginePressurePlateScript>();
-        var playeronpressureplateinstanceid = pp.playerRigidBody.gameObject.GetInstanceID();
-        var colliderplayerinstanceid = gameObject.GetInstanceID();
-        if (playeronpressureplateinstanceid == colliderplayerinstanceid)
-        {
-
-            pp.DetachPlayer(gameObject);
-            playerInputHandler = null;
-            controller.enabled = true;
-
-        }
+        collider.transform.gameObject.GetComponentInChildren<EnginePressurePlateScript>()?.DetachPlayerFromEnginePressurePlate(gameObject);
     }
 
     public void DropCargo()
