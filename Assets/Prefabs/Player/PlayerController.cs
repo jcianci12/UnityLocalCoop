@@ -43,15 +43,12 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main;
         camPivot = Camera.main;
         controller = GetComponent<CharacterController>();
-        rb = gameObject.GetComponent<Rigidbody>();
-        PlayerControls = new PlayerControls();
-        //transform.parent = GameObject.FindGameObjectWithTag("Ship").transform;
 
     }
 
     void FixedUpdate()
     {
-        
+
         if (MovementActive)
         {
             controller.enabled = true;
@@ -80,23 +77,8 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        //setparenttoground();
-
     }
-    //void setparenttoground()
-    //{
-    //    var ray = new Ray(this.transform.position,-this.transform.up);
-    //    Debug.DrawLine(ray.origin,ray.direction);
-    //    RaycastHit RaycastHitDown;
-    //    if (Physics.Raycast(ray, out RaycastHitDown, 2f))
-    //    {
-    //        transform.parent = RaycastHitDown.transform;
-    //    }
-    //    else
-    //    {
-    //        transform.parent = null;
-    //    }
-    //}
+   
     public void Update()
     {
         if (heldObj != null)
@@ -152,9 +134,7 @@ public class PlayerController : MonoBehaviour
             case "Floor":
                 transform.parent = other.transform;
                 break;
-                
         }
-
     }
     public void OnTriggerExit(Collider other)
     {
@@ -175,29 +155,19 @@ public class PlayerController : MonoBehaviour
 
     private void AttachToGunPressurePlate(Collider collider) //the pressure plate
     {
-        var pp = collider.GetComponent<GunPressurePlate>();
-        if (pp.PlayerRigidBody == null)
+        if (!transform.transform.Find("PlayerPrefab"))
         {
-            pp.AttachPlayer(gameObject);
-            //check there is no one on the pressure plate
-            this.MovementActive = false;
-            //controller.transform.parent = collider.transform;
-            move = Vector3.zero;
+            transform.parent = collider.transform;
+            MovementActive = false;
         }
-
     }
 
     private void DetachFromGunPressurePlate(Collider collider)
     {
-        var pps = collider.GetComponent<GunPressurePlate>();
-        var playeronpressureplateinstanceid = pps.PlayerRigidBody.gameObject.GetInstanceID();
-        var colliderplayerinstanceid = gameObject.GetInstanceID();
-        if (playeronpressureplateinstanceid == colliderplayerinstanceid)
+        if (transform.IsChildOf(collider.transform))
         {
-
-            pps.DetachPlayer(gameObject);
-            playerInputHandler = null;
-            controller.enabled = true;
+            transform.parent = null;
+            MovementActive = true;
         }
     }
     private void AttachToEnginePressurePlate(Collider collider)
@@ -224,7 +194,7 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-    
+
     public void DropCargo()
     {
         if (held)
@@ -235,7 +205,7 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-    
+
 
     [Header("PIckup Settings")]
     [SerializeField] Transform holdArea;

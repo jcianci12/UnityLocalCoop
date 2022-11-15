@@ -10,7 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public PlayerController playerController;
     Vector3 startPos;
-    public GunPressurePlate gunpressureplate = null;
+    //public GunPressurePlate gunpressureplate = null;
     public EnginePressurePlateScript enginepressureplate = null;
     public Cargo cargoscript = null;
 
@@ -28,17 +28,16 @@ public class PlayerInputHandler : MonoBehaviour
             startPos = spawnpoint.transform.position;
 
             playerController = GameObject.Instantiate(playerPrefab, startPos, transform.rotation).GetComponent<PlayerController>();
-            playerController.transform.parent = spawnpoint.transform;
-            transform.parent = playerController.transform;
+            //playerController.transform.parent = spawnpoint.transform;
+            //transform.parent = playerController.transform;
 
         }
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (gunpressureplate != null)
-        {
-            gunpressureplate.OnMove(context);
-        }
+        
+            playerController.transform.parent?.GetComponent<GunPressurePlate>()?.OnMove(context);
+        
         if (enginepressureplate != null)
         {
             enginepressureplate.OnMove(context);
@@ -56,12 +55,9 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnFire(InputAction.CallbackContext context)
     {
         if (context.performed == false) return; // adding this line removes the call when the key is pressed. This fixes the problem.        {
-        if (gunpressureplate != null)
-        {
-            Debug.Log("Firing from input handler");
+        playerController.transform.parent.GetComponent<GunPressurePlate>()?.Fire();
 
-            gunpressureplate.Fire();
-        }
+        
 
         
             playerController.PickupCargo();

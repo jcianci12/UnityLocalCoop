@@ -9,27 +9,33 @@ public class GunPressurePlate : MonoBehaviour
 
     //[SerializeField]
     //GameObject gun;
-    private static GameObject attachedPlayer;
+    public static GameObject playerobject;
     public GunInputHandler gunInputHandler ;
     private Vector3 move;
-    public GameObject parent;
     public GameObject gun;
-    public Rigidbody PlayerRigidBody;
     GameObject cube;
 
     private void Start()
-    {        
-        
+    {
     }
     public void Update()
     {
-
-        if (PlayerRigidBody!=null &&  move != Vector3.zero)
+        if (transform.childCount > 1)
         {
-
-            gun.transform.forward = move;
-            gun.transform.Rotate(Vector3.up,-90);            
+foreach(var o in gameObject.GetComponentsInChildren<PlayerController>())
+        {
+            //Debug.Log(o.name);
+                gun.transform.forward = move;
+                gun.transform.Rotate(Vector3.up,-90);  
+            }
         }
+        
+
+        //if (gameObject.GetComponentInChildren<PlayerController>()!=null &&  move != Vector3.zero)
+        //{
+        //    gun.transform.forward = move;
+        //    gun.transform.Rotate(Vector3.up,-90);            
+        //}
     }
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -43,21 +49,21 @@ public class GunPressurePlate : MonoBehaviour
     }
     public void AttachPlayer(GameObject player)
     {
-        PlayerRigidBody = player.GetComponent<Rigidbody>();
-        //get the playerinput class
-        var pih = player.GetComponentInChildren<PlayerInputHandler>();
-        pih.gunpressureplate = gameObject.GetComponent<GunPressurePlate>();
-        attachedPlayer = player;
-        //gameObject.transform.parent = null;       
+        //PlayerRigidBody = player.GetComponent<Rigidbody>();
+        ////get the playerinput class
+        //var pih = player.GetComponentInChildren<PlayerInputHandler>();
+        //pih.gunpressureplate = gameObject.GetComponent<GunPressurePlate>();
+        //attachedPlayer = player;
+        ////gameObject.transform.parent = null;       
 
     }
     public void DetachPlayer(GameObject player)
     {
-        PlayerRigidBody = null;
-        var pih = player.GetComponentInChildren<PlayerInputHandler>();
-        pih.gunpressureplate = null;
-        attachedPlayer = null;
-        //gameObject.transform.SetParent(parent.transform);
+        //PlayerRigidBody = null;
+        //var pih = player.GetComponentInChildren<PlayerInputHandler>();
+        //pih.gunpressureplate = null;
+        //attachedPlayer = null;
+        ////gameObject.transform.SetParent(parent.transform);
         
     }
     public GameObject projectile;
