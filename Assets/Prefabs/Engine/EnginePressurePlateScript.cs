@@ -92,6 +92,7 @@ public class EnginePressurePlateScript : MonoBehaviour
             //make the player a child
             player.transform.parent = transform;
             player.GetComponent<PlayerController>().MovementActive = false;
+            MoveObject();
 
         }
     }
