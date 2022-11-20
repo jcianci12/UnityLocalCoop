@@ -169,6 +169,7 @@ public class PlayerController : MonoBehaviour
     private void DetachFromEnginePressurePlate(Collider collider)
     {
         collider.transform.gameObject.GetComponentInChildren<EnginePressurePlateScript>()?.DetachPlayerFromEnginePressurePlate(gameObject);
+        move = Vector3.zero;
     }
 
     public void DropCargo()

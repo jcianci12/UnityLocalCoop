@@ -83,27 +83,30 @@ public class EnginePressurePlateScript : MonoBehaviour
         move = new Vector3(movement.x, 0, movement.y);
     }
 
-
-    public void AttachPlayerToEnginePressurePlate(GameObject player)
+    GameObject player;
+    public void AttachPlayerToEnginePressurePlate(GameObject go)
     {
         
         if (transform.GetComponentsInChildren<PlayerController>().Length == 0)
         {
             //make the player a child
+            player = go;
             player.transform.parent = transform;
             player.GetComponent<PlayerController>().MovementActive = false;
             MoveObject();
 
         }
     }
-    public void DetachPlayerFromEnginePressurePlate(GameObject player)
+    public void DetachPlayerFromEnginePressurePlate(GameObject go)
     {
         //check if the pressure plate has this player attached
-        if (player.transform.IsChildOf(transform))
+        if (go.transform.IsChildOf(transform))
         {
             player.transform.parent = null;
             player.GetComponent<PlayerController>().MovementActive = true;
             move = Vector3.zero;
+            player.transform.parent = shipRigidBody.transform;
+            player = null;
         };
 
     }

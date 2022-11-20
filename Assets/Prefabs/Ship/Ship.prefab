@@ -1152,6 +1152,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4865237697667256378}
     m_Modifications:
+    - target: {fileID: 2059700722480117167, guid: 7704349565df4b74db111b6d7dfbc124, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.7
+      objectReference: {fileID: 0}
     - target: {fileID: 5065927325948994538, guid: 7704349565df4b74db111b6d7dfbc124, type: 3}
       propertyPath: m_Name
       value: EnginePressurePlate
