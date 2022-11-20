@@ -1930,7 +1930,7 @@ PrefabInstance:
       objectReference: {fileID: 13400000, guid: a785f3eb866dbbd49b3266c8741b8ddb, type: 2}
     - target: {fileID: 5087481303190836941, guid: b8014cf8670829746a542800f0dbe931, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6497338134051851776, guid: b8014cf8670829746a542800f0dbe931, type: 3}
       propertyPath: m_Convex
