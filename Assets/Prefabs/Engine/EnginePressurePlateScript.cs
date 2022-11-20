@@ -103,7 +103,7 @@ public class EnginePressurePlateScript : MonoBehaviour
         {
             player.transform.parent = null;
             player.GetComponent<PlayerController>().MovementActive = true;
-
+            move = Vector3.zero;
         };
 
     }
