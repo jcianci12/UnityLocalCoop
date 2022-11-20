@@ -15,9 +15,6 @@ public class floor : MonoBehaviour
     {
         
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        collision.transform.parent = transform;
-    }
+   
     
 }

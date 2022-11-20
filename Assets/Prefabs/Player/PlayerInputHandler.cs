@@ -35,15 +35,9 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        var gun = playerController.transform.parent?.GetComponent<GunPressurePlate>();
-            gun?.OnMove(context);
-        var engine = playerController.transform.parent?.GetComponent<EnginePressurePlateScript>();
-        engine?.OnMove(context);
         
-        if(!gun&&!engine)
-        {
             playerController.OnMove(context);
-        }
+        
 
     }
     public void OnJump(InputAction.CallbackContext context)
