@@ -42,6 +42,8 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (context.performed == false) return; // adding this line removes the call when the key is pressed. This fixes the problem.        {
+
         playerController.Jump(context);
     }
     public void OnFire(InputAction.CallbackContext context)

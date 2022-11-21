@@ -68,11 +68,20 @@ public class EnginePressurePlateScript : MonoBehaviour
     void MoveObject()
     {
         var player = transform.GetComponentInChildren<PlayerController>();
-        Vector3 moveDirection = (holdArea.position - player.transform.position);
+        //Vector3 moveDirection = (holdArea.position - player.transform.position);
         //playerRigidBody.AddForce((moveDirection * 2) * pickupForce);
 
-        player.GetComponent<Rigidbody>().MovePosition(holdArea.position);
-        player.GetComponent<Rigidbody>().MoveRotation(holdArea.rotation);
+        var rb = player.GetComponent<Rigidbody>();
+        //rb.drag = 10;
+        //rb.useGravity = false;
+        //rb.AddForce(holdArea.position);
+        if (Vector3.Distance(player.transform.position, holdArea.position) > 0.1f)
+        {
+            Vector3 moveDirection = (holdArea.position - player.transform.position);
+            rb.AddForce(moveDirection * pickupForce);
+        }
+        //player.GetComponent<Rigidbody>().MoveRotation(holdArea.rotation);
+
 
     }
 
@@ -105,6 +114,7 @@ public class EnginePressurePlateScript : MonoBehaviour
             player.transform.parent = null;
             player.GetComponent<PlayerController>().MovementActive = true;
             move = Vector3.zero;
+            
             player.transform.parent = shipRigidBody.transform;
             player = null;
         };

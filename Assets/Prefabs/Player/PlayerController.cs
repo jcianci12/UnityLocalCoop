@@ -5,7 +5,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
 
@@ -13,8 +12,6 @@ public class PlayerController : MonoBehaviour
     private PlayerInputHandler playerInputHandler;
     private InputAction jump;
 
-    private CharacterController controller;
-    private Rigidbody rb;
 
     private Vector3 playerVelocity;
 
@@ -26,9 +23,9 @@ public class PlayerController : MonoBehaviour
     public bool MovementActive = true;
 
     [SerializeField]
-    private float playerSpeed = 2.0f;
+    private float playerSpeed;
 
-    private float jumpHeight = 1f;
+    public float jumpHeight = 1f;
     private float gravityValue = -99.81f;
 
     private Vector3 move;
@@ -43,7 +40,6 @@ public class PlayerController : MonoBehaviour
     {
         cam = Camera.main;
         camPivot = Camera.main;
-        controller = GetComponent<CharacterController>();
 
 
     }
@@ -56,34 +52,33 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (MovementActive)
-        {
+        
             onShip();
-            controller.enabled = true;
+        //controller.enabled = true;
 
-            //check if player is grounded
-            groundedPlayer = controller.isGrounded;
-            //if the player is grounded and and velocity is more than 0
-            if (groundedPlayer && playerVelocity.y < 0)
-            {
-                //set the player velocity to zero
-                playerVelocity.y = 0f;
-            }
-            //apply gravity
-            playerVelocity.y += gravityValue * Time.deltaTime;
+        //check if player is grounded
+        //if the player is grounded and and velocity is more than 0
+        //if (groundedPlayer && playerVelocity.y < 0)
+        //{
+        //    //set the player velocity to zero
+        //    playerVelocity.y = 0f;
+        //}
+        ////apply gravity
+        //playerVelocity.y += gravityValue * Time.deltaTime;
 
-            //inherit the movement from the parent
-            //move = gameObject.transform.parent.position + move;
-            controller.Move((move) * Time.deltaTime * playerSpeed);
-
+        //inherit the movement from the parent
+        //move = gameObject.transform.parent.position + move;
+        //controller.Move((move) * Time.deltaTime * playerSpeed);
             if (move != Vector3.zero)
             {
                 gameObject.transform.forward = move;
-            }
-            controller.Move(playerVelocity * Time.deltaTime);
-            controller.enabled = false;
+            rb.AddForce(move * playerSpeed);
 
         }
+        //controller.Move(playerVelocity * Time.deltaTime);
+        //controller.enabled = false;
+
+
 
 
     }
@@ -130,7 +125,7 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             Ray r = new Ray(transform.position, -transform.up);
             Physics.Raycast(r, out hit);
-            Debug.DrawRay(r.origin, r.direction);
+            Debug.DrawRay(r.origin, r.direction,Color.yellow,1);
             if (hit.collider.name == "Floor")
             {
                 transform.parent = hit.collider.transform;
@@ -142,17 +137,15 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        Debug.Log("Jump!");
-        MovementActive = true;
-        Vector2 movement = context.ReadValue<Vector2>();
-        move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
-
-
-        if (groundedPlayer)
+        if (rb?.velocity.y == 0)
         {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-
+MovementActive = true;
+                   
+            rb.AddForce(transform.up*jumpHeight,ForceMode.Impulse);
         }
+        Debug.Log("Jump!");
+        
+        
     }
 
 
@@ -225,6 +218,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float pickupRange = 1.0f;
     [SerializeField] private float pickupForce = 150f;
     private GameObject maincamera;
+    public Rigidbody rb;
 
     public void PickupCargo()
     {
