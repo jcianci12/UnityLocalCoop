@@ -278,7 +278,7 @@ MonoBehaviour:
   controlledObject: {fileID: 0}
   MovementActive: 1
   playerSpeed: 20
-  jumpHeight: 10
+  jumpHeight: 500
   m_Thrust: 20
   CargoInRange: 0
   CargoPickupRange: 1

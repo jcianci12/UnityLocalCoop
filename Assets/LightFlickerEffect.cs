@@ -55,7 +55,9 @@ public class LightFlickerEffect : MonoBehaviour
         if (light == null)
             return;
 
-        // pop off an item if too big
+        if (smoothQueue != null)
+        {
+// pop off an item if too big
         while (smoothQueue.Count >= smoothing)
         {
             lastSum -= smoothQueue.Dequeue();
@@ -68,6 +70,8 @@ public class LightFlickerEffect : MonoBehaviour
 
         // Calculate new smoothed average
         light.intensity = lastSum / (float)smoothQueue.Count;
+        }
+        
     }
 
 }

@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class EnginePressurePlateScript : MonoBehaviour
 {
     private Rigidbody shipRigidBody;
+    private float distToGround;
+
     // private static GameObject attachedPlayer;
     public GunInputHandler gunInputHandler;
     public float thrust = 2000.0f;
@@ -29,7 +31,12 @@ public class EnginePressurePlateScript : MonoBehaviour
         var ship = GameObject.FindGameObjectWithTag("Ship");
 
         shipRigidBody = ship.GetComponent<Rigidbody>();
+        distToGround = gameObject.GetComponent<Collider>().bounds.extents.y;
 
+    }
+    bool isGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
     }
 
     public void FixedUpdate()

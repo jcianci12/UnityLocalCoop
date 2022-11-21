@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float playerSpeed;
 
-    public float jumpHeight = 1f;
+    public float jumpHeight = 500f;
     private float gravityValue = -99.81f;
 
     private Vector3 move;
@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     public bool CargoInRange;
     public float CargoPickupRange = 1f;
     public LayerMask cargoLayer;
+    private float distToGround;
 
 
     private void Awake()
@@ -46,14 +47,14 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         maincamera = GameObject.Find("Main Camera");
-
+        distToGround = gameObject.GetComponentInChildren<Collider>().bounds.extents.y;
     }
 
     void FixedUpdate()
     {
 
-        
-            onShip();
+
+        onShip();
         //controller.enabled = true;
 
         //check if player is grounded
@@ -69,9 +70,9 @@ public class PlayerController : MonoBehaviour
         //inherit the movement from the parent
         //move = gameObject.transform.parent.position + move;
         //controller.Move((move) * Time.deltaTime * playerSpeed);
-            if (move != Vector3.zero)
-            {
-                gameObject.transform.forward = move;
+        if (move != Vector3.zero && MovementActive)
+        {
+            gameObject.transform.forward = move;
             rb.AddForce(move * playerSpeed);
 
         }
@@ -99,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        
+
 
         var gun = transform.parent?.GetComponent<GunPressurePlate>();
         gun?.OnMove(context);
@@ -125,7 +126,7 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             Ray r = new Ray(transform.position, -transform.up);
             Physics.Raycast(r, out hit);
-            Debug.DrawRay(r.origin, r.direction,Color.yellow,1);
+            Debug.DrawRay(r.origin, r.direction, Color.yellow, 1);
             if (hit.collider.name == "Floor")
             {
                 transform.parent = hit.collider.transform;
@@ -137,17 +138,19 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (rb?.velocity.y == 0)
+        if (true)
         {
-MovementActive = true;
-                   
-            rb.AddForce(transform.up*jumpHeight,ForceMode.Impulse);
+            Debug.Log("is grounded");
+            MovementActive = true;
+            rb.AddForce(0,jumpHeight,0);
         }
         Debug.Log("Jump!");
-        
-        
     }
-
+    bool isGrounded()
+    {
+        Debug.DrawLine(transform.position, transform.position + new Vector3(0, -1, 0), Color.yellow);
+        return Physics.Raycast(transform.position, transform.position + new Vector3(0, -1, 0), distToGround + 0.1f);
+    }
 
     public void OnTriggerEnter(Collider other)
     {
