@@ -120,9 +120,8 @@ MonoBehaviour:
   cam: {fileID: 0}
   torque: 20000
   holdArea: {fileID: 2059700722480117167}
-  playerRigidBody: {fileID: 0}
   pickupRange: 1
-  pickupForce: 50
+  pickupForce: 100
   drag: 5
 --- !u!1 &8346747961305604789
 GameObject:

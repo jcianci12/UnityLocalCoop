@@ -52,35 +52,16 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //apply extra gravity
-        //rb.AddForce(-transform.up * playerSpeed);
+        
 
         onShip();
-        //controller.enabled = true;
+        
+        gameObject.transform.forward = move;
 
-        //check if player is grounded
-        //if the player is grounded and and velocity is more than 0
-        //if (groundedPlayer && playerVelocity.y < 0)
-        //{
-        //    //set the player velocity to zero
-        //    playerVelocity.y = 0f;
-        //}
-        ////apply gravity
-        //playerVelocity.y += gravityValue * Time.deltaTime;
-
-        //inherit the movement from the parent
-        //move = gameObject.transform.parent.position + move;
-        //controller.Move((move) * Time.deltaTime * playerSpeed);
         if (move != Vector3.zero && MovementActive)
         {
-            gameObject.transform.forward = move;
             rb.AddForce(move * playerSpeed);
-
         }
-        //controller.Move(playerVelocity * Time.deltaTime);
-        //controller.enabled = false;
-
-
 
 
     }
@@ -108,8 +89,8 @@ public class PlayerController : MonoBehaviour
         var engine = transform.parent?.GetComponent<EnginePressurePlateScript>();
         engine?.OnMove(context);
 
-        if (!gun && !engine)
-        {
+        //if (!gun && !engine)
+        //{
             Vector2 movement = context.ReadValue<Vector2>();
 
 
@@ -118,7 +99,7 @@ public class PlayerController : MonoBehaviour
                 move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
 
             }
-        }
+        //}
     }
     public void onShip()
     {
