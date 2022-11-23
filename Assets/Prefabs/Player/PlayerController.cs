@@ -52,7 +52,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        //apply extra gravity
+        //rb.AddForce(-transform.up * playerSpeed);
 
         onShip();
         //controller.enabled = true;
