@@ -11,8 +11,6 @@ public class PlayerInputHandler : MonoBehaviour
     public PlayerController playerController;
     Vector3 startPos;
     //public GunPressurePlate gunpressureplate = null;
-    public EnginePressurePlateScript enginepressureplate = null;
-    public Cargo cargoscript = null;
 
 
     // Start is called before the first frame update
