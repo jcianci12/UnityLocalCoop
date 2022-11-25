@@ -119,10 +119,6 @@ MonoBehaviour:
   - {fileID: 0}
   cam: {fileID: 0}
   torque: 20000
-  holdArea: {fileID: 2059700722480117167}
-  pickupRange: 1
-  pickupForce: 100
-  drag: 5
 --- !u!1 &8346747961305604789
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2059700722480117167}
+  - component: {fileID: 4677029860847220772}
   m_Layer: 0
   m_Name: PlayerDock
   m_TagString: Untagged
@@ -154,3 +151,19 @@ Transform:
   m_Father: {fileID: 5065927325948994539}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4677029860847220772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346747961305604789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55780e672f710f44af10195b26ebbc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 1
+  pickupForce: 50
+  drag: 5
+  parent: {fileID: 5065927325948994538}

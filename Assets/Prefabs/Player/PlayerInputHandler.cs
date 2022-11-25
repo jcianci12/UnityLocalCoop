@@ -33,10 +33,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        
-            playerController.OnMove(context);
-        
-
+            playerController.OnMove(context); 
     }
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -47,12 +44,8 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnFire(InputAction.CallbackContext context)
     {
         if (context.performed == false) return; // adding this line removes the call when the key is pressed. This fixes the problem.        {
-        playerController.transform.parent?.GetComponent<GunPressurePlate>()?.Fire();
-
+        playerController.Fire(context);
         
-
-        
-            playerController.PickupCargo();
         
     }
 }

@@ -128,6 +128,13 @@ public class PlayerController : MonoBehaviour
         }
         Debug.Log("Jump!");
     }
+    public void Fire(InputAction.CallbackContext context)
+    {
+        transform.parent?.GetComponent<GunPressurePlate>()?.Fire();
+        PickupCargo();
+
+        Debug.Log("Fire!");
+    }
     bool isGrounded()
     {
         Debug.DrawLine(transform.position, transform.position + new Vector3(0, -1, 0), Color.yellow);

@@ -16,13 +16,7 @@ public class EnginePressurePlateScript : MonoBehaviour
     public Light[] engineLight;
     public Camera cam;
     public float torque;
-    [Header("PIckup Settings")]
-    [SerializeField] Transform holdArea;
-
-    [Header("Physics Parameters")]
-    [SerializeField] private float pickupRange = 1.0f;
-    [SerializeField] private float pickupForce = 500f;
-    [SerializeField] private float drag = 5;
+    
 
 
 
@@ -31,13 +25,9 @@ public class EnginePressurePlateScript : MonoBehaviour
         var ship = GameObject.FindGameObjectWithTag("Ship");
 
         shipRigidBody = ship.GetComponent<Rigidbody>();
-        distToGround = gameObject.GetComponent<Collider>().bounds.extents.y;
 
     }
-    bool isGrounded()
-    {
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
-    }
+   
 
     public void FixedUpdate()
     {
@@ -59,10 +49,7 @@ public class EnginePressurePlateScript : MonoBehaviour
             //shipRigidBody.gameObject.transform.Find("Cube").gameObject.GetComponent<Rigidbody>().AddForce(-transform.right * move.z * shipSpeed);
 
         }
-        if (transform.GetComponentInChildren<PlayerController>() != null)
-        {
-            MoveObject();
-        }
+        
         foreach (var light in engineLight)
         {
             if (light != null)
@@ -72,25 +59,7 @@ public class EnginePressurePlateScript : MonoBehaviour
             }
         }
     }
-    void MoveObject()
-    {
-        var player = transform.GetComponentInChildren<PlayerController>();
-        //Vector3 moveDirection = (holdArea.position - player.transform.position);
-        //playerRigidBody.AddForce((moveDirection * 2) * pickupForce);
-
-        var rb = player.GetComponent<Rigidbody>();
-        //rb.drag = 10;
-        //rb.useGravity = false;
-        //rb.AddForce(holdArea.position);
-        if (Vector3.Distance(player.transform.position, holdArea.position) > 0.1f)
-        {
-            Vector3 moveDirection = (holdArea.position - player.transform.position);
-            rb.AddForce(moveDirection * pickupForce);
-        }
-        //player.GetComponent<Rigidbody>().MoveRotation(holdArea.rotation);
-
-
-    }
+    
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -109,7 +78,6 @@ public class EnginePressurePlateScript : MonoBehaviour
             player = go;
             player.transform.parent = transform;
             player.GetComponent<PlayerController>().MovementActive = false;
-            MoveObject();
 
         }
     }
