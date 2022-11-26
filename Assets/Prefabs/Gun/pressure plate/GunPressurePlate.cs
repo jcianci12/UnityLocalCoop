@@ -54,7 +54,6 @@ public class GunPressurePlate : MonoBehaviour
         }
     }
     public GameObject projectile;
-    public float launchVelocity;
     public void Fire()
     {
         Debug.Log("fire!");
@@ -62,10 +61,9 @@ public class GunPressurePlate : MonoBehaviour
         Quaternion rotation = gun.transform.rotation;
 
         GameObject ball = Instantiate(projectile, ejectionPoint.transform.position ,
-                                                     ejectionPoint.transform.rotation);
+                                                     rotation);
         ball.transform.Rotate(90, 0, 0);
-        ball.GetComponent<Rigidbody>().velocity = (new Vector3
-                                             (0, 0, launchVelocity));
+        ball.GetComponent<Rigidbody>().velocity = ( ejectionPoint.transform.forward * ball.GetComponent<projectile>().velocity);
 
 
     }

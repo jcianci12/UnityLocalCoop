@@ -6,6 +6,7 @@ public class projectile : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject sparks;
+    public float velocity;
     
     public float TimeToLive;
     void Start()
