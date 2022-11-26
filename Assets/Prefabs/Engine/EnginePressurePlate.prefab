@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a55780e672f710f44af10195b26ebbc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupRange: 1
-  pickupForce: 50
-  drag: 5
+  pickupRange: 0.2
+  pickupForce: 100
+  drag: 0
   parent: {fileID: 5065927325948994538}

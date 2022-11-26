@@ -147,7 +147,7 @@ MonoBehaviour:
   ejectionPoint: {fileID: 3483156805661400793}
   gun: {fileID: 7105249108318375367}
   projectile: {fileID: 8776251893792971714, guid: 86049f5157fd3db43bb16087ff6a830a, type: 3}
-  launchVelocity: 1000
+  launchVelocity: 100
 --- !u!1 &6946157771729759350
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +289,7 @@ BoxCollider:
   m_GameObject: {fileID: 7037161797349690097}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.000000014901161, z: 0}

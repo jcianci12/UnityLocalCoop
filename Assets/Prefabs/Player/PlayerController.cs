@@ -61,6 +61,10 @@ public class PlayerController : MonoBehaviour
         if (move != Vector3.zero && MovementActive)
         {
             rb.AddForce(move * playerSpeed);
+            //get the velocity of the ship
+            var shipvel = transform.parent ?. GetComponentInParent<Rigidbody>().velocity;
+            rb.AddForce(shipvel??Vector3.zero);
+
         }
 
 
@@ -112,6 +116,8 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.name == "Floor")
             {
                 transform.parent = hit.collider.transform;
+                //rb.velocity = transform.parent.GetComponentInParent<Rigidbody>().velocity;
+                
             }
         }
 

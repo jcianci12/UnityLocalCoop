@@ -64,7 +64,7 @@ public class GunPressurePlate : MonoBehaviour
         GameObject ball = Instantiate(projectile, ejectionPoint.transform.position ,
                                                      ejectionPoint.transform.rotation);
         ball.transform.Rotate(90, 0, 0);
-        ball.GetComponent<Rigidbody>().AddRelativeForce(new Vector3
+        ball.GetComponent<Rigidbody>().velocity = (new Vector3
                                              (0, 0, launchVelocity));
 
 
