@@ -4,7 +4,7 @@ using UnityEngine;
 public class SC_RigidbodyMagnet : MonoBehaviour
 {
     public float magnetForce = 100;
-    public Rigidbody ship;
+    //public Rigidbody ship;
 
     public List<GameObject> caughtRigidbodies = new List<GameObject>();
 
@@ -12,10 +12,10 @@ public class SC_RigidbodyMagnet : MonoBehaviour
     {
         for (int i = 0; i < caughtRigidbodies.Count; i++)
         {
-            var rb = ship;
+
             //rb.velocity = (transform.position - (caughtRigidbodies[i].transform.position + caughtRigidbodies[i].centerOfMass)) * magnetForce * Time.deltaTime;
-            rb.AddForceAtPosition((
-                transform.position - caughtRigidbodies[i].transform.GetComponentInChildren<shipCoupling>().transform.position) * magnetForce, transform.position) ;
+            caughtRigidbodies[i].GetComponentInParent<Rigidbody>().AddForceAtPosition((
+                transform.position - caughtRigidbodies[i].GetComponentInChildren<shipCoupling>().transform.position) * magnetForce, transform.position) ;
             Debug.DrawLine(transform.position, caughtRigidbodies[i].transform.GetComponentInChildren<shipCoupling>().transform.position);
         }
     }
