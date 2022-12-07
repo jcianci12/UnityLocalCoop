@@ -111,4 +111,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magnetForce: 100
-  ShipGameObject: {fileID: 5920195164110070277, guid: 43f188e6d27ce8648b6e7337cf403e30, type: 3}
+  ship: {fileID: 4865237697667256377, guid: 1705def6a4452fb4aab83218fdd6b612, type: 3}
+  caughtRigidbodies: []

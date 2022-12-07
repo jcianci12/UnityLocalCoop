@@ -4,27 +4,27 @@ using UnityEngine;
 public class SC_RigidbodyMagnet : MonoBehaviour
 {
     public float magnetForce = 100;
-    public GameObject ShipGameObject;
+    public Rigidbody ship;
 
-    List<Rigidbody> caughtRigidbodies = new List<Rigidbody>();
+    public List<GameObject> caughtRigidbodies = new List<GameObject>();
 
     void FixedUpdate()
     {
         for (int i = 0; i < caughtRigidbodies.Count; i++)
         {
-            var rb = caughtRigidbodies[i];
+            var rb = ship;
             //rb.velocity = (transform.position - (caughtRigidbodies[i].transform.position + caughtRigidbodies[i].centerOfMass)) * magnetForce * Time.deltaTime;
             rb.AddForceAtPosition((
-                transform.position - caughtRigidbodies[i].transform.Find("ShipCoupling").transform.position) * magnetForce, transform.position) ;
-            Debug.DrawLine(transform.position, caughtRigidbodies[i].transform.Find("ShipCoupling").transform.position);
+                transform.position - caughtRigidbodies[i].transform.GetComponentInChildren<shipCoupling>().transform.position) * magnetForce, transform.position) ;
+            Debug.DrawLine(transform.position, caughtRigidbodies[i].transform.GetComponentInChildren<shipCoupling>().transform.position);
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.name == "ShipCoupling")
+        if (other.GetComponent<shipCoupling>())
         {
-            Rigidbody r = other.transform.parent.GetComponent<Rigidbody>();
+            GameObject r = other.transform.gameObject;
 
             if (!caughtRigidbodies.Contains(r))
             {
@@ -36,9 +36,9 @@ public class SC_RigidbodyMagnet : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if(other.name == "ShipCoupling")
+        if(other.GetComponent<shipCoupling>())
         {
-            Rigidbody r = other.transform.parent.GetComponent<Rigidbody>();
+            GameObject r = other.transform.gameObject;
 
             if (caughtRigidbodies.Contains(r))
             {

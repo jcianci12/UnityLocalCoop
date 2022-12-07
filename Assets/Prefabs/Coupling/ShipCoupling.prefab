@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4569432367829156677}
   - component: {fileID: 3015852629203191008}
   - component: {fileID: 1633229963415834468}
+  - component: {fileID: 67978161806258340}
   m_Layer: 0
   m_Name: ShipCoupling
   m_TagString: Untagged
@@ -97,3 +98,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.50000024
   m_Center: {x: -0.0000001192093, y: 0, z: -0.00000047683744}
+--- !u!114 &67978161806258340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5920195164110070277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b675a8683344cc4580c251d38b3e8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
