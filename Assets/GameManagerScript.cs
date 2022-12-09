@@ -23,7 +23,7 @@ public class GameManagerScript : MonoBehaviour
     {
         
             //List<Vector3> positions = vector3List;
-        var positions = GameObject.FindGameObjectsWithTag("PlayerPrefab").Select(i=>i.transform.position).ToList();
+        var positions = GameObject.FindObjectsOfType<PlayerController>().Select(i=>i.transform.position).ToList();
 
 
             if (positions.Count == 0)
