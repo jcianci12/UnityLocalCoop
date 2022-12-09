@@ -1,3 +1,4 @@
+using ProjectDawn.SplitScreen;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,8 @@ public class PlayerInputHandler : MonoBehaviour
     public PlayerController playerController;
     Vector3 startPos;
     //public GunPressurePlate gunpressureplate = null;
-
+    public GameObject sse;
+    public GameObject camPrefab;
 
     // Start is called before the first frame update
     private void Start()
@@ -26,6 +28,14 @@ public class PlayerInputHandler : MonoBehaviour
             startPos = spawnpoint.transform.position;
 
             playerController = GameObject.Instantiate(playerPrefab, startPos, transform.rotation).GetComponent<PlayerController>();
+            
+
+            var cam = GameObject.Instantiate(camPrefab);
+            sse = FindObjectOfType<SplitScreenEffect>().gameObject;
+
+            sse.GetComponent<SplitScreenEffect>().AddScreen(cam.GetComponent<Camera>(), playerController.transform);
+            playerController.maincamera = cam;
+            cam.AddComponent<CameraRelativeMovement>();
             //playerController.transform.parent = spawnpoint.transform;
             //transform.parent = playerController.transform;
 

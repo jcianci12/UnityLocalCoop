@@ -46,7 +46,6 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        maincamera = GameObject.Find("Main Camera");
         distToGround = gameObject.GetComponentInChildren<Collider>().bounds.extents.y;
     }
 
@@ -215,7 +214,7 @@ public class PlayerController : MonoBehaviour
     [Header("Physics Parameters")]
     [SerializeField] private float pickupRange = 1.0f;
     [SerializeField] private float pickupForce = 150f;
-    private GameObject maincamera;
+    public GameObject maincamera;
     public Rigidbody rb;
 
     public void PickupCargo()

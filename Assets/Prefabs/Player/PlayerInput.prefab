@@ -125,6 +125,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7785571135112364288, guid: f5469db7a2958f941a32696268f3007e, type: 3}
   playerController: {fileID: 0}
-  gunpressureplate: {fileID: 0}
-  enginepressureplate: {fileID: 0}
-  SpawnPoint: {fileID: 0}
+  sse: {fileID: 0}
+  camPrefab: {fileID: 4469192932273706224, guid: 12a5c5e5e6acbb545953c439510c51c6, type: 3}
