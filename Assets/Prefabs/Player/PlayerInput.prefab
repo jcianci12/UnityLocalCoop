@@ -127,3 +127,4 @@ MonoBehaviour:
   playerController: {fileID: 0}
   sse: {fileID: 0}
   camPrefab: {fileID: 4469192932273706224, guid: 12a5c5e5e6acbb545953c439510c51c6, type: 3}
+  gameManagerScript: {fileID: 6650184763800650614, guid: e4e88bbfe1da83d4996b0b2ec6499bcf, type: 3}

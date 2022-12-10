@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour
 {
+    public List<GameObject> gameObjects = new List<GameObject>();
     //private static List<Vector3> vector3List = new List<Vector3>();
 
     // Start is called before the first frame update
@@ -14,6 +15,18 @@ public class GameManagerScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void addPlayer(GameObject gameObject)
+    {
+        gameObjects.Add(gameObject);
+    }
+    public void removePlayer(GameObject gameObject)
+    {
+        if (gameObjects.Contains(gameObject))
+        {
+            gameObjects.Remove(gameObject);
+        }
     }
     //public void PlayerJoined(GameObject player)
     //{

@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI dialogueText;
+    public Animator animator;
 
     Queue<string> sentences;
 
@@ -13,7 +18,9 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
     }
     public void StartDialogue(Dialogue dialogue) {
+        animator.SetBool("IsOpen",true);
         Debug.Log("Starting");
+        nameText.text = dialogue.name;
         sentences.Clear();
         foreach (string sentence in dialogue.sentences)
         {
@@ -29,8 +36,21 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         string sentence = sentences.Dequeue();
-        Debug.Log(sentence);
+        StopAllCoroutines();
+    StartCoroutine(TypeSentence(sentence));    
     }
-    void EndDialogue() { Debug.Log("End"); }
+    IEnumerator TypeSentence (string sentence)
+    {
+        dialogueText.text = "";
+        foreach(char letter in sentence.ToCharArray())
+        {
+            dialogueText.text += letter;
+
+            yield return null;
+        }
+    }
+    public void EndDialogue() {
+        animator.SetBool("IsOpen", false);
+        Debug.Log("End"); }
     
 }

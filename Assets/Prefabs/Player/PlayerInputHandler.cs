@@ -32,7 +32,7 @@ public class PlayerInputHandler : MonoBehaviour
 
             var cam = GameObject.Instantiate(camPrefab);
             sse = FindObjectOfType<SplitScreenEffect>().gameObject;
-
+            sse.GetComponent<SplitScreenEffect>().Clear();
             sse.GetComponent<SplitScreenEffect>().AddScreen(cam.GetComponent<Camera>(), playerController.transform);
             playerController.maincamera = cam;
             cam.AddComponent<CameraRelativeMovement>();
