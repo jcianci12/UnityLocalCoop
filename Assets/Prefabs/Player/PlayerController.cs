@@ -43,17 +43,24 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        var sse = GameObject.FindObjectOfType<SplitScreenEffect>().gameObject;
+        var sse = GameObject.FindObjectOfType<SplitScreenEffect>();
         Destroy(sse);
-        //var childcams = sse.GetComponentsInChildren<Camera>();
-        //var targets = sse.GetComponentsInChildren<Transform>();
+        Destroy(GameObject.FindObjectOfType<Camera>());
 
-        ////get all the child cams
-        //for (int i = 0; i < childcams.Length; i++)
+        sse = GameObject.Find("Split Screen").GetComponent<SplitScreenEffect>();
+        //first player joins
+        //get the first screen that have a target that has a parent of split screen effect.
+        //this means they are unassigned at this point
+        var firstUnparentedScreen = sse.Screens.Where(i => i.Target.parent.gameObject.GetComponent<SplitScreenEffect>()).First();
+        //next player joins
+        //if (firstUnparentedScreen == null)
         //{
-        //    targets[i].transform.parent = gameObject.transform;
-        //    maincamera = childcams[i].gameObject;
+        //    sse.AddScreen()
         //}
+
+        firstUnparentedScreen.Target = gameObject.transform;
+        maincamera = firstUnparentedScreen.Camera.gameObject;
+
     }
     private void Start()
     {
