@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < childcams.Length; i++)
         {
             targets[i].transform.parent = gameObject.transform;
+            maincamera = childcams[i].gameObject;
         }
     }
     private void Start()
