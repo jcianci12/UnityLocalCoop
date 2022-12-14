@@ -44,15 +44,16 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         var sse = GameObject.FindObjectOfType<SplitScreenEffect>().gameObject;
-        var childcams = sse.GetComponentsInChildren<Camera>();
-        var targets = sse.GetComponentsInChildren<Transform>();
+        Destroy(sse);
+        //var childcams = sse.GetComponentsInChildren<Camera>();
+        //var targets = sse.GetComponentsInChildren<Transform>();
 
-        //get all the child cams
-        for (int i = 0; i < childcams.Length; i++)
-        {
-            targets[i].transform.parent = gameObject.transform;
-            maincamera = childcams[i].gameObject;
-        }
+        ////get all the child cams
+        //for (int i = 0; i < childcams.Length; i++)
+        //{
+        //    targets[i].transform.parent = gameObject.transform;
+        //    maincamera = childcams[i].gameObject;
+        //}
     }
     private void Start()
     {
