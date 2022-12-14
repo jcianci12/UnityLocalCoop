@@ -288,6 +288,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   gameManagerScript: {fileID: 0}
+  prefabSplitScreenCam: {fileID: 151692245207976121, guid: 13ea0b847567a444486246a2135bd4ee, type: 3}
   camPivot: {fileID: 0}
   cam: {fileID: 0}
   held: {fileID: 0}

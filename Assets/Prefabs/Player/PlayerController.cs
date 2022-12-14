@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private float distToGround;
 
     public GameManagerScript gameManagerScript;
+    public Camera prefabSplitScreenCam;
 
 
     private void Awake()
@@ -51,15 +52,24 @@ public class PlayerController : MonoBehaviour
         //first player joins
         //get the first screen that have a target that has a parent of split screen effect.
         //this means they are unassigned at this point
-        var firstUnparentedScreen = sse.Screens.Where(i => i.Target.parent.gameObject.GetComponent<SplitScreenEffect>()).First();
         //next player joins
         //if (firstUnparentedScreen == null)
         //{
         //    sse.AddScreen()
         //}
+        if (sse.Screens.Any(i=>i.Target.GetComponent<PlayerController>()==null))
+        {
+            sse.Screens.First().Target = gameObject.transform;
+            maincamera = sse.Screens.First().Camera.gameObject;
+        }
+        else
+        {
+            maincamera = Instantiate(prefabSplitScreenCam).gameObject;
+            sse.AddScreen(maincamera.GetComponent<Camera>(), gameObject.transform);
 
-        firstUnparentedScreen.Target = gameObject.transform;
-        maincamera = firstUnparentedScreen.Camera.gameObject;
+        }
+
+
 
     }
     private void Start()
