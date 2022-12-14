@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ProjectDawn.SplitScreen;
+
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -9,25 +11,16 @@ public class GameManagerScript : MonoBehaviour
     //private static List<Vector3> vector3List = new List<Vector3>();
 
     // Start is called before the first frame update
-
+    public SplitScreenEffect sse;
 
     // Update is called once per frame
     void Update()
     {
         
     }
+    
 
-    public void addPlayer(GameObject gameObject)
-    {
-        gameObjects.Add(gameObject);
-    }
-    public void removePlayer(GameObject gameObject)
-    {
-        if (gameObjects.Contains(gameObject))
-        {
-            gameObjects.Remove(gameObject);
-        }
-    }
+    
     //public void PlayerJoined(GameObject player)
     //{
     //    vector3List.Add(player.transform.position);

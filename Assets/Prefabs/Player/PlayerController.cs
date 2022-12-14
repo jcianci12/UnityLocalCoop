@@ -4,6 +4,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using ProjectDawn.SplitScreen;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -36,13 +38,20 @@ public class PlayerController : MonoBehaviour
     public LayerMask cargoLayer;
     private float distToGround;
 
+    public GameManagerScript gameManagerScript;
+
 
     private void Awake()
     {
-        cam = Camera.main;
-        camPivot = Camera.main;
+        var sse = GameObject.FindObjectOfType<SplitScreenEffect>().gameObject;
+        var childcams = sse.GetComponentsInChildren<Camera>();
+        var targets = sse.GetComponentsInChildren<Transform>();
 
-
+        //get all the child cams
+        for (int i = 0; i < childcams.Length; i++)
+        {
+            targets[i].transform.parent = gameObject.transform;
+        }
     }
     private void Start()
     {
@@ -51,18 +60,18 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+
 
         onShip();
-        
+
         gameObject.transform.forward = move;
 
         if (move != Vector3.zero && MovementActive)
         {
             rb.AddForce(move * playerSpeed);
             //get the velocity of the ship
-            var shipvel = transform.parent ?. GetComponentInParent<Rigidbody>().velocity;
-            rb.AddForce(shipvel??Vector3.zero);
+            var shipvel = transform.parent?.GetComponentInParent<Rigidbody>().velocity;
+            rb.AddForce(shipvel ?? Vector3.zero);
 
         }
 
@@ -94,14 +103,14 @@ public class PlayerController : MonoBehaviour
 
         //if (!gun && !engine)
         //{
-            Vector2 movement = context.ReadValue<Vector2>();
+        Vector2 movement = context.ReadValue<Vector2>();
 
 
-            if (maincamera)
-            {
-                move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
+        if (maincamera)
+        {
+            move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
 
-            }
+        }
         //}
     }
     public void onShip()
@@ -116,7 +125,7 @@ public class PlayerController : MonoBehaviour
             {
                 transform.parent = hit.collider.transform;
                 //rb.velocity = transform.parent.GetComponentInParent<Rigidbody>().velocity;
-                
+
             }
         }
 
@@ -129,7 +138,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("is grounded");
             MovementActive = true;
-            rb.AddForce(0,jumpHeight,0);
+            rb.AddForce(0, jumpHeight, 0);
         }
         Debug.Log("Jump!");
     }
