@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour
     private float playerSpeed;
 
     public float jumpHeight = 500f;
-    private float gravityValue = -99.81f;
 
     private Vector3 move;
     public float m_Thrust = 20f;
@@ -38,39 +37,54 @@ public class PlayerController : MonoBehaviour
     public LayerMask cargoLayer;
     private float distToGround;
 
+    public Rigidbody rb;
+
+
+    
+
+    [Header("PIckup Settings")]
+    [SerializeField] Transform holdArea;
+    private GameObject heldObj;
+    private Rigidbody heldObjRB;
+    public Transform held;
+
+
+    [Header("Physics Parameters")]
+    [SerializeField] private float pickupRange = 1.0f;
+    [SerializeField] private float pickupForce = 150f;
+
+    [Header("Camera Parameters")]
+    public GameObject maincamera;
+    private SplitScreenEffect sse;
     public GameManagerScript gameManagerScript;
     public Camera prefabSplitScreenCam;
+    ScreenData sd;
+    public float shipFieldOfView;
+    public float originalFieldOfView;
+    private int screenIndex;
 
 
     private void Awake()
-    {
-        var sse = GameObject.FindObjectOfType<SplitScreenEffect>();
+    {        
+        sse = GameObject.FindObjectOfType<SplitScreenEffect>();
         Destroy(sse);
         Destroy(GameObject.FindObjectOfType<Camera>());
-
+        maincamera = Instantiate(prefabSplitScreenCam).gameObject;
         sse = GameObject.Find("Split Screen").GetComponent<SplitScreenEffect>();
-        //first player joins
-        //get the first screen that have a target that has a parent of split screen effect.
-        //this means they are unassigned at this point
-        //next player joins
-        //if (firstUnparentedScreen == null)
-        //{
-        //    sse.AddScreen()
-        //}
+
         if (sse.Screens.Any(i=>i.Target.GetComponent<PlayerController>()==null))
-        {
-            sse.Screens.First().Target = gameObject.transform;
-            maincamera = sse.Screens.First().Camera.gameObject;
+        {            
+            ScreenData sd = new ScreenData { Camera = maincamera.GetComponent<Camera>(), Target = gameObject.transform };
+            
+            screenIndex = 0;
+            sse.Screens[screenIndex] = sd;
         }
         else
         {
-            maincamera = Instantiate(prefabSplitScreenCam).gameObject;
-            sse.AddScreen(maincamera.GetComponent<Camera>(), gameObject.transform);
-
+            ScreenData sd = new ScreenData { Camera=maincamera.GetComponent<Camera>(), Target=gameObject.transform } ;
+            sse.AddScreen(sd.Camera,sd.Target);
+            screenIndex = sse.Screens.Count()-1;
         }
-
-
-
     }
     private void Start()
     {
@@ -107,9 +121,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Camera camPivot;
-    public Camera cam;
-    public Transform held;
+    
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -143,14 +155,28 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.name == "Floor")
             {
                 transform.parent = hit.collider.transform;
+                ShipView();
                 //rb.velocity = transform.parent.GetComponentInParent<Rigidbody>().velocity;
 
             }
         }
-
-
+        else
+        {
+            WalkingView();
+        }
     }
-
+    void WalkingView()
+    {
+        var screen = sse.Screens[screenIndex];
+        screen.Camera.fieldOfView = originalFieldOfView *Time.deltaTime;
+        screen.Target. parent = transform.parent;
+    }
+    void ShipView()
+    {
+        var screen = sse.Screens[screenIndex];
+        screen.Camera.fieldOfView= shipFieldOfView * Time.deltaTime;
+        screen.Target.parent = transform;
+    }
     public void Jump(InputAction.CallbackContext context)
     {
         if (true)
@@ -234,16 +260,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    [Header("PIckup Settings")]
-    [SerializeField] Transform holdArea;
-    private GameObject heldObj;
-    private Rigidbody heldObjRB;
-
-    [Header("Physics Parameters")]
-    [SerializeField] private float pickupRange = 1.0f;
-    [SerializeField] private float pickupForce = 150f;
-    public GameObject maincamera;
-    public Rigidbody rb;
+    
 
     public void PickupCargo()
     {

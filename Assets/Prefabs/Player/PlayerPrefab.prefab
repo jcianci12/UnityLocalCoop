@@ -287,16 +287,17 @@ MonoBehaviour:
   cargoLayer:
     serializedVersion: 2
     m_Bits: 0
-  gameManagerScript: {fileID: 0}
-  prefabSplitScreenCam: {fileID: 151692245207976121, guid: 13ea0b847567a444486246a2135bd4ee, type: 3}
-  camPivot: {fileID: 0}
-  cam: {fileID: 0}
-  held: {fileID: 0}
+  rb: {fileID: 7349377928058241327}
   holdArea: {fileID: 7063792518095300604}
+  held: {fileID: 0}
   pickupRange: 1
   pickupForce: 150
   maincamera: {fileID: 0}
-  rb: {fileID: 7349377928058241327}
+  gameManagerScript: {fileID: 0}
+  prefabSplitScreenCam: {fileID: 151692245207976121, guid: 13ea0b847567a444486246a2135bd4ee, type: 3}
+  ShipCamera: {fileID: 0}
+  shipFieldOfView: 140
+  originalFieldOfView: 0
 --- !u!54 &7349377928058241327
 Rigidbody:
   m_ObjectHideFlags: 0
