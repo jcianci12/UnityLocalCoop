@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1466319222594634216}
   - component: {fileID: 1466319222594634217}
   - component: {fileID: 1466319222594634215}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: starboardpressureplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}

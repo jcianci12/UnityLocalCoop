@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         sse = GameObject.FindObjectOfType<SplitScreenEffect>();
         Destroy(sse);
         Destroy(GameObject.FindObjectOfType<Camera>());
-        maincamera = GameObject.Find("Screen A");
+        maincamera = Instantiate(prefabSplitScreenCam).gameObject;
         sse = GameObject.Find("Split Screen").GetComponent<SplitScreenEffect>();
         originalFieldOfView = sse.GetComponent<Camera>().orthographicSize;
 
@@ -100,11 +100,10 @@ public class PlayerController : MonoBehaviour
 
         //onShip();
 
+        gameObject.transform.forward = move;
 
         if (move != Vector3.zero && MovementActive)
         {
-            gameObject.transform.forward = move;
-
             rb.AddForce(move * playerSpeed);
             //get the velocity of the ship
             var shipvel = transform.parent?.GetComponentInParent<Rigidbody>().velocity;

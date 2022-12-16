@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 388314812312893101}
   - component: {fileID: 388314812312893102}
   - component: {fileID: 388314812312893075}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: portpressureplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5065927325948994453}
   - component: {fileID: 5065927325948994452}
   - component: {fileID: 404670760606766755}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnginePressurePlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,13 +111,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5a99e964a13c545bf052585ad1cd66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunInputHandler: {fileID: 0}
   thrust: 2000
   engineLight:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  cam: {fileID: 0}
   torque: 20000
 --- !u!1 &8346747961305604789
 GameObject:
@@ -129,7 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2059700722480117167}
   - component: {fileID: 4677029860847220772}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerDock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

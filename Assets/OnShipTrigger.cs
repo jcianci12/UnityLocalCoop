@@ -8,6 +8,7 @@ public class OnShipTrigger : MonoBehaviour
     // Start is called before the first frame update
     public Animator CameraAnimator;
     public GameObject ship;
+    public SplitScreenEffect sse;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponentInParent<PlayerController>())
