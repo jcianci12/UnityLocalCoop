@@ -15,9 +15,7 @@ public class PlayerController : MonoBehaviour
     private InputAction jump;
 
 
-    private Vector3 playerVelocity;
 
-    private bool groundedPlayer;
 
     [SerializeField]
     public GameObject controlledObject;
@@ -40,7 +38,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
 
 
-    
+
 
     [Header("PIckup Settings")]
     [SerializeField] Transform holdArea;
@@ -62,28 +60,33 @@ public class PlayerController : MonoBehaviour
     public float shipFieldOfView;
     public float originalFieldOfView;
     private int screenIndex;
+    public Animator CameraAnimator;
+
 
 
     private void Awake()
-    {        
+    {
+
         sse = GameObject.FindObjectOfType<SplitScreenEffect>();
         Destroy(sse);
         Destroy(GameObject.FindObjectOfType<Camera>());
-        maincamera = Instantiate(prefabSplitScreenCam).gameObject;
+        maincamera = GameObject.Find("Screen A");
         sse = GameObject.Find("Split Screen").GetComponent<SplitScreenEffect>();
+        originalFieldOfView = sse.GetComponent<Camera>().orthographicSize;
 
-        if (sse.Screens.Any(i=>i.Target.GetComponent<PlayerController>()==null))
-        {            
+
+        if (sse.Screens.Any(i => i.Target.GetComponent<PlayerController>() == null))
+        {
             ScreenData sd = new ScreenData { Camera = maincamera.GetComponent<Camera>(), Target = gameObject.transform };
-            
+
             screenIndex = 0;
             sse.Screens[screenIndex] = sd;
         }
         else
         {
-            ScreenData sd = new ScreenData { Camera=maincamera.GetComponent<Camera>(), Target=gameObject.transform } ;
-            sse.AddScreen(sd.Camera,sd.Target);
-            screenIndex = sse.Screens.Count()-1;
+            ScreenData sd = new ScreenData { Camera = maincamera.GetComponent<Camera>(), Target = gameObject.transform };
+            sse.AddScreen(sd.Camera, sd.Target);
+            screenIndex = sse.Screens.Count() - 1;
         }
     }
     private void Start()
@@ -95,12 +98,13 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        onShip();
+        //onShip();
 
-        gameObject.transform.forward = move;
 
         if (move != Vector3.zero && MovementActive)
         {
+            gameObject.transform.forward = move;
+
             rb.AddForce(move * playerSpeed);
             //get the velocity of the ship
             var shipvel = transform.parent?.GetComponentInParent<Rigidbody>().velocity;
@@ -121,7 +125,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -144,39 +148,8 @@ public class PlayerController : MonoBehaviour
         }
         //}
     }
-    public void onShip()
-    {
-        if (!transform.parent)
-        {
-            RaycastHit hit;
-            Ray r = new Ray(transform.position, -transform.up);
-            Physics.Raycast(r, out hit);
-            Debug.DrawRay(r.origin, r.direction, Color.yellow, 1);
-            if (hit.collider.name == "Floor")
-            {
-                transform.parent = hit.collider.transform;
-                ShipView();
-                //rb.velocity = transform.parent.GetComponentInParent<Rigidbody>().velocity;
-
-            }
-        }
-        else
-        {
-            WalkingView();
-        }
-    }
-    void WalkingView()
-    {
-        var screen = sse.Screens[screenIndex];
-        screen.Camera.fieldOfView = originalFieldOfView *Time.deltaTime;
-        screen.Target. parent = transform.parent;
-    }
-    void ShipView()
-    {
-        var screen = sse.Screens[screenIndex];
-        screen.Camera.fieldOfView= shipFieldOfView * Time.deltaTime;
-        screen.Target.parent = transform;
-    }
+   
+    
     public void Jump(InputAction.CallbackContext context)
     {
         if (true)
@@ -231,12 +204,12 @@ public class PlayerController : MonoBehaviour
 
     private void AttachToGunPressurePlate(Collider collider) //the pressure plate
     {
-        collider.transform.gameObject.GetComponentInChildren<GunPressurePlate>()?.AttachPlayer(gameObject);
+        collider.transform.gameObject.GetComponentInChildren<GunPressurePlate>()?.AttachPlayerToGunPressurePlate(gameObject);
     }
 
     private void DetachFromGunPressurePlate(Collider collider)
     {
-        collider.transform.gameObject.GetComponentInChildren<GunPressurePlate>()?.DetachPlayer(gameObject);
+        collider.transform.gameObject.GetComponentInChildren<GunPressurePlate>()?.DetachPlayerFromGunPressurePlate(gameObject);
     }
     private void AttachToEnginePressurePlate(Collider collider)
     {
@@ -260,7 +233,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    
+
 
     public void PickupCargo()
     {

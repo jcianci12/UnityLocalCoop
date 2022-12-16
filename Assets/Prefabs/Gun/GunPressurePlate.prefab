@@ -146,6 +146,7 @@ MonoBehaviour:
   gunInputHandler: {fileID: -1998558007985917236, guid: 017363fb1e9a40a47885c1c814da5dd6, type: 3}
   ejectionPoint: {fileID: 3483156805661400793}
   gun: {fileID: 7105249108318375367}
+  ship: {fileID: 4865237697667256379, guid: 1705def6a4452fb4aab83218fdd6b612, type: 3}
   projectile: {fileID: 8776251893792971714, guid: 86049f5157fd3db43bb16087ff6a830a, type: 3}
 --- !u!1 &6946157771729759350
 GameObject:

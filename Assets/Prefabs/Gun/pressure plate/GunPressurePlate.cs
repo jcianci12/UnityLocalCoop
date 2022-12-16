@@ -14,45 +14,81 @@ public class GunPressurePlate : MonoBehaviour
     public GameObject ejectionPoint;
     private Vector3 move;
     public GameObject gun;
-    GameObject cube;
+    GameObject player;
+    public GameObject ship;
+
 
     private void Start()
     {
+
     }
-    public void Update()
+    public void FixedUpdate()
     {
-        gun.transform.forward = move;
-        gun.transform.Rotate(Vector3.up, -90);
+        if (move != Vector3.zero)
+        {
+            gun.transform.forward = move;
+            gun.transform.Rotate(Vector3.up, -90);
+        }
+
 
     }
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 movement = context.ReadValue<Vector2>();
-        
-            move = Camera.main.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(
-            new Vector3(movement.y, -movement.x, 0)
-            );
-            Debug.Log(move);
-        
+
+        move = player.GetComponentInChildren<PlayerController>().maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(
+        new Vector3(movement.y, -movement.x, 0)
+        );
+        Debug.Log(move);
+
     }
-    public void AttachPlayer(GameObject player)
+    //public void AttachPlayer(GameObject player)
+    //{
+    //    var p = player.GetComponentInChildren<PlayerController>();
+    //    if (p)
+    //    {
+    //        player.transform.parent = transform;
+    //        p.MovementActive = false;
+    //    }
+    //}
+    //public void DetachPlayer(GameObject player)
+    //{
+    //    var p = player.GetComponentInChildren<PlayerController>();
+    //    if (player.transform.IsChildOf(transform))
+    //    {
+    //        player.transform.parent = null;
+    //        p.MovementActive = true;
+    //    }
+    //}
+
+
+    public void AttachPlayerToGunPressurePlate(GameObject go)
     {
-        var p = player.GetComponentInChildren<PlayerController>();
-        if (p)
+
+        if (transform.GetComponentsInChildren<PlayerController>().Length == 0)
         {
+            //make the player a child
+            player = go;
             player.transform.parent = transform;
-            p.MovementActive = false;
+            player.GetComponent<PlayerController>().MovementActive = false;
+
         }
     }
-    public void DetachPlayer(GameObject player)
+    public void DetachPlayerFromGunPressurePlate(GameObject go)
     {
-        var p = player.GetComponentInChildren<PlayerController>();
-        if (player.transform.IsChildOf(transform))
+        //check if the pressure plate has this player attached
+        if (go.transform.IsChildOf(transform))
         {
             player.transform.parent = null;
-            p.MovementActive = true;
-        }
+            player.GetComponent<PlayerController>().MovementActive = true;
+            move = Vector3.zero;
+
+            player.transform.parent = ship.transform;
+            player = null;
+        };
+
     }
+
     public GameObject projectile;
     public void Fire()
     {
@@ -60,10 +96,10 @@ public class GunPressurePlate : MonoBehaviour
         //rotate the projectile 90 degrees on the x
         Quaternion rotation = gun.transform.rotation;
 
-        GameObject ball = Instantiate(projectile, ejectionPoint.transform.position ,
+        GameObject ball = Instantiate(projectile, ejectionPoint.transform.position,
                                                      rotation);
         ball.transform.Rotate(90, 0, 0);
-        ball.GetComponent<Rigidbody>().velocity = ( ejectionPoint.transform.forward * ball.GetComponent<projectile>().velocity);
+        ball.GetComponent<Rigidbody>().velocity = (ejectionPoint.transform.forward * ball.GetComponent<projectile>().velocity);
 
 
     }

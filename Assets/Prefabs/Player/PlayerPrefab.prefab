@@ -295,9 +295,9 @@ MonoBehaviour:
   maincamera: {fileID: 0}
   gameManagerScript: {fileID: 0}
   prefabSplitScreenCam: {fileID: 151692245207976121, guid: 13ea0b847567a444486246a2135bd4ee, type: 3}
-  ShipCamera: {fileID: 0}
   shipFieldOfView: 140
   originalFieldOfView: 0
+  CameraAnimator: {fileID: 8189464664494067214, guid: 93c425b537efebd429b56d4b6b2fedcb, type: 3}
 --- !u!54 &7349377928058241327
 Rigidbody:
   m_ObjectHideFlags: 0

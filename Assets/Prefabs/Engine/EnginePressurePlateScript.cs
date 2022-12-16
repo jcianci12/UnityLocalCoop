@@ -10,13 +10,11 @@ public class EnginePressurePlateScript : MonoBehaviour
     private float distToGround;
 
     // private static GameObject attachedPlayer;
-    public GunInputHandler gunInputHandler;
     public float thrust = 2000.0f;
     private Vector3 move;
     public Light[] engineLight;
-    public Camera cam;
     public float torque;
-    
+    GameObject player;
 
 
 
@@ -68,7 +66,7 @@ public class EnginePressurePlateScript : MonoBehaviour
         move = new Vector3(movement.x, 0, movement.y);
     }
 
-    GameObject player;
+    
     public void AttachPlayerToEnginePressurePlate(GameObject go)
     {
         
