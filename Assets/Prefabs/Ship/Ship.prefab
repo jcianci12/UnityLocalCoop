@@ -814,6 +814,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraAnimator: {fileID: 0}
   ship: {fileID: 4865237697667256379}
+  sse: {fileID: 0}
 --- !u!1 &7990977582206483231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,6 +1154,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4865237697667256378}
     m_Modifications:
+    - target: {fileID: 811166760090965481, guid: ef2402006a57b5b4890be3a214cfbae1, type: 3}
+      propertyPath: ship
+      value: 
+      objectReference: {fileID: 4865237697667256379}
     - target: {fileID: 5229154324088867204, guid: ef2402006a57b5b4890be3a214cfbae1, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -1223,6 +1228,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4865237697667256378}
     m_Modifications:
+    - target: {fileID: 811166760090965481, guid: ef2402006a57b5b4890be3a214cfbae1, type: 3}
+      propertyPath: ship
+      value: 
+      objectReference: {fileID: 4865237697667256379}
     - target: {fileID: 5229154324088867204, guid: ef2402006a57b5b4890be3a214cfbae1, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -1449,6 +1458,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4865237697667256378}
     m_Modifications:
+    - target: {fileID: 811166760090965481, guid: ef2402006a57b5b4890be3a214cfbae1, type: 3}
+      propertyPath: ship
+      value: 
+      objectReference: {fileID: 4865237697667256379}
     - target: {fileID: 5229154324088867204, guid: ef2402006a57b5b4890be3a214cfbae1, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -1731,6 +1744,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6952520449624810893, guid: b8014cf8670829746a542800f0dbe931, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6952520449624810893, guid: b8014cf8670829746a542800f0dbe931, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 5573029274989638355, guid: 59ec3730fdeb3c24eb3a54b0ee58ed99, type: 3}
     - target: {fileID: -6557149672737432890, guid: b8014cf8670829746a542800f0dbe931, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -1997,6 +2018,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4865237697667256378}
     m_Modifications:
+    - target: {fileID: 1452449818359166102, guid: 93c425b537efebd429b56d4b6b2fedcb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.0000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452449818359166102, guid: 93c425b537efebd429b56d4b6b2fedcb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452449818359166102, guid: 93c425b537efebd429b56d4b6b2fedcb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.000006
+      objectReference: {fileID: 0}
     - target: {fileID: 1452449818359166103, guid: 93c425b537efebd429b56d4b6b2fedcb, type: 3}
       propertyPath: m_TargetTexture
       value: 
