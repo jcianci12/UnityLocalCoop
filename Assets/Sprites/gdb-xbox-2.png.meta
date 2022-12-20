@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -10686,16 +10686,16 @@ TextureImporter:
       gdb-xbox-2_452: 1419501787
       gdb-xbox-2_378: -194778300
       gdb-xbox-2_173: -1171528000
+      gdb-xbox-2_60: -1203471771
       gdb-xbox-2_424: 182272918
-      gdb-xbox-2_12: -259916291
-      gdb-xbox-2_95: 353266404
       gdb-xbox-2_469: 2014496419
+      gdb-xbox-2_95: 353266404
+      gdb-xbox-2_12: -259916291
       gdb-xbox-2_237: 38925080
       gdb-xbox-2_224: -1809657660
       gdb-xbox-2_158: -269593820
       gdb-xbox-2_157: 923081712
       gdb-xbox-2_68: -1288246080
-      gdb-xbox-2_60: -1203471771
       gdb-xbox-2_154: 1388996573
       gdb-xbox-2_322: 1843224234
       gdb-xbox-2_106: -442941304
