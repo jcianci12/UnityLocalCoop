@@ -5,34 +5,43 @@ using UnityEngine;
 
 public class ShipMap : MonoBehaviour
 {
-    GameObject heldObj;
-    Transform holdArea;
-    Rigidbody playerRigidBody;
+    
+    public Animator animator;
 
+    private void Start()
+    {
+        //animator.SetBool("LargeMapShowing", false);
 
+    }
     private void Update()
     {
-        if (heldObj)
-        {
-            MoveObject();
-        }
+        
     }
 
     public void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name);
         //attach the player
         //heldObj = other.gameObject;
+        if (other.gameObject.GetComponentInParent<PlayerController>())
+        {
+            animator.SetBool("IsOpen", true);
+            
+        }
+       
 
     }
-    void MoveObject()
+    public void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.GetComponentInParent<PlayerController>())
+        {
+            animator.SetBool("IsOpen", false);
 
-        Vector3 moveDirection = (holdArea.position - heldObj.transform.position);
-        //playerRigidBody.AddForce((moveDirection * 2) * pickupForce);
+        }
 
-        playerRigidBody.MovePosition(holdArea.position);
 
     }
+
 
 }
     
