@@ -25,11 +25,8 @@ public class ShipMap : MonoBehaviour
         //heldObj = other.gameObject;
         if (other.gameObject.GetComponentInParent<PlayerController>())
         {
-            animator.SetBool("IsOpen", true);
-            
+            animator.SetBool("IsOpen", true);            
         }
-       
-
     }
     public void OnTriggerExit(Collider other)
     {

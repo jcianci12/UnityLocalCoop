@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    private void Awake()
+        private void Awake()
     {
 
         sse = GameObject.FindObjectOfType<SplitScreenEffect>();
@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(move * playerSpeed);
             //get the velocity of the ship
-            var shipvel = transform.parent?.GetComponentInParent<Rigidbody>().velocity;
+            var shipvel = transform.parent?.GetComponentInParent<Rigidbody>()?.velocity;
             rb.AddForce(shipvel ?? Vector3.zero);
 
         }
@@ -162,6 +162,7 @@ public class PlayerController : MonoBehaviour
     public void Fire(InputAction.CallbackContext context)
     {
         transform.parent?.GetComponent<GunPressurePlate>()?.Fire();
+        transform.parent?.GetComponent<npcspherecolider>()?.TriggerDialogue();
         PickupCargo();
 
         Debug.Log("Fire!");
