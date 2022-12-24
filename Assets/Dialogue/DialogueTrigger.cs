@@ -7,7 +7,15 @@ public class DialogueTrigger : MonoBehaviour
     public Dialogue dialogue;
     public void TriggerDialogue()
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+        var dm =  FindObjectOfType<DialogueManager>();
+        if (!dm.sentencesactive)
+        {
+            dm.StartDialogue(dialogue);
+        }
+        else
+        {
+            dm.DisplayNextSentence();
+        }
     }
     public void EndDialogue()
     {
