@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4469192932273706224, guid: 12a5c5e5e6acbb545953c439510c51c6, type: 3}
       propertyPath: m_Name
-      value: Screen A
+      value: Screen A Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4469192932273706226, guid: 12a5c5e5e6acbb545953c439510c51c6, type: 3}
       propertyPath: m_RootOrder
@@ -70,6 +70,10 @@ PrefabInstance:
     - target: {fileID: 4469192932273706227, guid: 12a5c5e5e6acbb545953c439510c51c6, type: 3}
       propertyPath: orthographic size
       value: 9.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469192932273706227, guid: 12a5c5e5e6acbb545953c439510c51c6, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4469192932273706227, guid: 12a5c5e5e6acbb545953c439510c51c6, type: 3}
       propertyPath: m_projectionMatrixMode

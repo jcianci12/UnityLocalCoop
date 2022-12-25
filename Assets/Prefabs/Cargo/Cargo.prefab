@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 787221346769753116}
   - component: {fileID: 7160400554233199790}
   - component: {fileID: 4575980161275689335}
+  - component: {fileID: 5799089794975096046}
   m_Layer: 9
   m_Name: Beacon
   m_TagString: Untagged
@@ -157,7 +158,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f436950eca37a4c49b00d71a578586cd, type: 3}
+  m_Sprite: {fileID: 104295783, guid: e36889ae5e29957479ce1f04ddb9befc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -181,6 +182,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
+--- !u!95 &5799089794975096046
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7789632369321572311}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3acdf8bc70b1631439f69c46f7e82400, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8324809637887250201
 GameObject:
   m_ObjectHideFlags: 0
