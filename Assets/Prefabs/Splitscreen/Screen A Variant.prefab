@@ -73,7 +73,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4469192932273706227, guid: 12a5c5e5e6acbb545953c439510c51c6, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 9
+      value: 265
       objectReference: {fileID: 0}
     - target: {fileID: 4469192932273706227, guid: 12a5c5e5e6acbb545953c439510c51c6, type: 3}
       propertyPath: m_projectionMatrixMode
