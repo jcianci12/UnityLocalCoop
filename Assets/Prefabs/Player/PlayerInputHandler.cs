@@ -18,7 +18,7 @@ public class PlayerInputHandler : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        
+
 
     }
 
@@ -36,7 +36,7 @@ public class PlayerInputHandler : MonoBehaviour
             startPos = spawnpoint.transform.position;
 
             playerController = GameObject.Instantiate(playerPrefab, startPos, transform.rotation).GetComponent<PlayerController>();
-            
+
 
             //var cam = GameObject.Instantiate(camPrefab);
             //sse.GetComponent<SplitScreenEffect>().Clear();
@@ -50,7 +50,8 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-            playerController.OnMove(context); 
+        if (playerController == null) return;
+        playerController.OnMove(context);
     }
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -60,10 +61,12 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void OnFire(InputAction.CallbackContext context)
     {
+        if (playerController == null) return;
+
         if (context.performed == false) return; // adding this line removes the call when the key is pressed. This fixes the problem.        {
         playerController.Fire(context);
-        
-        
+
+
     }
 }
 

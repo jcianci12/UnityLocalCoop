@@ -9,6 +9,7 @@ public class OnShipTrigger : MonoBehaviour
     public Animator CameraAnimator;
     public GameObject ship;
     public SplitScreenEffect sse;
+    public GameObject projectile;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponentInParent<PlayerController>())
@@ -18,6 +19,7 @@ public class OnShipTrigger : MonoBehaviour
             other.gameObject.GetComponentInParent<PlayerController>().transform.SetParent(ship.transform,true);
 
         }
+        
     } 
     private void OnTriggerExit(Collider other)
     {

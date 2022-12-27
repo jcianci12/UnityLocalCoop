@@ -7,7 +7,7 @@ public class Billboard : MonoBehaviour
     public Transform cam;
     private void Start()
     {
-        if(cam == null)
+        if (cam == null)
         {
             cam = GameObject.FindObjectOfType<Camera>().transform;
         }
@@ -16,6 +16,10 @@ public class Billboard : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.LookAt(transform.position+cam.forward);
+        if (cam != null)
+        {
+            transform.LookAt(transform.position + cam.forward);
+
+        }
     }
 }

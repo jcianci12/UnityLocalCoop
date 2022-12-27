@@ -7,6 +7,7 @@ public class projectile : MonoBehaviour
     // Start is called before the first frame update
     public GameObject sparks;
     public float velocity;
+    public int damage;
     
     public float TimeToLive;
     void Start()
@@ -17,6 +18,7 @@ public class projectile : MonoBehaviour
     private void OnCollisionEnter(Collision other)
 
     {
+            
         var EnemyAIScript = other.gameObject.GetComponent<EnemyAI>();
         if(EnemyAIScript != null)
         {
@@ -27,8 +29,12 @@ public class projectile : MonoBehaviour
                 Debug.DrawRay(contact.point, contact.normal, Color.white);
                 Instantiate(sparks, contact.point, Quaternion.FromToRotation(contact.point,contact.normal));
             }
-            EnemyAIScript.TakeDamage(3);
-
+            EnemyAIScript.TakeDamage(damage);
+            Destroy(gameObject);
+        }
+        if(other.gameObject.GetComponent<ship>() != null)
+        {
+            other.gameObject.GetComponent<ship>().TakeDamage(damage);
         }
 
     }

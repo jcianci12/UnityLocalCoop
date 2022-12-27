@@ -5,21 +5,21 @@ using TMPro;
 
 public class DropOffZone : MonoBehaviour
 {
-    public GameObject go; 
+    public GameObject texMeshPro; 
     public List<GameObject> currentList;
     public List<GameObject> totalList;
 
     // Start is called before the first frame update
     void Start()
     {
-        go.GetComponent<TMPro.TMP_Text>().text = ("");
+        texMeshPro.GetComponent<TMPro.TMP_Text>().text = ("");
         currentList = new List<GameObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        go.GetComponent<TMPro.TMP_Text>().text = getStatus(currentList.Count,totalList.Count);
+        texMeshPro.GetComponent<TMPro.TMP_Text>().text = getStatus(currentList.Count,totalList.Count);
 
     }
     private void OnTriggerEnter(Collider other)
