@@ -236,6 +236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7785571135112364293}
   - component: {fileID: 7785571135112364294}
+  - component: {fileID: -7302840441217183345}
   - component: {fileID: 7349377928058241327}
   - component: {fileID: 7330919301911116165}
   - component: {fileID: 2077570936814452311}
@@ -279,7 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlledObject: {fileID: 0}
   MovementActive: 1
-  playerSpeed: 20
+  playerSpeed: 40
   jumpHeight: 500
   m_Thrust: 20
   CargoInRange: 0
@@ -298,6 +299,24 @@ MonoBehaviour:
   shipFieldOfView: 140
   originalFieldOfView: 0
   CameraAnimator: {fileID: 8189464664494067214, guid: 93c425b537efebd429b56d4b6b2fedcb, type: 3}
+--- !u!143 &-7302840441217183345
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785571135112364288}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7349377928058241327
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -307,7 +326,7 @@ Rigidbody:
   m_GameObject: {fileID: 7785571135112364288}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 3.5
   m_AngularDrag: 1
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -364,7 +383,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7785571135112364288}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10d1acd21ae22024c85d10f046b6d225, type: 3}
   m_Name: 
