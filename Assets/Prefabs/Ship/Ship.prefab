@@ -721,6 +721,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec393f357e8d4549a1d056c28b2f53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: {fileID: 0}
+  explosion: {fileID: 4841558899209553867, guid: 128be9b93981cef4c82d0c1c4e9c43a9, type: 3}
+  explosionOrigin: {fileID: 7565993320410305952}
+  splitScreenGameObject: {fileID: 7792154648394175241}
 --- !u!1 &5227336283790345293
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +787,7 @@ MonoBehaviour:
   CameraAnimator: {fileID: 8650122083224474205}
   ship: {fileID: 4865237697667256379}
   sse: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!1 &7990977582206483231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1990,6 +1995,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93c425b537efebd429b56d4b6b2fedcb, type: 3}
+--- !u!1 &7792154648394175241 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1452449820068523534, guid: 93c425b537efebd429b56d4b6b2fedcb, type: 3}
+  m_PrefabInstance: {fileID: 8650122083037232391}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7792154648394175244 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1452449820068523531, guid: 93c425b537efebd429b56d4b6b2fedcb, type: 3}
