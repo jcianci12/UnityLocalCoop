@@ -102,14 +102,14 @@ public class PlayerController : MonoBehaviour
 
         gameObject.transform.forward = move;
 
-        if (move != Vector3.zero && MovementActive)
-        {
-            rb.AddForce(move * playerSpeed);
-            //get the velocity of the ship
-            var shipvel = transform.parent?.GetComponentInParent<Rigidbody>()?.velocity;
-            rb.AddForce(shipvel ?? Vector3.zero);
+        //if (move != Vector3.zero && MovementActive)
+        //{
+        //    rb.AddForce(move * playerSpeed);
+        //    //get the velocity of the ship
+        //    var shipvel = transform.parent?.GetComponentInParent<Rigidbody>()?.velocity;
+        //    rb.AddForce(shipvel ?? Vector3.zero);
 
-        }
+        //}
 
 
     }
