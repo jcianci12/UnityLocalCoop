@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private GameObject heldObj;
     private Rigidbody heldObjRB;
     public Transform held;
+    public GameObject objectInArea;
 
 
     [Header("Physics Parameters")]
@@ -233,17 +234,16 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
+    
 
     public void PickupCargo()
     {
         if (heldObj == null)
         {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
+            if (objectInArea!=null)
             {
                 //
-                PickupObject(hit.transform.gameObject);
+                PickupObject(objectInArea.transform.gameObject);
             }
 
         }

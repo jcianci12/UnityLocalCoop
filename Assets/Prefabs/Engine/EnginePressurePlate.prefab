@@ -132,6 +132,10 @@ PrefabInstance:
       propertyPath: parent
       value: 
       objectReference: {fileID: 5065927325948994538}
+    - target: {fileID: 3742680471003306023, guid: 9ca5ad2924c4b3b49966bce83cf14b45, type: 3}
+      propertyPath: pickupForce
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8038097450336654764, guid: 9ca5ad2924c4b3b49966bce83cf14b45, type: 3}
       propertyPath: m_RootOrder
       value: 0

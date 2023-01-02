@@ -17206,6 +17206,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 360
       objectReference: {fileID: 0}
+    - target: {fileID: 6574520, guid: a7d85abdc9b0b43f8858bad8d92695a2, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: ba92fb44336020f40bdf294bb66bc9da, type: 2}
     - target: {fileID: 10873230, guid: a7d85abdc9b0b43f8858bad8d92695a2, type: 3}
       propertyPath: m_BoundingSphereOverride.w
       value: 6.890596e+22

@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupRange: 0.5
-  pickupForce: 50
+  pickupForce: 500
   drag: 0
   parent: {fileID: 0}
