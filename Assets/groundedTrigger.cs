@@ -5,13 +5,26 @@ using UnityEngine;
 public class groundedTrigger : MonoBehaviour
 {
     public PlayerController pc;
+    private int groundedobjectcount = 0;
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
-        pc.isGrounded = true;
+        groundedobjectcount++;
+        if (groundedobjectcount > 0)
+        {
+            pc.isGrounded = true;
+
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-        pc.isGrounded =false;
+        groundedobjectcount--;
+        if (groundedobjectcount == 0)
+        {
+            pc.isGrounded = false;
+
+        }
+
+
     }
 }

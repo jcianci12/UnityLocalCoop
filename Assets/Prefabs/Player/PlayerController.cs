@@ -22,10 +22,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public bool MovementActive = true;
 
+    [Header("Player Stats")]
     [SerializeField]
-    private float playerSpeed;
-
+    private float playerAccelleration;
+    public float speedLimit;
     public float jumpHeight = 500f;
+
+
 
     private Vector3 move;
     public float m_Thrust = 20f;
@@ -64,7 +67,6 @@ public class PlayerController : MonoBehaviour
     public Animator CameraAnimator;
 
     public bool isGrounded;
-
     private void Awake()
     {
 
@@ -100,15 +102,24 @@ public class PlayerController : MonoBehaviour
 
 
         //onShip();
-
+        
         gameObject.transform.forward = move;
 
         if (move != Vector3.zero && MovementActive)
         {
-            rb.AddForce(move * playerSpeed);
+            Debug.Log(rb.velocity.magnitude);
+
+            if (rb.velocity.magnitude < speedLimit)
+            {
+            rb.AddForce(move * playerAccelleration);
+
+            }
             //get the velocity of the ship
             var shipvel = transform.parent?.GetComponentInParent<Rigidbody>()?.velocity;
+            
             rb.AddForce(shipvel ?? Vector3.zero);
+
+         
 
         }
 
@@ -143,9 +154,14 @@ public class PlayerController : MonoBehaviour
 
         if (maincamera)
         {
+            if(movement != Vector2.zero)
+            {
             move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
+            }
+            
 
         }
+
         //}
     }
 
