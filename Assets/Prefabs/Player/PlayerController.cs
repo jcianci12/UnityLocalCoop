@@ -63,9 +63,9 @@ public class PlayerController : MonoBehaviour
     private int screenIndex;
     public Animator CameraAnimator;
 
+    public bool isGrounded;
 
-
-        private void Awake()
+    private void Awake()
     {
 
         sse = GameObject.FindObjectOfType<SplitScreenEffect>();
@@ -148,11 +148,11 @@ public class PlayerController : MonoBehaviour
         }
         //}
     }
-   
-    
+
+
     public void Jump(InputAction.CallbackContext context)
     {
-        if (true)
+        if (isGrounded)
         {
             Debug.Log("is grounded");
             MovementActive = true;
@@ -160,6 +160,8 @@ public class PlayerController : MonoBehaviour
         }
         Debug.Log("Jump!");
     }
+
+    
     public void Fire(InputAction.CallbackContext context)
     {
         transform.parent?.GetComponent<GunPressurePlate>()?.Fire();
@@ -168,12 +170,6 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("Fire!");
     }
-    bool isGrounded()
-    {
-        Debug.DrawLine(transform.position, transform.position + new Vector3(0, -1, 0), Color.yellow);
-        return Physics.Raycast(transform.position, transform.position + new Vector3(0, -1, 0), distToGround + 0.1f);
-    }
-
     public void OnTriggerEnter(Collider other)
     {
         switch (other.name)
@@ -234,13 +230,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    
+
 
     public void PickupCargo()
     {
         if (heldObj == null)
         {
-            if (objectInArea!=null)
+            if (objectInArea != null)
             {
                 //
                 PickupObject(objectInArea.transform.gameObject);
