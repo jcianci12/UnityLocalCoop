@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
         {
             //Find target velocity
             Vector3 currentVelocity = rb.velocity;
-            Vector3 targetVelocity = new Vector3(move.x, 0, move.y);
+            Vector3 targetVelocity = new Vector3(move.x, 0, move.z);
             targetVelocity *= speed;
 
             //Align Direction
