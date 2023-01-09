@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float playerAccelleration;
     public float speedLimit;
-    public float jumpHeight = 500f;
+    public float jumpHeight = 5f;
+    public float fallMultiplier = 2.0f;
 
 
 
@@ -100,28 +101,35 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-
-        //onShip();
-        
         gameObject.transform.forward = move;
 
         if (move != Vector3.zero && MovementActive)
         {
-            Debug.Log(rb.velocity.magnitude);
-
-            if (rb.velocity.magnitude < speedLimit)
+            //Debug.Log(rb.velocity.magnitude);
+            //speed limit
+            if (rb.velocity.magnitude < speedLimit && isGrounded)
             {
-            rb.AddForce(move * playerAccelleration);
-
+                rb.AddForce(move * playerAccelleration);
             }
+            
             //get the velocity of the ship
             var shipvel = transform.parent?.GetComponentInParent<Rigidbody>()?.velocity;
-            
             rb.AddForce(shipvel ?? Vector3.zero);
-
-         
-
         }
+        else
+        {
+            //if the player is moving but the joystick is not
+            if (rb.velocity.x != 0 && rb.velocity.z !=0)
+            {
+                rb.velocity.Set(0,rb.velocity.y,0);
+            }
+        }
+        //Fall speed
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime;
+        }
+
 
 
     }
@@ -154,11 +162,11 @@ public class PlayerController : MonoBehaviour
 
         if (maincamera)
         {
-            if(movement != Vector2.zero)
+            if (movement != Vector2.zero)
             {
-            move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
+                move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
             }
-            
+
 
         }
 
@@ -172,12 +180,12 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("is grounded");
             MovementActive = true;
-            rb.AddForce(0, jumpHeight, 0);
+            rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
         }
         Debug.Log("Jump!");
     }
 
-    
+
     public void Fire(InputAction.CallbackContext context)
     {
         transform.parent?.GetComponent<GunPressurePlate>()?.Fire();

@@ -371,7 +371,7 @@ MonoBehaviour:
   MovementActive: 1
   playerAccelleration: 20
   speedLimit: 30
-  jumpHeight: 500
+  jumpHeight: 5
   m_Thrust: 50
   CargoInRange: 0
   CargoPickupRange: 1
