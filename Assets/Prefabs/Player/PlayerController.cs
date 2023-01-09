@@ -105,13 +105,14 @@ public class PlayerController : MonoBehaviour
 
         if (move != Vector3.zero && MovementActive)
         {
+            Debug.Log(move);
             //Find target velocity
             Vector3 currentVelocity = rb.velocity;
             Vector3 targetVelocity = move;
             targetVelocity *= speed;
 
             //Align Direction
-            targetVelocity = transform.forward;
+            targetVelocity = speed* move;
 
             //Calculate forces
             Vector3 velocityChange = (targetVelocity - currentVelocity);
@@ -160,8 +161,8 @@ public class PlayerController : MonoBehaviour
         {
             if (movement != Vector2.zero)
             {
-                move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
             }
+                move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
 
 
         }
