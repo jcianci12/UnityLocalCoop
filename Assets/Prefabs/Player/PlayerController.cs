@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Stats")]
     [SerializeField]
-    private float playerAccelleration;
-    public float speedLimit;
+    public float speed, sensitivity,maxForce;
+    
     public float jumpHeight = 5f;
     public float fallMultiplier = 2.0f;
 
@@ -105,33 +105,29 @@ public class PlayerController : MonoBehaviour
 
         if (move != Vector3.zero && MovementActive)
         {
-            //Debug.Log(rb.velocity.magnitude);
-            //speed limit
-            if (rb.velocity.magnitude < speedLimit && isGrounded)
-            {
-                rb.AddForce(move * playerAccelleration);
-            }
-            
-            //get the velocity of the ship
-            var shipvel = transform.parent?.GetComponentInParent<Rigidbody>()?.velocity;
-            rb.AddForce(shipvel ?? Vector3.zero);
+            //Find target velocity
+            Vector3 currentVelocity = rb.velocity;
+            Vector3 targetVelocity = new Vector3(move.x, 0, move.y);
+            targetVelocity *= speed;
+
+            //Align Direction
+            targetVelocity = transform.TransformDirection(targetVelocity);
+
+            //Calculate forces
+            Vector3 velocityChange = (targetVelocity - currentVelocity);
+
+            //limit force
+            Vector3.ClampMagnitude(velocityChange, maxForce);
+
+            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+
         }
-        else
-        {
-            //if the player is moving but the joystick is not
-            if (rb.velocity.x != 0 && rb.velocity.z !=0)
-            {
-                rb.velocity.Set(0,rb.velocity.y,0);
-            }
-        }
+        
         //Fall speed
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime;
         }
-
-
-
     }
 
     public void Update()
