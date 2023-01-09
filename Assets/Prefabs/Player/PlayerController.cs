@@ -107,18 +107,18 @@ public class PlayerController : MonoBehaviour
         {
             //Find target velocity
             Vector3 currentVelocity = rb.velocity;
-            Vector3 targetVelocity = new Vector3(move.x, 0, move.z);
+            Vector3 targetVelocity = move;
             targetVelocity *= speed;
 
             //Align Direction
-            targetVelocity = transform.TransformDirection(targetVelocity);
+            targetVelocity = transform.forward;
 
             //Calculate forces
             Vector3 velocityChange = (targetVelocity - currentVelocity);
 
             //limit force
-            Vector3.ClampMagnitude(velocityChange, maxForce);
-
+            //Vector3.ClampMagnitude(velocityChange, maxForce);
+            Debug.DrawLine(transform.position, transform.position + move);
             rb.AddForce(velocityChange, ForceMode.VelocityChange);
 
         }

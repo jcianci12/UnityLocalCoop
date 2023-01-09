@@ -369,9 +369,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlledObject: {fileID: 0}
   MovementActive: 1
-  playerAccelleration: 20
-  speedLimit: 30
+  speed: 4
+  sensitivity: 4
+  maxForce: 1
   jumpHeight: 5
+  fallMultiplier: 2
   m_Thrust: 50
   CargoInRange: 0
   CargoPickupRange: 1
