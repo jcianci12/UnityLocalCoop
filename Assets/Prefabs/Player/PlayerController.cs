@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Stats")]
     [SerializeField]
-    public float speed, sensitivity,maxForce;
-    
+    public float speed, sensitivity, maxForce;
+
     public float jumpHeight = 5f;
     public float fallMultiplier = 2.0f;
 
@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviour
     public Animator CameraAnimator;
 
     public bool isGrounded;
+    private bool jumping;
+
     private void Awake()
     {
 
@@ -100,30 +102,40 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //Find target velocity
+        Vector3 currentVelocity = new Vector3(rb.velocity.x,0,rb.velocity.z);
+        //the target velocity starts unchanged
+        Vector3 targetVelocity = new Vector3();
 
-        gameObject.transform.forward = move;
-
-        if (move != Vector3.zero && MovementActive)
+        if (move!=Vector3.zero&& MovementActive)
         {
+            //if there is move data
             Debug.Log(move);
-            //Find target velocity
-            Vector3 currentVelocity = rb.velocity;
-            Vector3 targetVelocity = move;
-            targetVelocity *= speed;
+            //face the player in the direction of move
+            gameObject.transform.forward = move;
+            //Quaternion rotation = Quaternion.LookRotation(move);
+            //rb.AddTorque(move*10);
 
-            //Align Direction
-            targetVelocity = speed* move;
+            //se the target vel from zoom
+            targetVelocity.x = move.x;
+            targetVelocity.z = move.z;
 
-            //Calculate forces
-            Vector3 velocityChange = (targetVelocity - currentVelocity);
-
-            //limit force
-            //Vector3.ClampMagnitude(velocityChange, maxForce);
             Debug.DrawLine(transform.position, transform.position + move);
-            rb.AddForce(velocityChange, ForceMode.VelocityChange);
-
+            //Align Direction
+            targetVelocity = speed * new Vector3(targetVelocity.x,0,targetVelocity.z);
         }
-        
+        if (jumping)
+        {
+            targetVelocity.y = jumpHeight;
+            jumping = false;
+        }
+
+        //Calculate forces
+        Vector3 velocityChange = (targetVelocity - currentVelocity);
+       
+        rb.AddForce(velocityChange, ForceMode.Impulse);
+
+
         //Fall speed
         if (rb.velocity.y < 0)
         {
@@ -137,16 +149,13 @@ public class PlayerController : MonoBehaviour
         {
             //move object
             MoveObject();
-
         }
     }
-
-
 
     public void OnMove(InputAction.CallbackContext context)
     {
 
-
+        Debug.Log(isGrounded);
         var gun = transform.parent?.GetComponent<GunPressurePlate>();
         gun?.OnMove(context);
         var engine = transform.parent?.GetComponent<EnginePressurePlateScript>();
@@ -159,28 +168,26 @@ public class PlayerController : MonoBehaviour
 
         if (maincamera)
         {
-            if (movement != Vector2.zero)
-            {
-            }
-                move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
-
-
+            move = maincamera.GetComponent<CameraRelativeMovement>().GetCameraRelativeMovement(movement);
         }
 
-        //}
     }
 
 
     public void Jump(InputAction.CallbackContext context)
     {
+        
+        Debug.Log("Jump!");
+        
         if (isGrounded)
         {
             Debug.Log("is grounded");
-            MovementActive = true;
-            rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
+
+            jumping = true;
+           
         }
-        Debug.Log("Jump!");
     }
+
 
 
     public void Fire(InputAction.CallbackContext context)
@@ -300,6 +307,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 moveDirection = (holdArea.position - heldObj.transform.position);
             heldObjRB.AddForce(moveDirection * pickupForce);
+            //heldObjRB.rotation = holdArea.rotation;
         }
     }
 

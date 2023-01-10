@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 345755215769984036}
-  - component: {fileID: 8567615707976642716}
   - component: {fileID: 5632141346061510965}
+  - component: {fileID: 7503977417774175155}
   m_Layer: 0
   m_Name: GroundedProbe
   m_TagString: Untagged
@@ -26,27 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 641295364046679664}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.542, z: 0}
+  m_LocalPosition: {x: 0, y: -1.0379, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7785571135112364293}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &8567615707976642716
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 641295364046679664}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.46
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5632141346061510965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +46,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pc: {fileID: 7785571135112364294}
+--- !u!65 &7503977417774175155
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641295364046679664}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2, y: 0.1, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6047927477936055293
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +182,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7232337604280019356}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.018, y: 0.394, z: 1.836}
+  m_LocalPosition: {x: -0.018, y: 0.094, z: 1.473}
   m_LocalScale: {x: 1.5498434, y: 1, z: 1.4446871}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -201,7 +200,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.22, y: 0.35, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4001955070795591703
 MonoBehaviour:
@@ -342,8 +341,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7785571135112364288}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0, y: -0.9164871, z: 0, w: 0.40006438}
+  m_LocalPosition: {x: -11.108725, y: 0.7900244, z: -44.268894}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -372,7 +371,7 @@ MonoBehaviour:
   speed: 4
   sensitivity: 4
   maxForce: 1
-  jumpHeight: 5
+  jumpHeight: 12
   fallMultiplier: 2
   m_Thrust: 50
   CargoInRange: 0
@@ -390,9 +389,9 @@ MonoBehaviour:
   gameManagerScript: {fileID: 0}
   prefabSplitScreenCam: {fileID: 151692245207976121, guid: 13ea0b847567a444486246a2135bd4ee, type: 3}
   shipFieldOfView: 140
-  originalFieldOfView: 0
+  originalFieldOfView: 11.82
   CameraAnimator: {fileID: 8189464664494067214, guid: 93c425b537efebd429b56d4b6b2fedcb, type: 3}
-  isGrounded: 0
+  isGrounded: 1
 --- !u!143 &-7302840441217183345
 CharacterController:
   m_ObjectHideFlags: 0
@@ -434,7 +433,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7785571135112364288}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
