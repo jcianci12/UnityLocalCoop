@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float health;
     public PlayerController controller;
+    public GameObject spawnObject;
     public Vector3 spawnLocation;
+    public Slider slider;
+
 
     //we need a health bar
 
@@ -17,12 +20,12 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        spawnLocation = GameObject.Find ("Spawn").transform.position;
+        spawnLocation = GameObject.Find (spawnObject.name).transform.position;
     }
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if(health < 0)
+        slider.value -= damage;
+        if(slider.value < 0)
         {
             controller.transform.position = spawnLocation;
         }
