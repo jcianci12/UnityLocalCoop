@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
             //if there is move data
             Debug.Log(move);
             //face the player in the direction of move
-            gameObject.transform.forward = move;
+            gameObject.transform.forward = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             //Quaternion rotation = Quaternion.LookRotation(move);
             //rb.AddTorque(move*10);
 
